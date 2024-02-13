@@ -1,11 +1,12 @@
 ﻿using Console_PhoneBook.App;
+using System.Collections.Generic;
 
 namespace Console_PhoneBook.Model
 {
     internal class EntriesRepository : IEntriesRepository
     {
-        private List<IGenericEntry> _entries { get; set; }
-        public IPhoneBookOperations _phoneBookOperations;
+        private IEnumerable<IGenericEntry> _entries;
+        private IPhoneBookOperations _phoneBookOperations;
 
         public EntriesRepository(IPhoneBookOperations phoneBookOperations)
         {
@@ -16,8 +17,7 @@ namespace Console_PhoneBook.Model
         public void AddContact()
         {
             _phoneBookOperations.AddContact(_entries);
-
-
+            _entries.GetType();
         }
 
         public void ViewAllContacts()

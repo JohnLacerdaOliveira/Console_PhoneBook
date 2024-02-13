@@ -29,6 +29,7 @@ namespace Console_PhoneBook.App
 
                 char choice = Console.ReadKey().KeyChar;
 
+                
                 Console.WriteLine();
                 switch (choice)
                 {
@@ -60,10 +61,8 @@ namespace Console_PhoneBook.App
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
-
+                Console.ReadKey();
             }
-
-
         }
     }
 }

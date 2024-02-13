@@ -4,8 +4,9 @@ namespace Console_PhoneBook.App
 {
     public class PhoneBookOperations : IPhoneBookOperations
     {
-        public void AddContact(List<IGenericEntry> repository)
+        public void AddContact(IEnumerable<IGenericEntry> repository)
         {
+            var asList = repository as List<IGenericEntry>;
 
             Console.WriteLine("Insert Name:");
             string name = Console.ReadLine();
@@ -15,10 +16,11 @@ namespace Console_PhoneBook.App
 
             var entry = new GenericEntry(name, number);
 
-            if (name is not null) repository.Add(entry);
+            if (name is not null) asList.Add(entry);
+
         }
 
-        public void ViewAllContacts(List<IGenericEntry> repository)
+        public void ViewAllContacts(IEnumerable<IGenericEntry> repository)
         {
             
 
@@ -27,7 +29,7 @@ namespace Console_PhoneBook.App
                 Console.WriteLine(entry);
             }
         }
-        public IGenericEntry SearchContact(List<IGenericEntry> repository)
+        public IGenericEntry SearchContact(IEnumerable<IGenericEntry> repository)
         {
             
 
@@ -46,7 +48,7 @@ namespace Console_PhoneBook.App
             Console.WriteLine("No entry found with that name...");
             return null;
         }
-        public void EditContact(List<IGenericEntry> repository)
+        public void EditContact(IEnumerable<IGenericEntry> repository)
         {
             var contactToEdit = SearchContact(repository);
 
@@ -83,14 +85,14 @@ namespace Console_PhoneBook.App
 
         }
 
-        public void DeleteContact(List<IGenericEntry> repository)
+        public void DeleteContact(IEnumerable<IGenericEntry> repository)
         {
-            
-
+            var asList = repository as List<IGenericEntry>;
             var contactToDelete = SearchContact(repository);
+
             if (contactToDelete is not null)
             {
-                repository.Remove(contactToDelete);
+                asList.Remove(contactToDelete);
                 Console.WriteLine($"{contactToDelete.Name} was removed");
                 return;
             }
