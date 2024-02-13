@@ -1,4 +1,5 @@
 ﻿using Console_PhoneBook.App;
+using System.Collections.Generic;
 
 namespace Console_PhoneBook.Model
 {
@@ -16,7 +17,7 @@ namespace Console_PhoneBook.Model
         public void AddContact()
         {
             _phoneBookOperations.AddContact(_entries);
-
+            _entries.GetType();
         }
 
         public void ViewAllContacts()
