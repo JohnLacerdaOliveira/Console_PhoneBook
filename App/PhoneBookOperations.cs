@@ -4,7 +4,7 @@ namespace Console_PhoneBook.App
 {
     public class PhoneBookOperations : IPhoneBookOperations
     {
-        public void AddContact(List<IGenericEntry> repository)
+        public void AddContact(IEnumerable<IGenericEntry> repository)
         {
 
             Console.WriteLine("Insert Name:");
@@ -16,9 +16,10 @@ namespace Console_PhoneBook.App
             var entry = new GenericEntry(name, number);
 
             if (name is not null) repository.Add(entry);
+
         }
 
-        public void ViewAllContacts(List<IGenericEntry> repository)
+        public void ViewAllContacts(IEnumerable<IGenericEntry> repository)
         {
             
 
@@ -27,7 +28,7 @@ namespace Console_PhoneBook.App
                 Console.WriteLine(entry);
             }
         }
-        public IGenericEntry SearchContact(List<IGenericEntry> repository)
+        public IGenericEntry SearchContact(IEnumerable<IGenericEntry> repository)
         {
             
 
@@ -46,7 +47,7 @@ namespace Console_PhoneBook.App
             Console.WriteLine("No entry found with that name...");
             return null;
         }
-        public void EditContact(List<IGenericEntry> repository)
+        public void EditContact(IEnumerable<IGenericEntry> repository)
         {
             var contactToEdit = SearchContact(repository);
 
@@ -83,10 +84,8 @@ namespace Console_PhoneBook.App
 
         }
 
-        public void DeleteContact(List<IGenericEntry> repository)
+        public void DeleteContact(IEnumerable<IGenericEntry> repository)
         {
-            
-
             var contactToDelete = SearchContact(repository);
             if (contactToDelete is not null)
             {
