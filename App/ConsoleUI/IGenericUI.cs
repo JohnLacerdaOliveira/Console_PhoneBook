@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Console_PhoneBook.App.ConsoleUI
+namespace Console_PhoneBook.App.UserInterface
 {
     public interface IGenericUI
     {

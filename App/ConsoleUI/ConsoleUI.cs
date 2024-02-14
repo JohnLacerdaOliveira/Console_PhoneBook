@@ -1,4 +1,4 @@
-﻿namespace Console_PhoneBook.App.ConsoleUI
+﻿namespace Console_PhoneBook.App.UserInterface
 {
     public class ConsoleUI : IGenericUI
     {

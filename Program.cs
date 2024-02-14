@@ -1,5 +1,5 @@
 ﻿using Console_PhoneBook.App;
-using Console_PhoneBook.App.ConsoleUI;
+using Console_PhoneBook.App.UserInterface;
 using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook

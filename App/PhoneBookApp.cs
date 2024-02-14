@@ -1,4 +1,4 @@
-﻿using Console_PhoneBook.App.ConsoleUI;
+﻿using Console_PhoneBook.App.UserInterface;
 using Console_PhoneBook.Model;
 using Microsoft.VisualBasic.FileIO;
 
