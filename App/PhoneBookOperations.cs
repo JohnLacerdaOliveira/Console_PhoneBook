@@ -1,103 +1,122 @@
-﻿using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.App.UserInterface;
+using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App
 {
     public class PhoneBookOperations : IPhoneBookOperations
     {
+        private IConsoleUI _userInterface;
+
+        public PhoneBookOperations(IConsoleUI userInterface)
+        {
+            _userInterface = userInterface;
+        }
+
+
         public void AddContact(IEnumerable<IGenericEntry> repository)
         {
+            // TODO - Don't hard code list
             var asList = repository as List<IGenericEntry>;
 
-            Console.WriteLine("Insert Name:");
-            string name = Console.ReadLine();
+            //TODO - 
+            /*
+            foreach(var property in IGenericEntry.GetAllPropertiesNames())
+            {
 
-            Console.WriteLine("Insert Number");
-            int.TryParse(Console.ReadLine(), out int number);
+            }
+            */
+            _userInterface.PrintMessage("Insert Name:");
+            string nameInput = _userInterface.GetUserInput();
 
-            var entry = new GenericEntry(name, number);
+            _userInterface.PrintMessage("Insert Number");
+            string numberInput = _userInterface.GetUserInput();
 
-            if (name is not null) asList.Add(entry);
+            int.TryParse(numberInput, out int number);
+
+            var entry = new GenericEntry(nameInput, number);
+
+            asList.Add(entry);
 
         }
 
         public void ViewAllContacts(IEnumerable<IGenericEntry> repository)
         {
-            
-
             foreach (var entry in repository)
             {
-                Console.WriteLine(entry);
+                _userInterface.PrintMessage(entry.ToString());
             }
         }
         public IGenericEntry SearchContact(IEnumerable<IGenericEntry> repository)
         {
-            
-
-            Console.WriteLine("Name to search: ");
-            string searchName = Console.ReadLine();
+            _userInterface.PrintMessage("Name to search: ");
+            string searchName = _userInterface.GetUserInput();
 
             foreach (var entry in repository)
             {
                 if (searchName == entry.Name)
                 {
-                    Console.WriteLine(entry);
+                    _userInterface.PrintMessage(entry.ToString());
                     return entry;
                 }
             }
 
-            Console.WriteLine("No entry found with that name...");
+            _userInterface.PrintMessage("No entry found with that name...");
             return null;
         }
         public void EditContact(IEnumerable<IGenericEntry> repository)
         {
+            // TODO - Don't hard code list
+            List<string> entryPropertyNames = new List<string>();
+
             var contactToEdit = SearchContact(repository);
 
             if (contactToEdit is not null)
             {
-                Console.WriteLine("1. Change Name");
-                Console.WriteLine("2. Change Number");
+                
+                _userInterface.PrintOptions(IGenericEntry.GetAllPropertiesNames());
 
-                var userChoice = Console.ReadLine();
+                var userChoice = _userInterface.GetUserInput();
 
+                //TODO - Choice validation should be dynamic
                 if (userChoice == "1")
                 {
-                    Console.WriteLine("Insert new name:");
-                    string newName = Console.ReadLine();
+                    _userInterface.PrintMessage("Insert new name:");
+                    string newName = _userInterface.GetUserInput();
 
-                    Console.WriteLine($"{contactToEdit.Name} updated to {newName}");
+                    _userInterface.PrintMessage($"{contactToEdit.Name} updated to {newName}");
                     contactToEdit.Name = newName;
                     return;
                 }
 
                 if (userChoice == "2")
                 {
-                    Console.WriteLine("Insert new number:");
-                    int.TryParse(Console.ReadLine(), out int newNumber);
+                    _userInterface.PrintMessage("Insert new number:");
+                    int.TryParse(_userInterface.GetUserInput(), out int newNumber);
 
-                    Console.WriteLine($"{contactToEdit.Name} number {contactToEdit.PhoneNumber} updated to {newNumber}");
+                    _userInterface.PrintMessage($"{contactToEdit.Name} number {contactToEdit.PhoneNumber} updated to {newNumber}");
 
                     contactToEdit.PhoneNumber = newNumber;
                     return;
                 }
 
             }
-            Console.WriteLine("No entry found with that name...");
-
+            _userInterface.PrintMessage("No entry found with that name...");
         }
 
         public void DeleteContact(IEnumerable<IGenericEntry> repository)
         {
+            // TODO - Don't hard code list
             var asList = repository as List<IGenericEntry>;
             var contactToDelete = SearchContact(repository);
 
             if (contactToDelete is not null)
             {
                 asList.Remove(contactToDelete);
-                Console.WriteLine($"{contactToDelete.Name} was removed");
+                _userInterface.PrintMessage($"{contactToDelete.Name} was removed");
                 return;
             }
 
-            Console.WriteLine("Contact was not found");
+            _userInterface.PrintMessage("Contact was not found");
         }
 
     }

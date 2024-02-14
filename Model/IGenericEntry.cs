@@ -1,4 +1,6 @@
-﻿namespace Console_PhoneBook.Model
+﻿using System.Reflection;
+
+namespace Console_PhoneBook.Model
 {
     public interface IGenericEntry
     {
@@ -6,6 +8,14 @@
 
         public abstract int PhoneNumber { get; set; }
 
-    }
+        public static IEnumerable<string> GetAllPropertiesNames()
+        {
+            Type type = typeof(IGenericEntry);
 
+            var properties = Array.ConvertAll(type.GetProperties(), p => p.Name);
+
+            return properties;
+
+        }
+    }
 }

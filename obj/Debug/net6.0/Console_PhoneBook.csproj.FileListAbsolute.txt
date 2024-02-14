@@ -12,3 +12,4 @@ C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\refint\Console_PhoneBoo
 C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.pdb
 C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.genruntimeconfig.cache
 C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\ref\Console_PhoneBook.dll
+C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.sourcelink.json

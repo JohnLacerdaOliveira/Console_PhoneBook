@@ -1,36 +1,42 @@
-﻿using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.App.UserInterface;
+using Console_PhoneBook.Model;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
     {
+        //TODO - Think of a way to store this and make the app dynamic to it
+        private readonly List<string> _appOptions = new List<string>() {
+        "Add Contact",
+        "View All Contacts",
+        "Search Contact",
+        "Edit Contact",
+        "Delete Contact",
+        "Exit"};
+
         private readonly IEntriesRepository _entriesRepository;
+        private readonly IConsoleUI _userInterface;
 
 
-        public PhoneBookApp(IEntriesRepository entriesRepository)
+        public PhoneBookApp(IEntriesRepository entriesRepository, IConsoleUI userInterface)
         {
             _entriesRepository = entriesRepository;
-
+            _userInterface = userInterface;
         }
 
         public void Run()
         {
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("PhoneBook Menu:");
-                Console.WriteLine("1. Add Contact");
-                Console.WriteLine("2. View All Contacts");
-                Console.WriteLine("3. Search Contact");
-                Console.WriteLine("4. Edit Contact");
-                Console.WriteLine("5. Delete Contact");
-                Console.WriteLine("6. Exit");
-                Console.Write("Enter your choice: ");
-
-                char choice = Console.ReadKey().KeyChar;
-
+                _userInterface.ClearConsole();
+                _userInterface.PrintMessage("PhoneBook Menu:");
+                _userInterface.PrintOptions(_appOptions);
                 
-                Console.WriteLine();
+
+                char choice = Convert.ToChar(_userInterface.GetUserInput());
+                _userInterface.PrintMessage("");
+
                 switch (choice)
                 {
                     case '1':
@@ -58,10 +64,10 @@ namespace Console_PhoneBook.App
                         _entriesRepository.ExitApplication();
                         return;
                     default:
-                        Console.WriteLine("Invalid choice. Please try again.");
+                        _userInterface.PrintMessage("Invalid choice. Please try again.");
                         break;
                 }
-                Console.ReadKey();
+                _userInterface.PressKeyToContinue();
             }
         }
     }
