@@ -11,9 +11,6 @@
             PhoneNumber = primaryPhoneNumber;
         }
 
-        public override string ToString()
-        {
-            return $"name: {this.Name} - Phone Number: {this.PhoneNumber}";
-        }
+ 
     }
 }

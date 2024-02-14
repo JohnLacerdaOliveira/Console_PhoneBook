@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Console_PhoneBook.App.UserInterface
 {
-    public interface IGenericUI
+    public interface IConsoleUI
     {
         public void PrintMessage(string message);
 

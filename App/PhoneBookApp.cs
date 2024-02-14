@@ -16,10 +16,10 @@ namespace Console_PhoneBook.App
         "Exit"};
 
         private readonly IEntriesRepository _entriesRepository;
-        private readonly IGenericUI _userInterface;
+        private readonly IConsoleUI _userInterface;
 
 
-        public PhoneBookApp(IEntriesRepository entriesRepository, IGenericUI userInterface)
+        public PhoneBookApp(IEntriesRepository entriesRepository, IConsoleUI userInterface)
         {
             _entriesRepository = entriesRepository;
             _userInterface = userInterface;
@@ -34,7 +34,6 @@ namespace Console_PhoneBook.App
                 _userInterface.PrintOptions(_appOptions);
                 _userInterface.PrintMessage("Enter your choice: ");
 
-                
                 char choice = Convert.ToChar(_userInterface.GetUserInput());
                 _userInterface.PrintMessage("");
 

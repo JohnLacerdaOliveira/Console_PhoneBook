@@ -5,9 +5,9 @@ namespace Console_PhoneBook.App
 {
     public class PhoneBookOperations : IPhoneBookOperations
     {
-        private IGenericUI _userInterface;
+        private IConsoleUI _userInterface;
 
-        public PhoneBookOperations(IGenericUI userInterface)
+        public PhoneBookOperations(IConsoleUI userInterface)
         {
             _userInterface = userInterface;
         }
@@ -18,6 +18,13 @@ namespace Console_PhoneBook.App
             // TODO - Don't hard code list
             var asList = repository as List<IGenericEntry>;
 
+            //TODO - 
+            /*
+            foreach(var property in IGenericEntry.GetAllPropertiesNames())
+            {
+
+            }
+            */
             _userInterface.PrintMessage("Insert Name:");
             string nameInput = _userInterface.GetUserInput();
 
@@ -61,17 +68,12 @@ namespace Console_PhoneBook.App
             // TODO - Don't hard code list
             List<string> entryPropertyNames = new List<string>();
 
-            //TODO - Find amore apropriate place for this
-            foreach (var propertyName in typeof(IGenericEntry).GetProperties())
-            {
-                entryPropertyNames.Add(propertyName.Name);
-            }
-
             var contactToEdit = SearchContact(repository);
 
             if (contactToEdit is not null)
             {
-                _userInterface.PrintOptions(entryPropertyNames);
+                
+                _userInterface.PrintOptions(IGenericEntry.GetAllPropertiesNames());
 
                 var userChoice = _userInterface.GetUserInput();
 

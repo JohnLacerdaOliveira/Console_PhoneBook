@@ -1,6 +1,6 @@
 ﻿namespace Console_PhoneBook.App.UserInterface
 {
-    public class ConsoleUI : IGenericUI
+    public class ConsoleUI : IConsoleUI
     {
 
         public void PrintMessage(string message)

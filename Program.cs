@@ -6,7 +6,7 @@ namespace Console_PhoneBook
 {
     internal class Program
     {
-        private static IGenericUI _userInterface = new ConsoleUI();
+        private static IConsoleUI _userInterface = new ConsoleUI();
         private static IPhoneBookOperations _phoneBookOperations = new PhoneBookOperations(_userInterface);
         private static IEntriesRepository _entriesRepository = new EntriesRepository(_phoneBookOperations);
 
