@@ -43,10 +43,6 @@ namespace Console_PhoneBook.Model
 
         }
 
-        public void ExitApplication()
-        {
-            Console.WriteLine("Exiting Phonebook. Goodbye!");
-            Console.ReadLine();
-        }
+        
     }
 }

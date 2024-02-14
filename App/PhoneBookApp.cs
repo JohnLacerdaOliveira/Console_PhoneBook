@@ -70,5 +70,11 @@ namespace Console_PhoneBook.App
                 _userInterface.PressKeyToContinue();
             }
         }
+        public void ExitApplication()
+        {
+            _userInterface.PrintMessage("Exiting Phonebook. Goodbye!");
+            _userInterface.PressKeyToContinue();
+        }
+
     }
 }
