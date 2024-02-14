@@ -42,7 +42,5 @@ namespace Console_PhoneBook.Model
             _phoneBookOperations.DeleteContact(_entries);
 
         }
-
-        
     }
 }
