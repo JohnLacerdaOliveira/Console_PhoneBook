@@ -1,6 +1,6 @@
 ﻿using Console_PhoneBook.App.UserInterface;
+using Console_PhoneBook.DataAccess;
 using Console_PhoneBook.Model;
-using Microsoft.VisualBasic.FileIO;
 
 namespace Console_PhoneBook.App
 {
@@ -17,14 +17,26 @@ namespace Console_PhoneBook.App
 
         private readonly IEntriesRepository _entriesRepository;
         private readonly IConsoleUI _userInterface;
+        private readonly IDataAccessor _dataAccessor;
 
 
-        public PhoneBookApp(IEntriesRepository entriesRepository, IConsoleUI userInterface)
+        public PhoneBookApp(
+            IEntriesRepository entriesRepository,
+            IConsoleUI userInterface,
+            IDataAccessor dataAccessor)
         {
             _entriesRepository = entriesRepository;
             _userInterface = userInterface;
+            _dataAccessor = dataAccessor;
         }
 
+
+        public void LoadData()
+        {
+            _dataAccessor.Read();
+            _userInterface.PrintMessage("The following contacts were load from repository");
+            _entriesRepository.ViewAllContacts();
+        }
         public void Run()
         {
             while (true)
@@ -32,7 +44,7 @@ namespace Console_PhoneBook.App
                 _userInterface.ClearConsole();
                 _userInterface.PrintMessage("PhoneBook Menu:");
                 _userInterface.PrintOptions(_appOptions);
-                
+
 
                 char choice = Convert.ToChar(_userInterface.GetUserInput());
                 _userInterface.PrintMessage("");
