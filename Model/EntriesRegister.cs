@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Console_PhoneBook.Model
 {
-    internal class EntriesRepository : IEntriesRepository
+    internal class EntriesRegister : IEntriesRegister
     {
         private IEnumerable<IGenericEntry> _entries;
         private IPhoneBookOperations _phoneBookOperations;
 
-        public EntriesRepository(IPhoneBookOperations phoneBookOperations)
+        public EntriesRegister(IPhoneBookOperations phoneBookOperations)
         {
             _entries = new List<IGenericEntry>();
             _phoneBookOperations = phoneBookOperations;

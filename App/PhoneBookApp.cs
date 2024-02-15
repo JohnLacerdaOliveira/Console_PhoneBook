@@ -1,5 +1,5 @@
 ﻿using Console_PhoneBook.App.UserInterface;
-using Console_PhoneBook.DataAccess;
+using Console_PhoneBook.DataStorage.DataAccess;
 using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App
@@ -15,15 +15,15 @@ namespace Console_PhoneBook.App
         "Delete Contact",
         "Exit"};
 
-        private readonly IEntriesRepository _entriesRepository;
+        private readonly IEntriesRegister _entriesRepository;
         private readonly IConsoleUI _userInterface;
-        private readonly IDataAccessor _dataAccessor;
+        private readonly IRepository _dataAccessor;
 
 
         public PhoneBookApp(
-            IEntriesRepository entriesRepository,
+            IEntriesRegister entriesRepository,
             IConsoleUI userInterface,
-            IDataAccessor dataAccessor)
+            IRepository dataAccessor)
         {
             _entriesRepository = entriesRepository;
             _userInterface = userInterface;
@@ -34,7 +34,7 @@ namespace Console_PhoneBook.App
         public void LoadData()
         {
             _dataAccessor.Read();
-            _userInterface.PrintMessage("The following contacts were load from repository");
+            _userInterface.WriteLine("The following contacts were load from repository");
             _entriesRepository.ViewAllContacts();
         }
         public void Run()
@@ -42,12 +42,12 @@ namespace Console_PhoneBook.App
             while (true)
             {
                 _userInterface.ClearConsole();
-                _userInterface.PrintMessage("PhoneBook Menu:");
+                _userInterface.WriteLine("PhoneBook Menu:");
                 _userInterface.PrintOptions(_appOptions);
 
 
                 char choice = Convert.ToChar(_userInterface.GetUserInput());
-                _userInterface.PrintMessage("");
+                _userInterface.WriteLine("");
 
                 switch (choice)
                 {
@@ -73,10 +73,10 @@ namespace Console_PhoneBook.App
                         break;
                     case '6':
                         // Exit
-                        _entriesRepository.ExitApplication();
+                        ExitApplication();
                         return;
                     default:
-                        _userInterface.PrintMessage("Invalid choice. Please try again.");
+                        _userInterface.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
                 _userInterface.PressKeyToContinue();
@@ -84,7 +84,7 @@ namespace Console_PhoneBook.App
         }
         public void ExitApplication()
         {
-            _userInterface.PrintMessage("Exiting Phonebook. Goodbye!");
+            _userInterface.WriteLine("Exiting Phonebook. Goodbye!");
             _userInterface.PressKeyToContinue();
         }
 

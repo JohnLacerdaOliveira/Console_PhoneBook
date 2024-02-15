@@ -2,8 +2,12 @@
 {
     public class ConsoleUI : IConsoleUI
     {
+        public void Write(string message)
+        {
+            Console.Write(message);
+        }
 
-        public void PrintMessage(string message)
+        public void WriteLine(string message)
         {
             Console.WriteLine(message);
         }
@@ -43,5 +47,7 @@
         {
             Console.ReadKey();
         }
+
+        
     }
 }

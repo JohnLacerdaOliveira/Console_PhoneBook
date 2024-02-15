@@ -1,12 +1,13 @@
-﻿using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.DataStorage.FileAccess;
+using Console_PhoneBook.Model;
 
-namespace Console_PhoneBook.DataAccess
+namespace Console_PhoneBook.DataStorage.DataAccess
 {
-    public class LocalFileAccessor : IDataAccessor
+    public class GenericRepository : IRepository
     {
         private readonly FileMetaData _fileMetaData;
 
-        public LocalFileAccessor(FileMetaData fileMetaData)
+        public GenericRepository(FileMetaData fileMetaData)
         {
             _fileMetaData = fileMetaData;
         }
@@ -33,7 +34,7 @@ namespace Console_PhoneBook.DataAccess
 
         }
 
-        public void Save(IEntriesRepository repository)
+        public void Save(IEntriesRegister repository)
         {
             if (IsFilePathValid())
             {
@@ -57,7 +58,7 @@ namespace Console_PhoneBook.DataAccess
             if (filePath is null) return false;
             if (filePath.Length == 0) return false;
 
-            foreach (var extension in Enum.GetValues(typeof(SaveFileFormat)))
+            foreach (var extension in Enum.GetValues(typeof(FileFormat)))
             {
                 string extensionAsString = extension.ToString().ToLower();
                 if (!filePath.EndsWith(extensionAsString))

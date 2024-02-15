@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Console_PhoneBook.DataAccess
+namespace Console_PhoneBook.DataStorage.FileAccess
 {
-    public enum SaveFileFormat
+    public enum FileFormat
     {
         csv,
         vcf

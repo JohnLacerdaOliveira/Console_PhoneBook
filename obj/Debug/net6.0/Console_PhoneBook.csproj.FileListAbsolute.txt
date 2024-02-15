@@ -13,3 +13,18 @@ C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.pdb
 C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.genruntimeconfig.cache
 C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\ref\Console_PhoneBook.dll
 C:\Users\jmlo\Desktop\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.sourcelink.json
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.AssemblyInfoInputs.cache
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.AssemblyInfo.cs
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.csproj.CoreCompileInputs.cache
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.sourcelink.json
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.dll
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\refint\Console_PhoneBook.dll
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.pdb
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\bin\Debug\net6.0\Console_PhoneBook.exe
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\bin\Debug\net6.0\Console_PhoneBook.deps.json
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\bin\Debug\net6.0\Console_PhoneBook.runtimeconfig.json
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\bin\Debug\net6.0\Console_PhoneBook.dll
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\bin\Debug\net6.0\Console_PhoneBook.pdb
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\Console_PhoneBook.genruntimeconfig.cache
+C:\Users\JohnL\OneDrive - Universidade de Coimbra\Ambiente de Trabalho\Console_PhoneBook\obj\Debug\net6.0\ref\Console_PhoneBook.dll

@@ -25,15 +25,15 @@ namespace Console_PhoneBook.App
 
             }
             */
-            _userInterface.PrintMessage("Insert Name:");
+            _userInterface.Write("Insert Name: ");
             string nameInput = _userInterface.GetUserInput();
 
-            _userInterface.PrintMessage("Insert Number");
+            _userInterface.Write("Insert Number: ");
             string numberInput = _userInterface.GetUserInput();
 
             int.TryParse(numberInput, out int number);
 
-            var entry = new GenericEntry(nameInput, number);
+            var entry = new Entry(nameInput, number);
 
             asList.Add(entry);
 
@@ -43,24 +43,24 @@ namespace Console_PhoneBook.App
         {
             foreach (var entry in repository)
             {
-                _userInterface.PrintMessage(entry.ToString());
+                _userInterface.WriteLine(entry.ToString());
             }
         }
         public IGenericEntry SearchContact(IEnumerable<IGenericEntry> repository)
         {
-            _userInterface.PrintMessage("Name to search: ");
+            _userInterface.Write("Name to search: ");
             string searchName = _userInterface.GetUserInput();
 
             foreach (var entry in repository)
             {
                 if (searchName == entry.Name)
                 {
-                    _userInterface.PrintMessage(entry.ToString());
+                    _userInterface.WriteLine(entry.ToString());
                     return entry;
                 }
             }
 
-            _userInterface.PrintMessage("No entry found with that name...");
+            _userInterface.WriteLine("No entry found with that name...");
             return null;
         }
         public void EditContact(IEnumerable<IGenericEntry> repository)
@@ -80,27 +80,27 @@ namespace Console_PhoneBook.App
                 //TODO - Choice validation should be dynamic
                 if (userChoice == "1")
                 {
-                    _userInterface.PrintMessage("Insert new name:");
+                    _userInterface.WriteLine("Insert new name:");
                     string newName = _userInterface.GetUserInput();
 
-                    _userInterface.PrintMessage($"{contactToEdit.Name} updated to {newName}");
+                    _userInterface.WriteLine($"{contactToEdit.Name} updated to {newName}");
                     contactToEdit.Name = newName;
                     return;
                 }
 
                 if (userChoice == "2")
                 {
-                    _userInterface.PrintMessage("Insert new number:");
+                    _userInterface.WriteLine("Insert new number:");
                     int.TryParse(_userInterface.GetUserInput(), out int newNumber);
 
-                    _userInterface.PrintMessage($"{contactToEdit.Name} number {contactToEdit.PhoneNumber} updated to {newNumber}");
+                    _userInterface.WriteLine($"{contactToEdit.Name} number {contactToEdit.PhoneNumber} updated to {newNumber}");
 
                     contactToEdit.PhoneNumber = newNumber;
                     return;
                 }
 
             }
-            _userInterface.PrintMessage("No entry found with that name...");
+            _userInterface.WriteLine("No entry found with that name...");
         }
 
         public void DeleteContact(IEnumerable<IGenericEntry> repository)
@@ -112,11 +112,11 @@ namespace Console_PhoneBook.App
             if (contactToDelete is not null)
             {
                 asList.Remove(contactToDelete);
-                _userInterface.PrintMessage($"{contactToDelete.Name} was removed");
+                _userInterface.WriteLine($"{contactToDelete.Name} was removed");
                 return;
             }
 
-            _userInterface.PrintMessage("Contact was not found");
+            _userInterface.WriteLine("Contact was not found");
         }
 
     }
