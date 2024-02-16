@@ -39,11 +39,11 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
         }
 
-        public void Save(IEnumerable<IGenericEntry> register)
+        public void Save(IEnumerable<IGenericEntry> entriesRegister)
         {
             var entriesAsText = new StringBuilder();
 
-            foreach (var entry in register)
+            foreach (var entry in entriesRegister)
             {
                 entriesAsText.Append(entry);
                 entriesAsText.Append(Environment.NewLine);
@@ -51,27 +51,5 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
             Serialize(entriesAsText.ToString());
         }
-
-        public bool IsFilePathValid()
-        {
-            var filePath = _fileMetaData.FilePath;
-
-            if (filePath is null) return false;
-            if (filePath.Length == 0) return false;
-
-            foreach (var extension in Enum.GetValues(typeof(FileFormat)))
-            {
-                string extensionAsString = extension.ToString().ToLower();
-                if (!filePath.EndsWith(extensionAsString))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
-
     }
-
 }

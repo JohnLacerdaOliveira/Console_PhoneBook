@@ -5,6 +5,6 @@ namespace Console_PhoneBook.DataStorage.DataAccess
     public interface IRepository
     {
         public abstract IEnumerable<IGenericEntry> Load();
-        public abstract void Save(IEnumerable<IGenericEntry> register);
+        public abstract void Save(IEnumerable<IGenericEntry> entriesRegister);
     }
 }

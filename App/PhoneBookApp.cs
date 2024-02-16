@@ -44,33 +44,27 @@ namespace Console_PhoneBook.App
                 _userInterface.PrintMenu(_appOptions);
 
 
-                char choice = Convert.ToChar(_userInterface.GetUserInput());
+                string choice = _userInterface.GetUserInput();
                 _userInterface.PrintLine("");
 
                 switch (choice)
                 {
-                    case '1':
-                        // Add Contact
+                    case "1": // Add Contact
                         _entriesRegister.AddEntry();
                         break;
-                    case '2':
-                        // View All Contacts
+                    case "2":  // View All Contacts
                         _entriesRegister.PrintAllEntries();
                         break;
-                    case '3':
-                        // Search Contact
+                    case "3": // Search Contact
                         _entriesRegister.SearchEntry();
                         break;
-                    case '4':
-                        // Edit Contact
+                    case "4": // Edit Contact
                         _entriesRegister.EditEntry();
                         break;
-                    case '5':
-                        // Delete Contact
+                    case "5": // Delete Contact
                         _entriesRegister.DeleteEntry();
                         break;
-                    case '6':
-                        // Exit
+                    case "6":  // Exit
                         ExitApplication();
                         return;
                     default:
