@@ -1,4 +1,4 @@
-﻿using Console_PhoneBook.App;
+﻿using Console_PhoneBook.App.Functionality;
 using System.Collections.Generic;
 
 namespace Console_PhoneBook.Model
@@ -6,9 +6,9 @@ namespace Console_PhoneBook.Model
     internal class EntriesRegister : IEntriesRegister
     {
         private IEnumerable<IGenericEntry> _entries;
-        private IPhoneBookOperations _phoneBookOperations;
+        private IPhoneBookFunctionality _phoneBookOperations;
 
-        public EntriesRegister(IPhoneBookOperations phoneBookOperations)
+        public EntriesRegister(IPhoneBookFunctionality phoneBookOperations)
         {
             _entries = new List<IGenericEntry>();
             _phoneBookOperations = phoneBookOperations;

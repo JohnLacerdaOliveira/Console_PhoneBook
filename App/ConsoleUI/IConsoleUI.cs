@@ -2,11 +2,11 @@
 {
     public interface IConsoleUI
     {
-        public void Write(string message);
-        public void WriteLine(string message);
-        public void PrintOptions(IEnumerable<string> options);
+        public void Print(string message);
+        public void PrintLine(string message);
+        public void PrintMenu(IEnumerable<string> options);
         public string GetUserInput();
-        public void ClearConsole();
+        public void Clear();
         public void PressKeyToContinue();
     }
 }

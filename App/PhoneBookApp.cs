@@ -34,20 +34,20 @@ namespace Console_PhoneBook.App
         public void LoadData()
         {
             _dataAccessor.Read();
-            _userInterface.WriteLine("The following contacts were load from repository");
+            _userInterface.PrintLine("The following contacts were load from repository");
             _entriesRepository.ViewAllContacts();
         }
         public void Run()
         {
             while (true)
             {
-                _userInterface.ClearConsole();
-                _userInterface.WriteLine("PhoneBook Menu:");
-                _userInterface.PrintOptions(_appOptions);
+                _userInterface.Clear();
+                _userInterface.PrintLine("PhoneBook Menu:");
+                _userInterface.PrintMenu(_appOptions);
 
 
                 char choice = Convert.ToChar(_userInterface.GetUserInput());
-                _userInterface.WriteLine("");
+                _userInterface.PrintLine("");
 
                 switch (choice)
                 {
@@ -76,7 +76,7 @@ namespace Console_PhoneBook.App
                         ExitApplication();
                         return;
                     default:
-                        _userInterface.WriteLine("Invalid choice. Please try again.");
+                        _userInterface.PrintLine("Invalid choice. Please try again.");
                         break;
                 }
                 _userInterface.PressKeyToContinue();
@@ -84,7 +84,7 @@ namespace Console_PhoneBook.App
         }
         public void ExitApplication()
         {
-            _userInterface.WriteLine("Exiting Phonebook. Goodbye!");
+            _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
             _userInterface.PressKeyToContinue();
         }
 

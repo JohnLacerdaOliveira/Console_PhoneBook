@@ -2,19 +2,20 @@
 {
     public class ConsoleUI : IConsoleUI
     {
-        public void Write(string message)
+        public void Print(string message)
         {
             Console.Write(message);
         }
 
-        public void WriteLine(string message)
+        public void PrintLine(string message)
         {
             Console.WriteLine(message);
         }
 
-        public void PrintOptions(IEnumerable<string> options)
+        public void PrintMenu(IEnumerable<string> options)
         {
             var counter = 1;
+
             foreach (var option in options)
             {
                 Console.WriteLine($"{counter++}. {option}");
@@ -32,13 +33,12 @@
 
                 if(userInput != null && userInput.Length > 0) isValidInput = true;
 
-
             } while (!isValidInput);
 
             return userInput;
         }
 
-        public void ClearConsole()
+        public void Clear()
         {
             Console.Clear();
         }
@@ -47,7 +47,5 @@
         {
             Console.ReadKey();
         }
-
-        
     }
 }

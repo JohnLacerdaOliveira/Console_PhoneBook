@@ -1,8 +1,8 @@
 ﻿using Console_PhoneBook.Model;
 
-namespace Console_PhoneBook.App
+namespace Console_PhoneBook.App.Functionality
 {
-    public interface IPhoneBookOperations
+    public interface IPhoneBookFunctionality
     {
         public abstract void AddContact(IEnumerable<IGenericEntry> repository);
         public abstract void ViewAllContacts(IEnumerable<IGenericEntry> repository);

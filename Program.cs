@@ -1,4 +1,5 @@
 ﻿using Console_PhoneBook.App;
+using Console_PhoneBook.App.Functionality;
 using Console_PhoneBook.App.UserInterface;
 using Console_PhoneBook.DataStorage.DataAccess;
 using Console_PhoneBook.DataStorage.FileAccess;
@@ -16,7 +17,7 @@ namespace Console_PhoneBook
         private static IRepository _dataAccessor = new GenericRepository(_fileMetaData);
 
         //Functionality
-        private static IPhoneBookOperations _phoneBookOperations = new PhoneBookOperations(_userInterface);
+        private static IPhoneBookFunctionality _phoneBookOperations = new PhoneBookFunctionality(_userInterface);
 
         //Model
         private static IEntriesRegister _entriesRepository = new EntriesRegister(_phoneBookOperations);
