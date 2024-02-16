@@ -15,30 +15,28 @@ namespace Console_PhoneBook.App
         "Delete Contact",
         "Exit"};
 
-        private readonly IEntriesRegister _entriesRepository;
+        private readonly IEntriesRegister _entriesRegister;
         private readonly IConsoleUI _userInterface;
-        private readonly IRepository _dataAccessor;
+        private readonly IRepository _dataRepository;
 
 
         public PhoneBookApp(
-            IEntriesRegister entriesRepository,
+            IEntriesRegister entriesRegister,
             IConsoleUI userInterface,
-            IRepository dataAccessor)
+            IRepository dataRepository)
         {
-            _entriesRepository = entriesRepository;
+            _entriesRegister = entriesRegister;
             _userInterface = userInterface;
-            _dataAccessor = dataAccessor;
+            _dataRepository = dataRepository;
         }
 
 
-        public void LoadData()
-        {
-            _dataAccessor.Read();
-            _userInterface.PrintLine("The following contacts were load from repository");
-            _entriesRepository.ViewAllContacts();
-        }
+      
+
         public void Run()
         {
+            LoadData();
+
             while (true)
             {
                 _userInterface.Clear();
@@ -53,23 +51,23 @@ namespace Console_PhoneBook.App
                 {
                     case '1':
                         // Add Contact
-                        _entriesRepository.AddContact();
+                        _entriesRegister.AddEntry();
                         break;
                     case '2':
                         // View All Contacts
-                        _entriesRepository.ViewAllContacts();
+                        _entriesRegister.PrintAllEntries();
                         break;
                     case '3':
                         // Search Contact
-                        _entriesRepository.SearchContact();
+                        _entriesRegister.SearchEntry();
                         break;
                     case '4':
                         // Edit Contact
-                        _entriesRepository.EditContact();
+                        _entriesRegister.EditEntry();
                         break;
                     case '5':
                         // Delete Contact
-                        _entriesRepository.DeleteContact();
+                        _entriesRegister.DeleteEntry();
                         break;
                     case '6':
                         // Exit
@@ -82,8 +80,18 @@ namespace Console_PhoneBook.App
                 _userInterface.PressKeyToContinue();
             }
         }
+        public void LoadData()
+        {
+            _entriesRegister.Entries = _dataRepository.Load();
+            _userInterface.PrintLine("The following contacts were load from repository");
+            _entriesRegister.PrintAllEntries();
+            _userInterface.PressKeyToContinue();
+        }
+
         public void ExitApplication()
         {
+            _userInterface.PrintLine("All new contacts added will be saved to the repository");
+            _dataRepository.Save(_entriesRegister.Entries);
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
             _userInterface.PressKeyToContinue();
         }

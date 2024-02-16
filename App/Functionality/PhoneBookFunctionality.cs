@@ -13,7 +13,7 @@ namespace Console_PhoneBook.App.Functionality
         }
 
 
-        public void AddContact(IEnumerable<IGenericEntry> repository)
+        public void AddEntry(IEnumerable<IGenericEntry> repository)
         {
             // TODO - Don't hard code list
             var asList = repository as List<IGenericEntry>;
@@ -39,14 +39,14 @@ namespace Console_PhoneBook.App.Functionality
 
         }
 
-        public void ViewAllContacts(IEnumerable<IGenericEntry> repository)
+        public void PrintAllEntries(IEnumerable<IGenericEntry> repository)
         {
             foreach (var entry in repository)
             {
                 _userInterface.PrintLine(entry.ToString());
             }
         }
-        public IGenericEntry SearchContact(IEnumerable<IGenericEntry> repository)
+        public IGenericEntry SearchEntry(IEnumerable<IGenericEntry> repository)
         {
             _userInterface.Print("Name to search: ");
             string searchName = _userInterface.GetUserInput();
@@ -63,12 +63,12 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PrintLine("No entry found with that name...");
             return null;
         }
-        public void EditContact(IEnumerable<IGenericEntry> repository)
+        public void EditEntry(IEnumerable<IGenericEntry> repository)
         {
             // TODO - Don't hard code list
             List<string> entryPropertyNames = new List<string>();
 
-            var contactToEdit = SearchContact(repository);
+            var contactToEdit = SearchEntry(repository);
 
             if (contactToEdit is not null)
             {
@@ -103,11 +103,11 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PrintLine("No entry found with that name...");
         }
 
-        public void DeleteContact(IEnumerable<IGenericEntry> repository)
+        public void DeleteEntry(IEnumerable<IGenericEntry> repository)
         {
             // TODO - Don't hard code list
             var asList = repository as List<IGenericEntry>;
-            var contactToDelete = SearchContact(repository);
+            var contactToDelete = SearchEntry(repository);
 
             if (contactToDelete is not null)
             {

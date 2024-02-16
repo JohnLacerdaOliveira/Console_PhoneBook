@@ -4,10 +4,11 @@ namespace Console_PhoneBook.Model
 {
     public interface IEntriesRegister
     {
-        public abstract void AddContact();
-        public abstract void ViewAllContacts();
-        public abstract IGenericEntry SearchContact();
-        public abstract void EditContact();
-        public abstract void DeleteContact();
+        public abstract IEnumerable<IGenericEntry> Entries { get; set; }
+        public abstract void AddEntry();
+        public abstract void PrintAllEntries();
+        public abstract IGenericEntry SearchEntry();
+        public abstract void EditEntry();
+        public abstract void DeleteEntry();
     }
 }

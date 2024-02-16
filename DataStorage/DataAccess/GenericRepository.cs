@@ -1,54 +1,55 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
+using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess
 {
-    public class GenericRepository : IRepository
+    public abstract class GenericRepository : IRepository
     {
-        private readonly FileMetaData _fileMetaData;
+        protected readonly FileMetaData _fileMetaData;
 
         public GenericRepository(FileMetaData fileMetaData)
         {
             _fileMetaData = fileMetaData;
         }
 
-        public IEnumerable<IGenericEntry>? Read()
+        public abstract IEnumerable<IGenericEntry> Parse(string fileData);
+        public abstract void Serialize(string entriesAsText);
+
+        public IEnumerable<IGenericEntry> Load()
         {
             string? fileData = default;
 
-            if (IsFilePathValid())
+            if (!File.Exists(_fileMetaData.FilePath)) File.Create(_fileMetaData.FilePath);
+
+
+            try
             {
-                try
-                {
-                    fileData = File.ReadAllText(_fileMetaData.FilePath);
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
+                fileData = File.ReadAllText(_fileMetaData.FilePath);
+            }
+            catch (Exception)
+            {
+                throw new IOException($"An error occcured while reading from the file: {_fileMetaData.FilePath}");
             }
 
-            if (fileData is null) return null;
 
-            return ParseCSV(fileData);
+            if (fileData.Length == 0) return new List<Entry>();
+
+            return Parse(fileData);
 
         }
 
-        public void Save(IEntriesRegister repository)
+        public void Save(IEnumerable<IGenericEntry> register)
         {
-            if (IsFilePathValid())
-            {
-                try
-                {
-                    File.WriteAllText(_fileMetaData.FilePath, "Data");
-                }
-                catch (Exception)
-                {
-                    throw new FieldAccessException("cannot access file to write data");
-                }
+            var entriesAsText = new StringBuilder();
 
+            foreach (var entry in register)
+            {
+                entriesAsText.Append(entry);
+                entriesAsText.Append(Environment.NewLine);
             }
 
+            Serialize(entriesAsText.ToString());
         }
 
         public bool IsFilePathValid()
@@ -69,15 +70,8 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             return true;
         }
 
-        public IEnumerable<IGenericEntry> ParseCSV(string fileData)
-        {
-            string[] entries = fileData.Split('\n');
 
-            foreach (var entry in entries)
-            {
-                //string[] data = entries.s
-            }
-            throw new NotImplementedException();
-        }
+
     }
+
 }

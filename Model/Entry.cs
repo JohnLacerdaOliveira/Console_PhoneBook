@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Reflection.Metadata;
 using System.Text;
 
 namespace Console_PhoneBook.Model
@@ -15,15 +14,6 @@ namespace Console_PhoneBook.Model
             PhoneNumber = phoneNumber;
         }
 
-        public IEnumerable<string> GetAllPropertiesNames()
-        {
-            Type type = this.GetType();
-
-            var properties = Array.ConvertAll(type.GetProperties(), p => p.Name);
-
-            return properties;
-
-        }
 
         public override string ToString()
         {
@@ -32,10 +22,10 @@ namespace Console_PhoneBook.Model
 
             foreach (PropertyInfo property in thisProperties)
             {
-                description.Append($"{property.Name}: {property.GetValue(this)}\n");
+                description.Append($"{property.GetValue(this)} ");
             }
 
-            return description.ToString();  
+            return description.ToString();
         }
     }
 }

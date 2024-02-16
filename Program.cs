@@ -14,18 +14,18 @@ namespace Console_PhoneBook
 
         //Data Access
         private static FileMetaData _fileMetaData = new FileMetaData("PhoneBookRepository", FileFormat.csv);
-        private static IRepository _dataAccessor = new GenericRepository(_fileMetaData);
+        private static IRepository _dataRepository = _fileMetaData.GetRepository();
 
         //Functionality
         private static IPhoneBookFunctionality _phoneBookOperations = new PhoneBookFunctionality(_userInterface);
 
         //Model
-        private static IEntriesRegister _entriesRepository = new EntriesRegister(_phoneBookOperations);
+        private static IEntriesRegister _entriesRegistry = new EntriesRegister(_phoneBookOperations);
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
-            _entriesRepository,
+            _entriesRegistry,
             _userInterface,
-            _dataAccessor);
+            _dataRepository);
 
         static void Main(string[] args)
         {

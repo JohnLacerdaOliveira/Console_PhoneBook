@@ -1,45 +1,45 @@
 ﻿using Console_PhoneBook.App.Functionality;
+using Console_PhoneBook.DataStorage.DataAccess;
 using System.Collections.Generic;
 
 namespace Console_PhoneBook.Model
 {
     internal class EntriesRegister : IEntriesRegister
     {
-        private IEnumerable<IGenericEntry> _entries;
-        private IPhoneBookFunctionality _phoneBookOperations;
+        public  IEnumerable<IGenericEntry> Entries { get; set; }
+        private readonly IPhoneBookFunctionality _phoneBookFunctionality;
 
-        public EntriesRegister(IPhoneBookFunctionality phoneBookOperations)
+        public EntriesRegister(IPhoneBookFunctionality phoneBookFunctionality)
         {
-            _entries = new List<IGenericEntry>();
-            _phoneBookOperations = phoneBookOperations;
+            Entries = new List<IGenericEntry>();
+            _phoneBookFunctionality = phoneBookFunctionality;
         }
 
-        public void AddContact()
+        public void AddEntry()
         {
-            _phoneBookOperations.AddContact(_entries);
-            _entries.GetType();
+            _phoneBookFunctionality.AddEntry(Entries); 
         }
 
-        public void ViewAllContacts()
+        public void PrintAllEntries()
         {
-            _phoneBookOperations.ViewAllContacts(_entries);
-
-        }
-
-        public IGenericEntry SearchContact()
-        {
-            return _phoneBookOperations.SearchContact(_entries);
+            _phoneBookFunctionality.PrintAllEntries(Entries);
 
         }
 
-        public void EditContact()
+        public IGenericEntry SearchEntry()
         {
-            _phoneBookOperations.EditContact(_entries);
+            return _phoneBookFunctionality.SearchEntry(Entries);
+
         }
 
-        public void DeleteContact()
+        public void EditEntry()
         {
-            _phoneBookOperations.DeleteContact(_entries);
+            _phoneBookFunctionality.EditEntry(Entries);
+        }
+
+        public void DeleteEntry()
+        {
+            _phoneBookFunctionality.DeleteEntry(Entries);
 
         }
     }

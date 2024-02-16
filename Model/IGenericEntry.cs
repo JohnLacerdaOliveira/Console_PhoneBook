@@ -8,7 +8,15 @@ namespace Console_PhoneBook.Model
 
         public abstract int PhoneNumber { get; set; }
 
-        public abstract IEnumerable<string> GetAllPropertiesNames();
-    
+        public static IEnumerable<string> GetAllPropertiesNames()
+        {
+            Type type = typeof(Entry);
+
+            var properties = Array.ConvertAll(type.GetProperties(), p => p.Name);
+
+            return properties;
+
+        }
+
     }
 }
