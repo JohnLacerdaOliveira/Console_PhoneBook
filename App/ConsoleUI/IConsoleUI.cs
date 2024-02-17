@@ -1,4 +1,5 @@
-﻿using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.DataStorage.FileAccess;
+using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App.UserInterface
 {
@@ -13,5 +14,6 @@ namespace Console_PhoneBook.App.UserInterface
         public abstract ConsoleKeyInfo ReadKey(bool intercept);
         public abstract void SetCursorVisibilityTo(bool choice);
         public abstract void PrintWelcomeScreen();
+        public abstract FileMetaData GetFileMetadata();
     }
 }

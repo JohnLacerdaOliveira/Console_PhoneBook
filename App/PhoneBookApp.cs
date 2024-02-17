@@ -1,6 +1,7 @@
 ﻿using Console_PhoneBook.App.Functionality;
 using Console_PhoneBook.App.UserInterface;
 using Console_PhoneBook.DataStorage.DataAccess;
+using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App
@@ -14,7 +15,7 @@ namespace Console_PhoneBook.App
         "Search Contact",
         "Edit Contact",
         "Delete Contact",
-        "Save Contacts",
+        "Export PhoneBook",
         "Exit"};
 
         private readonly IContactsRegister _contactsRegister;
@@ -66,7 +67,7 @@ namespace Console_PhoneBook.App
                         _contactsRegister.DeleteContact();
                         break;
                     case "6": // Save Contats
-                        SaveContacts();
+                        ExportPhoneBook();
                         break;
                     case "7":  // Exit
                         ExitApplication();
@@ -78,6 +79,8 @@ namespace Console_PhoneBook.App
                 _userInterface.PressKeyToContinue();
             }
         }
+
+
         public void LoadData()
         {
             _contactsRegister.Contacts = _dataRepository.LoadDataFromFile();
@@ -90,6 +93,14 @@ namespace Console_PhoneBook.App
         {
             _userInterface.PrintLine("All new contacts added will be added to the repository");
             _dataRepository.SaveDataToFile(_contactsRegister.Contacts);
+        }
+        private void ExportPhoneBook()
+        {
+            FileMetaData exportFileMetaData = _userInterface.GetFileMetadata();
+            IGenericRepository repository = exportFileMetaData.GetRepository();
+
+            repository.SaveDataToFile(_contactsRegister.Contacts);
+      
         }
 
         public void ExitApplication()

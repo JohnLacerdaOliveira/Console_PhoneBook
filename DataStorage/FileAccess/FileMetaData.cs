@@ -4,20 +4,21 @@ namespace Console_PhoneBook.DataStorage.FileAccess
 {
     public class FileMetaData
     {
-        public string FileName { get; init; }
-        public FileFormat FileFormat { get; init; }
-        public string FilePath => $"{FileName}.{FileFormat}";
+        private readonly FileFormat _fileFormat;
+        private readonly string _fileLocation;
+        private const string _fileName = "PhoneBookRepository";
+        public string FilePath => $"{_fileLocation}{_fileName}.{_fileFormat}";
 
-        public FileMetaData(string fileName, FileFormat fileFormat)
+        public FileMetaData(FileFormat fileFormat, string fileLocation = "")
         {
-            FileName = fileName;
-            FileFormat = fileFormat;
+            _fileFormat = fileFormat;
+            _fileLocation = fileLocation;
         }
 
         public IGenericRepository GetRepository() 
         {
-            if (this.FileFormat == FileFormat.csv) return new CSVRepository(this);
-            if (this.FileFormat == FileFormat.vcf) return new VCFRepository(this);
+            if (this._fileFormat == FileFormat.csv) return new CSVRepository(this);
+            if (this._fileFormat == FileFormat.vcf) return new VCFRepository(this);
 
             throw new ArgumentException("Apropriate repository for given File Format could not be found");
         }

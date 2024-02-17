@@ -73,7 +73,7 @@ namespace Console_PhoneBook.App.Functionality
 
                 if (input.Length == 0) matches = new List<IGenericContact>();
 
-                if (input.Length != 0) 
+                if (input.Length != 0)
                 {
                     matches = register.Where(contact => contact.ToString().Contains(input, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
@@ -140,7 +140,7 @@ namespace Console_PhoneBook.App.Functionality
                 }
 
             }
-            _userInterface.PrintLine("No entry found with that name...");
+            _userInterface.PrintLine("No contact found with that name...");
         }
 
         public void DeleteContact(IEnumerable<IGenericContact> register)
@@ -156,7 +156,7 @@ namespace Console_PhoneBook.App.Functionality
                 return;
             }
 
-            _userInterface.PrintLine("No entry found with that name...");
+            _userInterface.PrintLine("No contact found with that name...");
         }
     }
 }
