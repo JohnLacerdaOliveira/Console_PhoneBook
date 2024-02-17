@@ -22,20 +22,31 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 string[] entryData = entry.Split(',');
 
                 var name = entryData[0];
-                if(!int.TryParse(entryData[1], out int number)) continue;
+                if(!int.TryParse(entryData[1], out int phoneNumber)) continue;
 
-                register.Add(new Entry(name, number));
+                register.Add(new Entry(name, phoneNumber));
             }
 
             return register;
         }
 
-        public override string Serialize(string entriesAsText)
+        public override string Serialize(IEnumerable<IGenericEntry> register)
         {
-            var csvHeader = new StringBuilder();
-            var entriesAsCSV = new StringBuilder();
-            string[] entryAsText = entriesAsText.Split(Environment.NewLine);
 
+            var entriesAsCSV = new StringBuilder();
+            var entriesAsText = new StringBuilder();
+
+            foreach (var entry in register)
+            {
+                entriesAsText.Append(entry.Name + ",");
+                entriesAsText.Append(entry.PhoneNumber);
+                entriesAsText.Append(Environment.NewLine);
+            }
+
+            var csvHeader = new StringBuilder();
+            string[] entryAsText = entriesAsText.ToString().Split(Environment.NewLine);
+
+            //Serialize Header
             foreach(var propertyName in IGenericEntry.GetAllPropertiesNames())
             {
                 csvHeader.Append(propertyName + ",");
@@ -44,6 +55,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             var trimmedCsvHeader = csvHeader.ToString().Substring(0, csvHeader.Length - 1);
             entriesAsCSV.AppendLine(trimmedCsvHeader);
 
+            //Serialize Body
             foreach (var entry in entryAsText)
             {
                 if (entry.Length == 0) continue;

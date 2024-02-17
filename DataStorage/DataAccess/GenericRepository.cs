@@ -14,7 +14,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         }
 
         public abstract IEnumerable<IGenericEntry> Parse(string fileData);
-        public abstract string Serialize(string entriesAsText);
+        public abstract string Serialize(IEnumerable<IGenericEntry> register);
 
         public IEnumerable<IGenericEntry> Load()
         {
@@ -39,16 +39,8 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
         public void Save(IEnumerable<IGenericEntry> register)
         {
-            var entriesAsText = new StringBuilder();
-
-            foreach (var entry in register)
-            {
-                entriesAsText.Append(entry.Name + ",");
-                entriesAsText.Append(entry.PhoneNumber);
-                entriesAsText.Append(Environment.NewLine);
-            }
-
-            File.WriteAllText(_fileMetaData.FilePath,Serialize(entriesAsText.ToString()));
+            
+            File.WriteAllText(_fileMetaData.FilePath,Serialize(register));
         }
     }
 }
