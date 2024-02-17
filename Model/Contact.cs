@@ -3,12 +3,12 @@ using System.Text;
 
 namespace Console_PhoneBook.Model
 {
-    public class Entry : IGenericEntry
+    public class Contact : IGenericContact
     {
         public string Name { get; set; }
         public int PhoneNumber { get; set; }
 
-        public Entry(string name, int phoneNumber)
+        public Contact(string name, int phoneNumber)
         {
             Name = name;
             PhoneNumber = phoneNumber;

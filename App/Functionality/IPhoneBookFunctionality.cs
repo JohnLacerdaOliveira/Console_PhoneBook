@@ -4,11 +4,11 @@ namespace Console_PhoneBook.App.Functionality
 {
     public interface IPhoneBookFunctionality
     {
-        public abstract void AddEntry(IEnumerable<IGenericEntry> register);
-        public abstract void PrintAllEntries(IEnumerable<IGenericEntry> register);
-        public abstract IGenericEntry SearchByName(IEnumerable<IGenericEntry> register);
-        public IGenericEntry LiveSearch(IEnumerable<IGenericEntry> register);
-        public abstract void EditEntry(IEnumerable<IGenericEntry> register);
-        public abstract void DeleteEntry(IEnumerable<IGenericEntry> register);
+        public abstract void AddContact(IEnumerable<IGenericContact> register);
+        public abstract void PrintAllContacts(IEnumerable<IGenericContact> register);
+        public abstract IGenericContact SearchByName(IEnumerable<IGenericContact> register);
+        public IGenericContact LiveSearch(IEnumerable<IGenericContact> register);
+        public abstract void EditContact(IEnumerable<IGenericContact> register);
+        public abstract void DeleteContact(IEnumerable<IGenericContact> register);
     }
 }

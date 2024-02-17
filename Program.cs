@@ -20,7 +20,7 @@ namespace Console_PhoneBook
         private static IPhoneBookFunctionality _phoneBookOperations = new PhoneBookFunctionality(_userInterface);
 
         //Model
-        private static IEntriesRegister _entriesRegistry = new EntriesRegister(_phoneBookOperations);
+        private static IContactsRegister _entriesRegistry = new ContactsRegister(_phoneBookOperations);
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
             _entriesRegistry,

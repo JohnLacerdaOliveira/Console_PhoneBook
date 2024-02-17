@@ -10,60 +10,60 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         {
         }
 
-        public override IEnumerable<IGenericEntry> Parse(string fileData)
+        public override IEnumerable<IGenericContact> Parse(string fileData)
         {
-            List<IGenericEntry> register = new List<IGenericEntry>();
+            List<IGenericContact> register = new List<IGenericContact>();
             string[] entries = fileData.Split(Environment.NewLine);
 
-            foreach (var entry in entries)
+            foreach (var contact in entries)
             {
-                if (entry.Length == 0) continue;
+                if (contact.Length == 0) continue;
 
-                string[] entryData = entry.Split(',');
+                string[] contactData = contact.Split(',');
 
-                var name = entryData[0];
-                if(!int.TryParse(entryData[1], out int phoneNumber)) continue;
+                var name = contactData[0];
+                if (!int.TryParse(contactData[1], out int phoneNumber)) continue;
 
-                register.Add(new Entry(name, phoneNumber));
+                register.Add(new Contact(name, phoneNumber));
             }
 
             return register;
         }
 
-        public override string Serialize(IEnumerable<IGenericEntry> register)
+        public override string Serialize(IEnumerable<IGenericContact> register)
         {
 
-            var entriesAsCSV = new StringBuilder();
+            var contactsAsCSV = new StringBuilder();
             var entriesAsText = new StringBuilder();
 
-            foreach (var entry in register)
+            foreach (var contact in register)
             {
-                entriesAsText.Append(entry.Name + ",");
-                entriesAsText.Append(entry.PhoneNumber);
+                entriesAsText.Append(contact.Name + ",");
+                entriesAsText.Append(contact.PhoneNumber);
                 entriesAsText.Append(Environment.NewLine);
             }
 
             var csvHeader = new StringBuilder();
-            string[] entryAsText = entriesAsText.ToString().Split(Environment.NewLine);
+            string[] contactAsText = entriesAsText.ToString().Split(Environment.NewLine);
 
             //Serialize Header
-            foreach(var propertyName in IGenericEntry.GetAllPropertiesNames())
+            foreach (var propertyName in IGenericContact.GetAllPropertiesNames())
             {
                 csvHeader.Append(propertyName + ",");
             }
 
             var trimmedCsvHeader = csvHeader.ToString().Substring(0, csvHeader.Length - 1);
-            entriesAsCSV.AppendLine(trimmedCsvHeader);
+            contactsAsCSV.AppendLine(trimmedCsvHeader);
 
             //Serialize Body
-            foreach (var entry in entryAsText)
+            foreach (var contact in contactAsText)
             {
-                if (entry.Length == 0) continue;
+                if (contact.Length == 0) continue;
 
-                entriesAsCSV.AppendLine(entry);
+                contactsAsCSV.AppendLine(contact);
             }
 
-            return entriesAsCSV.ToString();
+            return contactsAsCSV.ToString();
         }
     }
 

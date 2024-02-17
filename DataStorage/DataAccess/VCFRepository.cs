@@ -11,12 +11,12 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         {
         }
 
-        public override IEnumerable<IGenericEntry> Parse(string fileData)
+        public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             var delimiter = "END:VCARD";
             string[] vCards = fileData.Split(delimiter);
 
-            List<IGenericEntry> register = new List<IGenericEntry>();
+            List<IGenericContact> register = new List<IGenericContact>();
 
             foreach (string vCard in vCards)
             {
@@ -37,27 +37,27 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 }
 
                 if (phoneNumber == 0) continue;
-                register.Add(new Entry(name, phoneNumber));
+                register.Add(new Contact(name, phoneNumber));
             }
 
             return register;
         }
 
-        public override string Serialize(IEnumerable<IGenericEntry> register)
+        public override string Serialize(IEnumerable<IGenericContact> register)
         {
 
             StringBuilder vCards = new StringBuilder();
 
             //TODO Implement a dictionary of vCard tags and iterate over it
             //Serialize Body
-            foreach (var entry in register)
+            foreach (var contact in register)
             {
-                if (entry is null) continue;
+                if (contact is null) continue;
 
                 vCards.AppendLine("BEGIN:VCARD");
                 vCards.AppendLine("VERSION:3.0");
-                vCards.AppendLine($"FN:{entry.Name}");
-                vCards.AppendLine($"TEL:{entry.PhoneNumber}");
+                vCards.AppendLine($"FN:{contact.Name}");
+                vCards.AppendLine($"TEL:{contact.PhoneNumber}");
                 vCards.AppendLine("END:VCARD");
 
             }

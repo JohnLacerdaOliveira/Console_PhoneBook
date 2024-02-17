@@ -13,54 +13,54 @@ namespace Console_PhoneBook.App.Functionality
         }
 
 
-        public void AddEntry(IEnumerable<IGenericEntry> register)
+        public void AddContact(IEnumerable<IGenericContact> register)
         {
             // TODO - Don't hard code list
-            var asList = register as List<IGenericEntry>;
+            var asList = register as List<IGenericContact>;
 
 
-            //TODO - Make the input dynamic from the entry properties
+            //TODO - Make the input dynamic from the contact properties
             _userInterface.Print("Insert Name: ");
             string nameInput = _userInterface.GetUserInput();
 
             _userInterface.Print("Insert Number: ");
             int.TryParse(_userInterface.GetUserInput(), out int numberInput);
 
-            var entry = new Entry(nameInput, numberInput);
+            var contact = new Contact(nameInput, numberInput);
 
-            if (asList is not null) asList.Add(entry);
+            if (asList is not null) asList.Add(contact);
 
         }
 
-        public void PrintAllEntries(IEnumerable<IGenericEntry> register)
+        public void PrintAllContacts(IEnumerable<IGenericContact> register)
         {
-            foreach (var entry in register)
+            foreach (var contact in register)
             {
-                _userInterface.PrintLine(entry.ToString());
+                _userInterface.PrintLine(contact.ToString());
             }
         }
-        public IGenericEntry SearchByName(IEnumerable<IGenericEntry> register)
+        public IGenericContact SearchByName(IEnumerable<IGenericContact> register)
         {
             _userInterface.Print("Name to search: ");
             string searchName = _userInterface.GetUserInput();
 
-            foreach (var entry in register)
+            foreach (var contact in register)
             {
-                if (searchName == entry.Name)
+                if (searchName == contact.Name)
                 {
-                    _userInterface.PrintLine(entry.ToString());
-                    return entry;
+                    _userInterface.PrintLine(contact.ToString());
+                    return contact;
                 }
             }
 
-            _userInterface.PrintLine("No entry found with that name...");
+            _userInterface.PrintLine("No contact found with that name...");
             return null;
         }
 
-        public IGenericEntry LiveSearch(IEnumerable<IGenericEntry> register)
+        public IGenericContact LiveSearch(IEnumerable<IGenericContact> register)
         {
-            List<IGenericEntry> asList = register as List<IGenericEntry>;
-            List<IGenericEntry> matches = new List<IGenericEntry>();
+            List<IGenericContact> asList = register as List<IGenericContact>;
+            List<IGenericContact> matches = new List<IGenericContact>();
 
             ConsoleKeyInfo key;
             string input = "";
@@ -71,11 +71,11 @@ namespace Console_PhoneBook.App.Functionality
                 _userInterface.SetCursorVisibilityTo(false);
                 _userInterface.PrintLine($"Search: {input}\n");
 
-                if (input.Length == 0) matches = new List<IGenericEntry>();
+                if (input.Length == 0) matches = new List<IGenericContact>();
 
                 if (input.Length != 0) 
                 {
-                    matches = register.Where(entry => entry.ToString().Contains(input, StringComparison.OrdinalIgnoreCase)).ToList();
+                    matches = register.Where(contact => contact.ToString().Contains(input, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
                 foreach (var match in matches)
@@ -105,16 +105,16 @@ namespace Console_PhoneBook.App.Functionality
             return matches.First();
         }
 
-        public void EditEntry(IEnumerable<IGenericEntry> register)
+        public void EditContact(IEnumerable<IGenericContact> register)
         {
             // TODO - Don't hard code list
-            List<string> entryPropertyNames = new List<string>();
+            List<string> contactPropertyNames = new List<string>();
 
             var contactToEdit = LiveSearch(register);
 
             if (contactToEdit is not null)
             {
-                _userInterface.PrintMenu(IGenericEntry.GetAllPropertiesNames());
+                _userInterface.PrintMenu(IGenericContact.GetAllPropertiesNames());
 
                 var userChoice = _userInterface.GetUserInput();
 
@@ -143,10 +143,10 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PrintLine("No entry found with that name...");
         }
 
-        public void DeleteEntry(IEnumerable<IGenericEntry> register)
+        public void DeleteContact(IEnumerable<IGenericContact> register)
         {
             // TODO - Don't hard code list
-            var asList = register as List<IGenericEntry>;
+            var asList = register as List<IGenericContact>;
             var contactToDelete = LiveSearch(register);
 
             if (contactToDelete is not null)

@@ -2,7 +2,7 @@
 
 namespace Console_PhoneBook.Model
 {
-    public interface IGenericEntry
+    public interface IGenericContact
     {
         public abstract string Name { get; set; }
 
@@ -10,7 +10,7 @@ namespace Console_PhoneBook.Model
 
         public static IEnumerable<string> GetAllPropertiesNames()
         {
-            Type type = typeof(Entry);
+            Type type = typeof(Contact);
 
             var properties = Array.ConvertAll(type.GetProperties(), p => p.Name);
 

@@ -13,10 +13,10 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             _fileMetaData = fileMetaData;
         }
 
-        public abstract IEnumerable<IGenericEntry> Parse(string fileData);
-        public abstract string Serialize(IEnumerable<IGenericEntry> register);
+        public abstract IEnumerable<IGenericContact> Parse(string fileData);
+        public abstract string Serialize(IEnumerable<IGenericContact> register);
 
-        public IEnumerable<IGenericEntry> Load()
+        public IEnumerable<IGenericContact> LoadDataFromFile()
         {
             string? fileData = default;
 
@@ -31,13 +31,13 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 throw new IOException($"An error occcured while reading from the file: {_fileMetaData.FilePath}");
             }
 
-            if (fileData.Length == 0) return new List<Entry>();
+            if (fileData.Length == 0) return new List<Contact>();
 
             return Parse(fileData);
 
         }
 
-        public void Save(IEnumerable<IGenericEntry> register)
+        public void SaveDataToFile(IEnumerable<IGenericContact> register)
         {
             
             File.WriteAllText(_fileMetaData.FilePath,Serialize(register));

@@ -12,5 +12,6 @@ namespace Console_PhoneBook.App.UserInterface
         public abstract void PressKeyToContinue();
         public abstract ConsoleKeyInfo ReadKey(bool intercept);
         public abstract void SetCursorVisibilityTo(bool choice);
+        public abstract void PrintWelcomeScreen();
     }
 }
