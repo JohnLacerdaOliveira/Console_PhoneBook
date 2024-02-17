@@ -14,6 +14,7 @@ namespace Console_PhoneBook.App
         "Search Contact",
         "Edit Contact",
         "Delete Contact",
+        "Save Contacts",
         "Exit"};
 
         private readonly IEntriesRegister _entriesRegister;
@@ -62,7 +63,10 @@ namespace Console_PhoneBook.App
                     case "5": // Delete Contact
                         _entriesRegister.DeleteEntry();
                         break;
-                    case "6":  // Exit
+                    case "6": // Delete Contact
+                        SaveContacts();
+                        break;
+                    case "7":  // Exit
                         ExitApplication();
                         return;
                     default:
@@ -80,10 +84,15 @@ namespace Console_PhoneBook.App
             _userInterface.PressKeyToContinue();
         }
 
+        public void SaveContacts() 
+        {
+            _userInterface.PrintLine("All new contacts added will be added to the repository");
+            _dataRepository.Save(_entriesRegister.Entries);
+        }
+
         public void ExitApplication()
         {
-            _userInterface.PrintLine("All new contacts added will be saved to the repository");
-            _dataRepository.Save(_entriesRegister.Entries);
+            SaveContacts();
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
         }
 

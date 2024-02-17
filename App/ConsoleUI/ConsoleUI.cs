@@ -49,5 +49,15 @@ namespace Console_PhoneBook.App.UserInterface
         {
             Console.ReadKey();
         }
+
+        public ConsoleKeyInfo ReadKey(bool intercept)
+        {
+            return Console.ReadKey(intercept);
+        }
+
+        public void SetCursorVisibilityTo(bool choice)
+        {
+           Console.CursorVisible = choice;
+        }
     }
 }

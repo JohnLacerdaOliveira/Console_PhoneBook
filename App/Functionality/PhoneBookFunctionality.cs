@@ -68,10 +68,12 @@ namespace Console_PhoneBook.App.Functionality
             do
             {
                 _userInterface.Clear();
-                _userInterface.PrintLine($"Search: {input}");
+                _userInterface.SetCursorVisibilityTo(false);
+                _userInterface.PrintLine($"Search: {input}\n");
 
+                if (input.Length == 0) matches = new List<IGenericEntry>();
 
-                if (input.Length != 0)
+                if (input.Length != 0) 
                 {
                     matches = register.Where(entry => entry.ToString().Contains(input, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
@@ -81,9 +83,9 @@ namespace Console_PhoneBook.App.Functionality
                     _userInterface.PrintLine(match.ToString());
                 }
 
-                if (matches.Count == 1) _userInterface.PrintLine("Press Enter to Select");
+                if (matches.Count == 1) _userInterface.PrintLine("\nPress Enter to Select");
 
-                key = Console.ReadKey(true);
+                key = _userInterface.ReadKey(true);
 
                 if (key.Key != ConsoleKey.Escape)
                 {
@@ -99,6 +101,7 @@ namespace Console_PhoneBook.App.Functionality
 
             } while (key.Key != ConsoleKey.Enter || matches.Count != 1);
 
+            _userInterface.SetCursorVisibilityTo(true);
             return matches.First();
         }
 

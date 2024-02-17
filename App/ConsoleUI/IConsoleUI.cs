@@ -10,5 +10,7 @@ namespace Console_PhoneBook.App.UserInterface
         public abstract string GetUserInput();
         public abstract void Clear();
         public abstract void PressKeyToContinue();
+        public abstract ConsoleKeyInfo ReadKey(bool intercept);
+        public abstract void SetCursorVisibilityTo(bool choice);
     }
 }
