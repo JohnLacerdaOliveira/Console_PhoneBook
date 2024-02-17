@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jmlo\\Desktop\\Console_PhoneBook\\Console_PhoneBook.csproj": {}
+    "C:\\Users\\JohnL\\OneDrive - Universidade de Coimbra\\Ambiente de Trabalho\\Console_PhoneBook\\Console_PhoneBook.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jmlo\\Desktop\\Console_PhoneBook\\Console_PhoneBook.csproj": {
+    "C:\\Users\\JohnL\\OneDrive - Universidade de Coimbra\\Ambiente de Trabalho\\Console_PhoneBook\\Console_PhoneBook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jmlo\\Desktop\\Console_PhoneBook\\Console_PhoneBook.csproj",
+        "projectUniqueName": "C:\\Users\\JohnL\\OneDrive - Universidade de Coimbra\\Ambiente de Trabalho\\Console_PhoneBook\\Console_PhoneBook.csproj",
         "projectName": "Console_PhoneBook",
-        "projectPath": "C:\\Users\\jmlo\\Desktop\\Console_PhoneBook\\Console_PhoneBook.csproj",
-        "packagesPath": "C:\\Users\\jmlo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jmlo\\Desktop\\Console_PhoneBook\\obj\\",
+        "projectPath": "C:\\Users\\JohnL\\OneDrive - Universidade de Coimbra\\Ambiente de Trabalho\\Console_PhoneBook\\Console_PhoneBook.csproj",
+        "packagesPath": "C:\\Users\\JohnL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\JohnL\\OneDrive - Universidade de Coimbra\\Ambiente de Trabalho\\Console_PhoneBook\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jmlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\JohnL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

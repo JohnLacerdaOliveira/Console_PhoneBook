@@ -12,10 +12,11 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
         public override IEnumerable<IGenericEntry> Parse(string fileData)
         {
+
             throw new NotImplementedException();
         }
 
-        public override void Serialize(string fileData)
+        public override string Serialize(string fileData)
         {
             throw new NotImplementedException();
         }

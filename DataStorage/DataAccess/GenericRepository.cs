@@ -14,14 +14,13 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         }
 
         public abstract IEnumerable<IGenericEntry> Parse(string fileData);
-        public abstract void Serialize(string entriesAsText);
+        public abstract string Serialize(string entriesAsText);
 
         public IEnumerable<IGenericEntry> Load()
         {
             string? fileData = default;
 
             if (!File.Exists(_fileMetaData.FilePath)) File.Create(_fileMetaData.FilePath);
-
 
             try
             {
@@ -32,24 +31,23 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 throw new IOException($"An error occcured while reading from the file: {_fileMetaData.FilePath}");
             }
 
-
             if (fileData.Length == 0) return new List<Entry>();
 
             return Parse(fileData);
 
         }
 
-        public void Save(IEnumerable<IGenericEntry> entriesRegister)
+        public void Save(IEnumerable<IGenericEntry> register)
         {
             var entriesAsText = new StringBuilder();
 
-            foreach (var entry in entriesRegister)
+            foreach (var entry in register)
             {
                 entriesAsText.Append(entry);
                 entriesAsText.Append(Environment.NewLine);
             }
 
-            Serialize(entriesAsText.ToString());
+            File.WriteAllText(_fileMetaData.FilePath,Serialize(entriesAsText.ToString()));
         }
     }
 }

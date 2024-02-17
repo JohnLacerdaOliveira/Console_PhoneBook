@@ -17,43 +17,37 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
             foreach (var entry in entries)
             {
-                if (entry.Length > 0)
-                {
-                    string[] entryData = entry.Split(',');
+                if (entry.Length == 0) continue;
 
-                    var name = entryData[0];
-                    var phoneNumber = int.TryParse(entryData[1], out int number);
+                string[] entryData = entry.Split(',');
 
-                    IGenericEntry genericEntry = new Entry(name, number);
+                var name = entryData[0];
+                int.TryParse(entryData[1], out int number);
 
-                    register.Add(genericEntry);
-                }
-
+                IGenericEntry genericEntry = new Entry(name, number);
+                register.Add(genericEntry);
             }
-
 
             return register;
         }
 
-        public override void Serialize(string entriesAsText)
+        public override string Serialize(string entriesAsText)
         {
             var entriesAsCSV = new StringBuilder();
-
             string[] entryAsText = entriesAsText.Split(Environment.NewLine);
 
             foreach (var entry in entryAsText)
             {
-                if (entry.Length > 0)
-                {
-                    string[] entryData = entry.Split(' ');
+                if (entry.Length == 0) continue;
 
-                    entriesAsCSV.Append(entryData[0] + ",");
-                    entriesAsCSV.Append(entryData[1]);
-                    entriesAsCSV.Append(Environment.NewLine);
-                }
+                string[] entryData = entry.Split(' ');
 
+                entriesAsCSV.Append(entryData[0] + ",");
+                entriesAsCSV.Append(entryData[1]);
+                entriesAsCSV.Append(Environment.NewLine);
             }
-            File.WriteAllText(_fileMetaData.FilePath, entriesAsCSV.ToString());
+
+            return entriesAsCSV.ToString();
         }
     }
 

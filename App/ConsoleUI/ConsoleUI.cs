@@ -1,4 +1,6 @@
-﻿namespace Console_PhoneBook.App.UserInterface
+﻿using Console_PhoneBook.Model;
+
+namespace Console_PhoneBook.App.UserInterface
 {
     public class ConsoleUI : IConsoleUI
     {

@@ -17,10 +17,10 @@ namespace Console_PhoneBook.Model
 
         public override string ToString()
         {
-            var description = new StringBuilder();
             var thisProperties = this.GetType().GetProperties();
+            var description = new StringBuilder();
 
-            foreach (PropertyInfo property in thisProperties)
+            foreach (var property in thisProperties)
             {
                 description.Append($"{property.GetValue(this)} ");
             }

@@ -28,7 +28,7 @@ namespace Console_PhoneBook.Model
 
         public IGenericEntry SearchEntry()
         {
-            return _phoneBookFunctionality.SearchEntry(Entries);
+            return _phoneBookFunctionality.LiveSearch(Entries);
 
         }
 

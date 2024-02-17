@@ -1,4 +1,5 @@
-﻿using Console_PhoneBook.App.UserInterface;
+﻿using Console_PhoneBook.App.Functionality;
+using Console_PhoneBook.App.UserInterface;
 using Console_PhoneBook.DataStorage.DataAccess;
 using Console_PhoneBook.Model;
 
@@ -30,13 +31,10 @@ namespace Console_PhoneBook.App
             _dataRepository = dataRepository;
         }
 
-
-      
-
         public void Run()
         {
             LoadData();
-
+            
             while (true)
             {
                 _userInterface.Clear();
@@ -87,7 +85,6 @@ namespace Console_PhoneBook.App
             _userInterface.PrintLine("All new contacts added will be saved to the repository");
             _dataRepository.Save(_entriesRegister.Entries);
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
-            _userInterface.PressKeyToContinue();
         }
 
     }
