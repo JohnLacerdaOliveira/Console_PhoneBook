@@ -22,10 +22,9 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 string[] entryData = entry.Split(',');
 
                 var name = entryData[0];
-                int.TryParse(entryData[1], out int number);
+                if(!int.TryParse(entryData[1], out int number)) continue;
 
-                IGenericEntry genericEntry = new Entry(name, number);
-                register.Add(genericEntry);
+                register.Add(new Entry(name, number));
             }
 
             return register;
@@ -33,18 +32,23 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
         public override string Serialize(string entriesAsText)
         {
+            var csvHeader = new StringBuilder();
             var entriesAsCSV = new StringBuilder();
             string[] entryAsText = entriesAsText.Split(Environment.NewLine);
+
+            foreach(var propertyName in IGenericEntry.GetAllPropertiesNames())
+            {
+                csvHeader.Append(propertyName + ",");
+            }
+
+            var trimmedCsvHeader = csvHeader.ToString().Substring(0, csvHeader.Length - 1);
+            entriesAsCSV.AppendLine(trimmedCsvHeader);
 
             foreach (var entry in entryAsText)
             {
                 if (entry.Length == 0) continue;
 
-                string[] entryData = entry.Split(' ');
-
-                entriesAsCSV.Append(entryData[0] + ",");
-                entriesAsCSV.Append(entryData[1]);
-                entriesAsCSV.Append(Environment.NewLine);
+                entriesAsCSV.AppendLine(entry);
             }
 
             return entriesAsCSV.ToString();

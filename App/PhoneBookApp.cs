@@ -18,13 +18,13 @@ namespace Console_PhoneBook.App
 
         private readonly IEntriesRegister _entriesRegister;
         private readonly IConsoleUI _userInterface;
-        private readonly IRepository _dataRepository;
+        private readonly IGenericRepository _dataRepository;
 
 
         public PhoneBookApp(
             IEntriesRegister entriesRegister,
             IConsoleUI userInterface,
-            IRepository dataRepository)
+            IGenericRepository dataRepository)
         {
             _entriesRegister = entriesRegister;
             _userInterface = userInterface;

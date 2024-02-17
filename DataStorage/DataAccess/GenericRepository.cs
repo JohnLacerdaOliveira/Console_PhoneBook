@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess
 {
-    public abstract class GenericRepository : IRepository
+    public abstract class GenericRepository : IGenericRepository
     {
         protected readonly FileMetaData _fileMetaData;
 
@@ -43,7 +43,8 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
             foreach (var entry in register)
             {
-                entriesAsText.Append(entry);
+                entriesAsText.Append(entry.Name + ",");
+                entriesAsText.Append(entry.PhoneNumber);
                 entriesAsText.Append(Environment.NewLine);
             }
 

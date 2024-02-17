@@ -14,7 +14,7 @@ namespace Console_PhoneBook.DataStorage.FileAccess
             FileFormat = fileFormat;
         }
 
-        public IRepository GetRepository() 
+        public IGenericRepository GetRepository() 
         {
             if (this.FileFormat == FileFormat.csv) return new CSVRepository(this);
             if (this.FileFormat == FileFormat.vcf) return new VCFRepository(this);

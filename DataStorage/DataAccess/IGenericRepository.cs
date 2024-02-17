@@ -2,7 +2,7 @@
 
 namespace Console_PhoneBook.DataStorage.DataAccess
 {
-    public interface IRepository
+    public interface IGenericRepository
     {
         public abstract IEnumerable<IGenericEntry> Load();
         public abstract void Save(IEnumerable<IGenericEntry> entriesRegister);
