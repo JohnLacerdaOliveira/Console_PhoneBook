@@ -23,7 +23,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 string[] vCardComponents = vCard.Split(Environment.NewLine);
 
                 string name = default;
-                int phoneNumber = 0;
+                string phoneNumber = default;
 
                 //TODO Implement a dictionary of vCard tags and iterate over it
                 foreach (string component in vCardComponents)
@@ -32,12 +32,13 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
                     if (tag == "FN") name = component.Split(":")[1];
 
-                    if (tag == "TEL") int.TryParse(component.Split(":")[1], out phoneNumber);
-
+                    if (tag == "TEL") phoneNumber = component.Split(":")[1];
                 }
 
-                if (phoneNumber == 0) continue;
-                register.Add(new Contact(name, phoneNumber));
+                if(name != default && phoneNumber != default)
+                {
+                    register.Add(new Contact(name, phoneNumber));
+                }
             }
 
             return register;

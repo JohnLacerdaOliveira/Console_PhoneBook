@@ -1,113 +1,50 @@
 ﻿using Console_PhoneBook.App.Functionality;
 using Console_PhoneBook.App.UserInterface;
-using Console_PhoneBook.DataStorage.DataAccess;
-using Console_PhoneBook.DataStorage.FileAccess;
-using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
     {
-        //TODO - Think of a way to store this and make the app dynamic to it
-        private readonly List<string> _appOptions = new List<string>() {
-        "Add Contact",
-        "View All Contacts",
-        "Search Contact",
-        "Edit Contact",
-        "Delete Contact",
-        "Export PhoneBook",
-        "Exit"};
+        //TODO - Still need to understand this
+        public Dictionary<string, Action<IAppFunctionality>> _optionDelegates = new Dictionary<string, Action<IAppFunctionality>>()
+        {
+            ["Add Contact"] = (func) => func.AddContact(),
+            ["View All Contacts"] = (func) => func.PrintAllContacts(),
+            ["Search Contact"] = (func) => func.LiveSearch(),
+            ["Edit Contact"] = (func) => func.EditContact(),
+            ["Delete Contact"] = (func) => func.DeleteContact(),
+            ["Export PhoneBook"] = (func) => func.ExportAllContacts(),
+            ["Exit"] = (func) => func.ExitApplication()
+        };
 
-        private readonly IContactsRegister _contactsRegister;
+        private readonly IAppFunctionality _appFunctionality;
         private readonly IConsoleUI _userInterface;
-        private readonly IGenericRepository _dataRepository;
 
 
         public PhoneBookApp(
-            IContactsRegister contactsRegister,
-            IConsoleUI userInterface,
-            IGenericRepository dataRepository)
+            IAppFunctionality appFunctionality,
+            IConsoleUI userInterface)
         {
-            _contactsRegister = contactsRegister;
+            _appFunctionality = appFunctionality;
             _userInterface = userInterface;
-            _dataRepository = dataRepository;
         }
 
         public void Run()
         {
             _userInterface.PrintWelcomeScreen();
-            
-            LoadData();
-            
+
+            _appFunctionality.LoadData();
+
             while (true)
             {
                 _userInterface.Clear();
                 _userInterface.PrintLine("PhoneBook Menu:");
-                _userInterface.PrintMenu(_appOptions);
+                _userInterface.PrintMenu(_optionDelegates.Keys);
 
+                int choice = _userInterface.ReadMenuCoice(_optionDelegates.Keys);
+                _optionDelegates.ElementAt(choice - 1).Value.Invoke(_appFunctionality);
 
-                string choice = _userInterface.GetUserInput();
-                _userInterface.PrintLine("");
-
-                switch (choice)
-                {
-                    case "1": // Add Contact
-                        _contactsRegister.AddContact();
-                        break;
-                    case "2":  // View All Contacts
-                        _contactsRegister.PrintAllContacts();
-                        break;
-                    case "3": // Search Contact
-                        _contactsRegister.SearchContact();
-                        break;
-                    case "4": // Edit Contact
-                        _contactsRegister.EditContact();
-                        break;
-                    case "5": // Delete Contact
-                        _contactsRegister.DeleteContact();
-                        break;
-                    case "6": // Save Contats
-                        ExportPhoneBook();
-                        break;
-                    case "7":  // Exit
-                        ExitApplication();
-                        return;
-                    default:
-                        _userInterface.PrintLine("Invalid choice. Please try again.");
-                        break;
-                }
-                _userInterface.PressKeyToContinue();
             }
         }
-
-
-        public void LoadData()
-        {
-            _contactsRegister.Contacts = _dataRepository.LoadDataFromFile();
-            _userInterface.PrintLine("The following contacts were load from repository");
-            _contactsRegister.PrintAllContacts();
-            _userInterface.PressKeyToContinue();
-        }
-
-        public void SaveContacts() 
-        {
-            _userInterface.PrintLine("All new contacts added will be added to the repository");
-            _dataRepository.SaveDataToFile(_contactsRegister.Contacts);
-        }
-        private void ExportPhoneBook()
-        {
-            FileMetaData exportFileMetaData = _userInterface.GetFileMetadata();
-            IGenericRepository repository = exportFileMetaData.GetRepository();
-
-            repository.SaveDataToFile(_contactsRegister.Contacts);
-      
-        }
-
-        public void ExitApplication()
-        {
-            SaveContacts();
-            _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
-        }
-
     }
 }

@@ -6,40 +6,11 @@ namespace Console_PhoneBook.Model
 {
     internal class ContactsRegister : IContactsRegister
     {
-        public  IEnumerable<IGenericContact> Contacts { get; set; }
-        private readonly IPhoneBookFunctionality _phoneBookFunctionality;
+        public  IEnumerable<IGenericContact> Register { get; set; }
 
-        public ContactsRegister(IPhoneBookFunctionality phoneBookFunctionality)
+        public ContactsRegister()
         {
-            Contacts = new List<IGenericContact>();
-            _phoneBookFunctionality = phoneBookFunctionality;
-        }
-
-        public void AddContact()
-        {
-            _phoneBookFunctionality.AddContact(Contacts); 
-        }
-
-        public void PrintAllContacts()
-        {
-            _phoneBookFunctionality.PrintAllContacts(Contacts);
-
-        }
-
-        public IGenericContact SearchContact()
-        {
-            return _phoneBookFunctionality.LiveSearch(Contacts);
-
-        }
-
-        public void EditContact()
-        {
-            _phoneBookFunctionality.EditContact(Contacts);
-        }
-
-        public void DeleteContact()
-        {
-            _phoneBookFunctionality.DeleteContact(Contacts);
+            Register = new List<IGenericContact>();
 
         }
     }

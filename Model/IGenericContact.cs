@@ -6,7 +6,7 @@ namespace Console_PhoneBook.Model
     {
         public abstract string Name { get; set; }
 
-        public abstract int PhoneNumber { get; set; }
+        public abstract string PhoneNumber { get; set; }
 
         public static IEnumerable<string> GetAllPropertiesNames()
         {

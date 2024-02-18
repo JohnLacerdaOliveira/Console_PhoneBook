@@ -16,16 +16,16 @@ namespace Console_PhoneBook
         private static FileMetaData _fileMetaData = new FileMetaData(FileFormat.vcf);
         private static IGenericRepository _dataRepository = _fileMetaData.GetRepository();
 
-        //Functionality
-        private static IPhoneBookFunctionality _phoneBookOperations = new PhoneBookFunctionality(_userInterface);
-
         //Model
-        private static IContactsRegister _entriesRegistry = new ContactsRegister(_phoneBookOperations);
+        private static IContactsRegister _contactsRegister = new ContactsRegister();
+
+        //Functionality
+        private static IAppFunctionality _appFunctionality = new AppFunctionality(_userInterface, _contactsRegister, _dataRepository);
+
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
-            _entriesRegistry,
-            _userInterface,
-            _dataRepository);
+            _appFunctionality,
+            _userInterface);
 
         static void Main(string[] args)
         {

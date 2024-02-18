@@ -6,9 +6,9 @@ namespace Console_PhoneBook.Model
     public class Contact : IGenericContact
     {
         public string Name { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public Contact(string name, int phoneNumber)
+        public Contact(string name, string phoneNumber)
         {
             Name = name;
             PhoneNumber = phoneNumber;
@@ -17,12 +17,11 @@ namespace Console_PhoneBook.Model
 
         public override string ToString()
         {
-            var thisProperties = this.GetType().GetProperties();
             var description = new StringBuilder();
 
-            foreach (var property in thisProperties)
+            foreach (var propertyName in IGenericContact.GetAllPropertiesNames())
             {
-                description.Append($"{property.GetValue(this)} ");
+                description.Append($"{this.GetType().GetProperty(propertyName).GetValue(this)} ");
             }
 
             return description.ToString();

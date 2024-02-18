@@ -22,7 +22,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 string[] contactData = contact.Split(',');
 
                 var name = contactData[0];
-                if (!int.TryParse(contactData[1], out int phoneNumber)) continue;
+                var phoneNumber = contactData[1];
 
                 register.Add(new Contact(name, phoneNumber));
             }
