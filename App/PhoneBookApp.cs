@@ -6,7 +6,7 @@ namespace Console_PhoneBook.App
     public class PhoneBookApp
     {
         //TODO - Still need to understand this
-        public Dictionary<string, Action<IAppFunctionality>> _optionDelegates = new Dictionary<string, Action<IAppFunctionality>>()
+        public Dictionary<string, Action<IAppFunctionality>> _menuDelegates = new Dictionary<string, Action<IAppFunctionality>>()
         {
             ["Add Contact"] = (func) => func.AddContact(),
             ["View All Contacts"] = (func) => func.PrintAllContacts(),
@@ -32,17 +32,15 @@ namespace Console_PhoneBook.App
         public void Run()
         {
             _userInterface.PrintWelcomeScreen();
-
             _appFunctionality.LoadData();
 
             while (true)
             {
                 _userInterface.Clear();
                 _userInterface.PrintLine("PhoneBook Menu:");
-                int choice = _userInterface.PromptMenuChoice(_optionDelegates.Keys);
-    
-                _optionDelegates.ElementAt(choice - 1).Value.Invoke(_appFunctionality);
 
+                int choice = _userInterface.PromptMenuChoice(_menuDelegates.Keys);
+                _menuDelegates.ElementAt(choice - 1).Value.Invoke(_appFunctionality);
             }
         }
     }

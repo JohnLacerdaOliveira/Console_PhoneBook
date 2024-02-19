@@ -8,17 +8,18 @@ namespace Console_PhoneBook.App.Functionality
     public class AppFunctionality : IAppFunctionality
     {
         private readonly IConsoleUI _userInterface;
-        private List<IGenericContact> Register { get; set; }
         private readonly IGenericRepository _dataRepository;
+        private List<IGenericContact> Register { get; set; }
 
         public AppFunctionality(
-            IConsoleUI userInterface,
-            IContactsRegister contactsRegister,
-            IGenericRepository genericRepository)
+            IConsoleUI userInterface,   
+            IGenericRepository genericRepository,
+            IContactsRegister contactsRegister)
         {
             _userInterface = userInterface;
-            Register = contactsRegister.Register as List<IGenericContact>;
             _dataRepository = genericRepository;
+            //TODO - There must be a better way to deal with this
+            Register = contactsRegister.Register as List<IGenericContact>;
         }
 
 
@@ -42,15 +43,7 @@ namespace Console_PhoneBook.App.Functionality
 
         }
 
-        public void PrintAllContacts()
-        {
-            foreach (var contact in Register)
-            {
-                _userInterface.PrintLine(contact.ToString());
-            }
-
-            _userInterface.PressKeyToContinue();
-        }
+        public void PrintAllContacts() => _userInterface.PrintAllContacts(Register);
 
         public IGenericContact LiveSearch()
         {
@@ -105,9 +98,7 @@ namespace Console_PhoneBook.App.Functionality
 
             //TODO - See the need for IGenericContact.GetAllPropertiesNames()
             var contactProperties = contactToEdit.GetType().GetFields().Select(field => field.Name).ToArray();
-
-            _userInterface.PromptMenuChoice(contactProperties);
-            var menuChoice = _userInterface.ReadMenuCoice(contactProperties);
+            var menuChoice = _userInterface.PromptMenuChoice(contactProperties);
 
             var counter = 1;
             foreach (var property in contactProperties)
@@ -151,11 +142,6 @@ namespace Console_PhoneBook.App.Functionality
                 _userInterface.PrintLine("");
                 _userInterface.PrintLine($"Success, you'll find the export file in {exportMetaData.FilePath}");
             }
-
-
-
-
-
         }
 
         public void ExitApplication()
@@ -163,15 +149,17 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PrintLine("All new contacts added will be added to the repository");
             _dataRepository.SaveDataToFile(Register);
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
+            _userInterface.PressKeyToContinue();
+           _userInterface.TerminateExecution();
         }
 
         public void LoadData()
         {
-            List<IGenericContact> tryLoad;
+            List<IGenericContact> loadedContacts;
 
             try
             {
-                tryLoad = _dataRepository.LoadDataFromFile() as List<IGenericContact>;
+                loadedContacts = _dataRepository.LoadDataFromFile() as List<IGenericContact>;
 
             }
             catch (Exception ex)
@@ -179,7 +167,7 @@ namespace Console_PhoneBook.App.Functionality
                 throw;
             }
 
-            Register = tryLoad;
+            Register = loadedContacts;
             _userInterface.PrintLine("The following contacts were load from repository");
             PrintAllContacts();
             _userInterface.PressKeyToContinue();

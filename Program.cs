@@ -20,7 +20,10 @@ namespace Console_PhoneBook
         private static IContactsRegister _contactsRegister = new ContactsRegister();
 
         //Functionality
-        private static IAppFunctionality _appFunctionality = new AppFunctionality(_userInterface, _contactsRegister, _dataRepository);
+        private static IAppFunctionality _appFunctionality = new AppFunctionality(
+            _userInterface,
+            _dataRepository,
+            _contactsRegister);
 
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
@@ -32,7 +35,6 @@ namespace Console_PhoneBook
             try
             {
                 _phoneBookApp.Run();
-
             }
             catch (Exception ex)
             {
@@ -40,6 +42,5 @@ namespace Console_PhoneBook
                 Console.WriteLine(ex.ToString());
             }
         }
-
     }
 }

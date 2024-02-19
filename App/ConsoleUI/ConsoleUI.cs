@@ -1,4 +1,6 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
+using Console_PhoneBook.Model;
+using Microsoft.Win32;
 
 namespace Console_PhoneBook.App.UserInterface
 {
@@ -13,9 +15,20 @@ namespace Console_PhoneBook.App.UserInterface
         {
             Console.WriteLine(message);
         }
+
+        public void PrintAllContacts(IEnumerable<IGenericContact> register)
+        {
+            foreach (var contact in register)
+            {
+                PrintLine(contact.ToString());
+            }
+
+            PressKeyToContinue();
+        }
+
         public void PrintEmptyLines(int numberOfEmptyLines)
         {
-            for (int i = 0; i < numberOfEmptyLines; i++)
+            for (int i = 1; i <= numberOfEmptyLines; i++)
             {
                 PrintLine("");
             }
@@ -37,20 +50,19 @@ namespace Console_PhoneBook.App.UserInterface
                 PrintLine(line.PadLeft(padding + line.Length));
             }
         }
+
         public bool PromptYesOrNo(string question)
         {
-            Print($"{question} (Y/N):");
+            PrintLine($"{question} (Y/N):");
 
             while (true)
             {
-                var answer = ReadKey(false).KeyChar.ToString().ToLower();
+                var answer = ReadKey(true).KeyChar.ToString().ToLower();
 
                 if (answer == "y") return true;
                 if (answer == "n") return false;
 
-                PrintLine("");
                 PrintLine("Please enter 'y' for Yes or 'n' for No.");
-
             }
         }
 
@@ -65,7 +77,7 @@ namespace Console_PhoneBook.App.UserInterface
 
             while (true)
             {
-                var key = Console.ReadKey(intercept: true);
+                var key = ReadKey(true);
 
                 if (char.IsDigit(key.KeyChar))
                 {
@@ -96,7 +108,7 @@ namespace Console_PhoneBook.App.UserInterface
 
         public void PressKeyToContinue()
         {
-            Console.ReadKey();
+            ReadKey(true);
         }
         public void Clear()
         {
@@ -144,24 +156,17 @@ namespace Console_PhoneBook.App.UserInterface
                 ["fileFormat"] = null
             };
 
-            string fileDirectory;
-            string fileName;
-            string fileFormat;
-
             //Get fileDirectory
-            if(PromptYesOrNo("Would you like to export to Desktop ?"))
+            if (PromptYesOrNo("Would you like to export to Desktop ?"))
             {
-                fileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
-                fileMetaDataValues["fileDirectory"] = fileDirectory;
+                fileMetaDataValues["fileDirectory"] = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
             }
             else
             {
+                string directory;
                 Print("Enter file directory: ");
 
-                bool isValidDirectory = false;
-                string directory;
-
-                while (!isValidDirectory)
+                while (true)
                 {
                     directory = ReadLine();
 
@@ -173,23 +178,17 @@ namespace Console_PhoneBook.App.UserInterface
                 }
             }
 
-
             //Get fileFormat
-            IEnumerable<string> availableFileFormats = Enum.GetValues(typeof(FileFormat)).Cast<FileFormat>().Select(e => e.ToString());
+            IEnumerable<string> availableFileFormats = Enum.GetNames(typeof(FileFormat));
 
-         
-            int option;
+
             PrintEmptyLines(2);
             PrintLine("Select export file format: ");
-            PromptMenuChoice(availableFileFormats);
-            option = ReadMenuCoice(availableFileFormats);
+            int option = PromptMenuChoice(availableFileFormats);
 
             fileMetaDataValues["fileFormat"] = ((FileFormat)(option - 1)).ToString();
 
-            
-
             return fileMetaDataValues;
-
         }
     }
 }
