@@ -19,7 +19,7 @@ namespace Console_PhoneBook.App.UserInterface
         public abstract void SetCursorVisibilityTo(bool choice);
         public abstract void PrintWelcomeScreen();
         public abstract Dictionary<string, string?> GetFileMetaDataValues();
-
+        public abstract void TerminateExecution();
         
     }
 }

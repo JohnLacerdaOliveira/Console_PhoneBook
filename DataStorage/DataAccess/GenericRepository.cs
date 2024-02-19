@@ -34,12 +34,10 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             if (fileData.Length == 0) return new List<Contact>();
 
             return Parse(fileData);
-
         }
 
         public void SaveDataToFile(IEnumerable<IGenericContact> register)
         {
-            
             File.WriteAllText(_fileMetaData.FilePath,Serialize(register));
         }
     }

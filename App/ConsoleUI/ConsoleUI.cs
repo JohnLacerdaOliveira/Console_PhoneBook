@@ -190,5 +190,10 @@ namespace Console_PhoneBook.App.UserInterface
 
             return fileMetaDataValues;
         }
+
+        public void TerminateExecution()
+        {
+            Environment.Exit(0);
+        }
     }
 }

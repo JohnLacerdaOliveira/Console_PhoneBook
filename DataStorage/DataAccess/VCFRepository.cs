@@ -11,6 +11,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         {
         }
 
+        //TODO - Aplly the same dynamic approach as in the CSV REpository
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             var delimiter = "END:VCARD";
@@ -44,6 +45,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             return register;
         }
 
+        //TODO - Aplly the same dynamic approach as in the CSV REpository
         public override string Serialize(IEnumerable<IGenericContact> register)
         {
 
