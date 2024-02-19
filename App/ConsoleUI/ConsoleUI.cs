@@ -37,8 +37,24 @@ namespace Console_PhoneBook.App.UserInterface
                 PrintLine(line.PadLeft(padding + line.Length));
             }
         }
+        public bool PromptYesOrNo(string question)
+        {
+            Print($"{question} (Y/N):");
 
-        public void PrintMenu(IEnumerable<string> options)
+            while (true)
+            {
+                var answer = ReadKey(false).KeyChar.ToString().ToLower();
+
+                if (answer == "y") return true;
+                if (answer == "n") return false;
+
+                PrintLine("");
+                PrintLine("Please enter 'y' for Yes or 'n' for No.");
+
+            }
+        }
+
+        public int PromptMenuChoice(IEnumerable<string> options)
         {
             var counter = 1;
 
@@ -46,10 +62,7 @@ namespace Console_PhoneBook.App.UserInterface
             {
                 PrintLine($"{counter++}. {option}");
             }
-        }
 
-        public int ReadMenuCoice(IEnumerable<string> options)
-        {
             while (true)
             {
                 var key = Console.ReadKey(intercept: true);
@@ -62,9 +75,7 @@ namespace Console_PhoneBook.App.UserInterface
                 }
 
                 PrintLine("Invalid choice. Please enter a valid option.");
-
-            };
-
+            }
         }
 
         public string ReadLine()
@@ -74,8 +85,7 @@ namespace Console_PhoneBook.App.UserInterface
                 string? userInput = Console.ReadLine();
 
                 if (userInput != null && userInput.Length > 0) return userInput;
-
-            };
+            }
         }
 
         public ConsoleKeyInfo ReadKey(bool intercept)
@@ -171,7 +181,7 @@ namespace Console_PhoneBook.App.UserInterface
             int option;
             PrintEmptyLines(2);
             PrintLine("Select export file format: ");
-            PrintMenu(availableFileFormats);
+            PromptMenuChoice(availableFileFormats);
             option = ReadMenuCoice(availableFileFormats);
 
             fileMetaDataValues["fileFormat"] = ((FileFormat)(option - 1)).ToString();
@@ -180,23 +190,6 @@ namespace Console_PhoneBook.App.UserInterface
 
             return fileMetaDataValues;
 
-        }
-
-        public bool PromptYesOrNo(string question)
-        {
-            Print($"{question} (Y/N):");
-
-            while (true)
-            {
-                var answer = ReadKey(false).KeyChar.ToString().ToLower();
-
-                if (answer == "y") return true;
-                if (answer == "n") return false;
-
-                PrintLine("");
-                PrintLine("Please enter 'y' for Yes or 'n' for No.");
-
-            }
         }
     }
 }

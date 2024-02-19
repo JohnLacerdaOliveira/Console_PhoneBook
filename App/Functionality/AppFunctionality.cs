@@ -106,7 +106,7 @@ namespace Console_PhoneBook.App.Functionality
             //TODO - See the need for IGenericContact.GetAllPropertiesNames()
             var contactProperties = contactToEdit.GetType().GetFields().Select(field => field.Name).ToArray();
 
-            _userInterface.PrintMenu(contactProperties);
+            _userInterface.PromptMenuChoice(contactProperties);
             var menuChoice = _userInterface.ReadMenuCoice(contactProperties);
 
             var counter = 1;

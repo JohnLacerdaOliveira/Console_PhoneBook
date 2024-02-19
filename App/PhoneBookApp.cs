@@ -39,9 +39,8 @@ namespace Console_PhoneBook.App
             {
                 _userInterface.Clear();
                 _userInterface.PrintLine("PhoneBook Menu:");
-                _userInterface.PrintMenu(_optionDelegates.Keys);
-
-                int choice = _userInterface.ReadMenuCoice(_optionDelegates.Keys);
+                int choice = _userInterface.PromptMenuChoice(_optionDelegates.Keys);
+    
                 _optionDelegates.ElementAt(choice - 1).Value.Invoke(_appFunctionality);
 
             }
