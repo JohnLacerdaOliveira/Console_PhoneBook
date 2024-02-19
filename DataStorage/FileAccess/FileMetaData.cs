@@ -5,14 +5,14 @@ namespace Console_PhoneBook.DataStorage.FileAccess
     public class FileMetaData
     {
         private readonly FileFormat _fileFormat;
-        private readonly string _fileLocation;
+        private readonly string _fileDirectory;
         private const string _fileName = "PhoneBookRepository";
-        public string FilePath => $"{_fileLocation}{_fileName}.{_fileFormat}";
+        public string FilePath => $"{_fileDirectory}{_fileName}.{_fileFormat}";
 
-        public FileMetaData(FileFormat fileFormat, string fileLocation = "")
+        public FileMetaData(FileFormat fileFormat, string fileDirectory = "")
         {
             _fileFormat = fileFormat;
-            _fileLocation = fileLocation;
+            _fileDirectory = fileDirectory;
         }
 
         public IGenericRepository GetRepository() 

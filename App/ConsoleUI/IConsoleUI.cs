@@ -17,6 +17,7 @@ namespace Console_PhoneBook.App.UserInterface
         public abstract void Clear();
         public abstract void SetCursorVisibilityTo(bool choice);
         public abstract void PrintWelcomeScreen();
-        public abstract FileMetaData CreateNewFileMetadata();
+        public abstract Dictionary<string, string?> GetFileMetaDataValues();
+        public abstract bool PromptYesOrNo(string question);
     }
 }

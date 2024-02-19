@@ -50,7 +50,7 @@ namespace Console_PhoneBook.App.UserInterface
 
         public int ReadMenuCoice(IEnumerable<string> options)
         {
-            do
+            while (true)
             {
                 var key = Console.ReadKey(intercept: true);
 
@@ -63,19 +63,19 @@ namespace Console_PhoneBook.App.UserInterface
 
                 PrintLine("Invalid choice. Please enter a valid option.");
 
-            } while (true);
+            };
 
         }
 
         public string ReadLine()
         {
-            do
+            while (true)
             {
                 string? userInput = Console.ReadLine();
 
                 if (userInput != null && userInput.Length > 0) return userInput;
 
-            } while (true);
+            };
         }
 
         public ConsoleKeyInfo ReadKey(bool intercept)
@@ -126,32 +126,77 @@ namespace Console_PhoneBook.App.UserInterface
             SetCursorVisibilityTo(true);
         }
 
-        public FileMetaData CreateNewFileMetadata()
+        public Dictionary<string, string?> GetFileMetaDataValues()
         {
+            var fileMetaDataValues = new Dictionary<string, string?>()
+            {
+                ["fileDirectory"] = null,
+                ["fileFormat"] = null
+            };
 
-            //TODO - All this logic doesn't belong to the UI class, UI only gets the input, all the rest should be moved to AppFunctionality Class
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
+            string fileDirectory;
+            string fileName;
+            string fileFormat;
+
+            //Get fileDirectory
+            if(PromptYesOrNo("Would you like to export to Desktop ?"))
+            {
+                fileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
+                fileMetaDataValues["fileDirectory"] = fileDirectory;
+            }
+            else
+            {
+                Print("Enter file directory: ");
+
+                bool isValidDirectory = false;
+                string directory;
+
+                while (!isValidDirectory)
+                {
+                    directory = ReadLine();
+
+                    if (Directory.Exists(directory))
+                    {
+                        fileMetaDataValues["fileDirectory"] = directory;
+                        break;
+                    }
+                }
+            }
 
 
-            // Get all enum values as strings
+            //Get fileFormat
             IEnumerable<string> availableFileFormats = Enum.GetValues(typeof(FileFormat)).Cast<FileFormat>().Select(e => e.ToString());
 
-            int selectedOption = default;
-            bool IsValidOption = false;
+         
             int option;
-
-            Clear();
-            PrintLine("Select export file type");
+            PrintEmptyLines(2);
+            PrintLine("Select export file format: ");
             PrintMenu(availableFileFormats);
-
             option = ReadMenuCoice(availableFileFormats);
 
-            FileFormat enumValue = (FileFormat)(option - 1);
+            fileMetaDataValues["fileFormat"] = ((FileFormat)(option - 1)).ToString();
 
-            PrintLine($"You'll find the .{enumValue} file on your desktop");
+            
 
-            return new FileMetaData(enumValue, desktopPath);
+            return fileMetaDataValues;
 
+        }
+
+        public bool PromptYesOrNo(string question)
+        {
+            Print($"{question} (Y/N):");
+
+            while (true)
+            {
+                var answer = ReadKey(false).KeyChar.ToString().ToLower();
+
+                if (answer == "y") return true;
+                if (answer == "n") return false;
+
+                PrintLine("");
+                PrintLine("Please enter 'y' for Yes or 'n' for No.");
+
+            }
         }
     }
 }

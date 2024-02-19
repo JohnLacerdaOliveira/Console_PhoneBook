@@ -136,8 +136,26 @@ namespace Console_PhoneBook.App.Functionality
 
         public void ExportAllContacts()
         {
-            FileMetaData exportFileMetaData = _userInterface.CreateNewFileMetadata();
-            exportFileMetaData.GetRepository().SaveDataToFile(Register);
+            var fileMetaDataValues = _userInterface.GetFileMetaDataValues();
+
+
+            bool isValidFileFormat = Enum.TryParse<FileFormat>(fileMetaDataValues["fileFormat"], out FileFormat fileFormat);
+            bool isValidFileDirectory = fileMetaDataValues["fileDirectory"] is not null;
+
+            if (isValidFileFormat && isValidFileDirectory)
+            {
+                var exportMetaData = new FileMetaData(fileFormat, fileMetaDataValues["fileDirectory"]);
+                var exportRepository = exportMetaData.GetRepository();
+                exportRepository.SaveDataToFile(Register);
+
+                _userInterface.PrintLine("");
+                _userInterface.PrintLine($"Success, you'll find the export file in {exportMetaData.FilePath}");
+            }
+
+
+
+
+
         }
 
         public void ExitApplication()
