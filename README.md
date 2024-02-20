@@ -1,7 +1,8 @@
 # Console_PhoneBook
 Console contacts management application developed in C#
 
-Features:
+FEATURES:
+
 1.Add Contact: Allow users to add new contacts to the phonebook. They should be able to input the contact's name, phone number, email address, and any other relevant information.
 
 2.View All Contacts: Provide an option to display a list of all contacts stored in the phonebook. This list should show basic information such as names and phone numbers.
