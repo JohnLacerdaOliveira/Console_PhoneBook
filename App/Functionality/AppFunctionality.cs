@@ -12,7 +12,7 @@ namespace Console_PhoneBook.App.Functionality
         private List<IGenericContact> Register { get; set; }
 
         public AppFunctionality(
-            IConsoleUI userInterface,   
+            IConsoleUI userInterface,
             IGenericRepository genericRepository,
             IContactsRegister contactsRegister)
         {
@@ -150,7 +150,7 @@ namespace Console_PhoneBook.App.Functionality
             _dataRepository.SaveDataToFile(Register);
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
             _userInterface.PressKeyToContinue();
-           _userInterface.TerminateExecution();
+            _userInterface.TerminateExecution();
         }
 
         public void LoadData()
@@ -162,7 +162,7 @@ namespace Console_PhoneBook.App.Functionality
                 loadedContacts = _dataRepository.LoadDataFromFile() as List<IGenericContact>;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

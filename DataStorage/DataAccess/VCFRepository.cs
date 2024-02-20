@@ -1,5 +1,6 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
+using System.Reflection;
 using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess
@@ -11,35 +12,40 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         {
         }
 
-        //TODO - Aplly the same dynamic approach as in the CSV REpository
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
-            var delimiter = "END:VCARD";
-            string[] vCards = fileData.Split(delimiter);
+            var register = new List<IGenericContact>();
+            if (fileData.Length == 0) return register;
 
-            List<IGenericContact> register = new List<IGenericContact>();
+            var delimiter = "END:VCARD";
+            string[] vCards = fileData.Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+
+            //TODO - not needed but it more correct, I guess...
+            //vCards = vCards.Select(vCard => vCard + delimiter).ToArray();
 
             foreach (string vCard in vCards)
             {
-                string[] vCardComponents = vCard.Split(Environment.NewLine);
+                if (vCard.Length <= 3) continue;
 
-                string name = default;
-                string phoneNumber = default;
-
+                string[] vCardComponents = vCard.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+                var contactProperties = new Dictionary<string, string>();
                 //TODO Implement a dictionary of vCard tags and iterate over it
                 foreach (string component in vCardComponents)
                 {
+
+                    //TODO - filter for uppercase letters to indicate a tag
                     var tag = component.Split(":")[0];
 
-                    if (tag == "FN") name = component.Split(":")[1];
-
-                    if (tag == "TEL") phoneNumber = component.Split(":")[1];
+                    foreach (var key in VCardProperties.Map.Keys)
+                    {
+                        if (tag.Equals(key))
+                        {
+                            contactProperties.Add(VCardProperties.Map[key], component.Split(":")[1]);
+                            break;
+                        }
+                    }
                 }
-
-                if(name != default && phoneNumber != default)
-                {
-                    register.Add(new Contact(name, phoneNumber));
-                }
+                register.Add(new Contact(contactProperties));
             }
 
             return register;
@@ -48,25 +54,30 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         //TODO - Aplly the same dynamic approach as in the CSV REpository
         public override string Serialize(IEnumerable<IGenericContact> register)
         {
-
             StringBuilder vCards = new StringBuilder();
 
-            //TODO Implement a dictionary of vCard tags and iterate over it
-            //Serialize Body
             foreach (var contact in register)
             {
                 if (contact is null) continue;
 
                 vCards.AppendLine("BEGIN:VCARD");
                 vCards.AppendLine("VERSION:3.0");
-                vCards.AppendLine($"FN:{contact.Name}");
-                vCards.AppendLine($"TEL:{contact.PhoneNumber}");
-                vCards.AppendLine("END:VCARD");
 
+                foreach (var value in VCardProperties.Map.Values)
+                {
+                    PropertyInfo? property = contact.GetType().GetProperty(value, BindingFlags.IgnoreCase);
+
+                    if (property != null)
+                    {
+                        string key = VCardProperties.Map.FirstOrDefault(x => x.Value == value).Key;
+                        vCards.AppendLine($"{key}:{property.GetValue(contact)}");
+                    }
+                }
+
+                vCards.AppendLine("END:VCARD");
             }
 
             return vCards.ToString();
-
         }
     }
 

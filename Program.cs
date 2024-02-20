@@ -13,7 +13,7 @@ namespace Console_PhoneBook
         private static IConsoleUI _userInterface = new ConsoleUI();
 
         //Data Access
-        private static FileMetaData _fileMetaData = new FileMetaData(FileFormat.csv);
+        private static FileMetaData _fileMetaData = new FileMetaData(FileFormat.vcf);
         private static IGenericRepository _dataRepository = _fileMetaData.GetRepository();
 
         //Model

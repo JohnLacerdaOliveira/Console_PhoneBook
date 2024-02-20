@@ -142,7 +142,7 @@ namespace Console_PhoneBook.App.UserInterface
             PrintEmptyLines(2);
             PrintCentered(hyperlink.PadLeft(155));
             PrintEmptyLines(6);
-            PrintCentered("Press any key to continue...".PadRight(40));
+            PrintCentered("Press any key to continue...");
             PressKeyToContinue();
             Clear();
             SetCursorVisibilityTo(true);
