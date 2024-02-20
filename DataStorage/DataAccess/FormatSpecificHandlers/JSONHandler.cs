@@ -13,26 +13,18 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
+            var register = new List<IGenericContact>();
 
-            if (string.IsNullOrEmpty(fileData))
+            if (string.IsNullOrEmpty(fileData)) return register;
+
+            var contacts = JsonSerializer.Deserialize<List<Contact>>(fileData);
+
+            foreach (var contact in contacts)
             {
-                Console.WriteLine("File data is null or empty.");
-                return Enumerable.Empty<IGenericContact>();
+                register.Add(contact);
             }
 
-            try
-            {
-                // Deserialize JSON data to a list of Contact objects
-                var contacts = JsonSerializer.Deserialize<List<Contact>>(fileData);
-
-                // Convert each Contact object to IGenericContact and return as IEnumerable
-                return contacts.Cast<IGenericContact>();
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine($"Error deserializing JSON: {ex.Message}");
-                return Enumerable.Empty<IGenericContact>();
-            }
+            return register;
         }
 
         public override string Serialize(IEnumerable<IGenericContact> register)

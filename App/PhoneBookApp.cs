@@ -6,25 +6,17 @@ namespace Console_PhoneBook.App
     public class PhoneBookApp
     {
         //TODO - Still need to understand this
-        public Dictionary<string, Action<IAppFunctionality>> _menuDelegates = new Dictionary<string, Action<IAppFunctionality>>()
-        {
-            ["Add Contact"] = (func) => func.AddContact(),
-            ["View All Contacts"] = (func) => func.PrintAllContacts(),
-            ["Search Contact"] = (func) => func.LiveSearch(),
-            ["Edit Contact"] = (func) => func.EditContact(),
-            ["Delete Contact"] = (func) => func.DeleteContact(),
-            ["Export PhoneBook"] = (func) => func.ExportAllContacts(),
-            ["Exit"] = (func) => func.ExitApplication()
-        };
-
+        private MenuDelegates _menuDelegates;
         private readonly IAppFunctionality _appFunctionality;
         private readonly IConsoleUI _userInterface;
 
 
         public PhoneBookApp(
+            MenuDelegates menuDelegates,
             IAppFunctionality appFunctionality,
             IConsoleUI userInterface)
         {
+            _menuDelegates = menuDelegates;
             _appFunctionality = appFunctionality;
             _userInterface = userInterface;
         }
@@ -32,7 +24,7 @@ namespace Console_PhoneBook.App
         public void Run()
         {
             _userInterface.PrintWelcomeScreen();
-            _appFunctionality.LoadData();
+            _appFunctionality.ImportPhoneBook();
 
             while (true)
             {

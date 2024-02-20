@@ -22,25 +22,26 @@ namespace Console_PhoneBook.App.Functionality
             Register = contactsRegister.Register as List<IGenericContact>;
         }
 
-
-        public void AddContact()
+        public void ImportPhoneBook()
         {
-            var contact = new Dictionary<string, string>();
 
-            foreach (var property in IGenericContact.GetAllPropertiesNames())
+            //TODO - menu option so import behaves acording to user preferences
+            List<IGenericContact> loadedContacts;
+
+            try
             {
-                _userInterface.Print($"Insert {property}: ");
-                string value = _userInterface.ReadLine();
+                loadedContacts = _dataRepository.LoadDataFromFile() as List<IGenericContact>;
 
-                //TODO - Validate input new Contact input
-                if (value is not null && value.Length > 0)
-                {
-                    contact[property] = value;
-                }
             }
-            //TODO - inplement a Contact contructor that takes a dictionary as input
-            Register.Add(new Contact(contact["Name"], contact["PhoneNumber"]));
+            catch (Exception)
+            {
+                throw;
+            }
 
+            Register = loadedContacts;
+            _userInterface.PrintLine("The following contacts were load from repository");
+            PrintAllContacts();
+            return;
         }
 
         public void PrintAllContacts() => _userInterface.PrintAllContacts(Register);
@@ -92,6 +93,22 @@ namespace Console_PhoneBook.App.Functionality
             return matches.First();
         }
 
+        public void AddContact()
+        {
+            var contact = new Dictionary<string, string>();
+
+            foreach (var property in IGenericContact.GetAllPropertiesNames())
+            {
+                _userInterface.Print($"Insert {property}: ");
+
+                contact[property] = _userInterface.ReadLine(); //ReadLine already implements some basic verification
+
+            }
+            //TODO - inplement a Contact contructor that takes a dictionary as input
+            Register.Add(new Contact(contact));
+
+        }
+
         public void EditContact()
         {
             var contactToEdit = LiveSearch();
@@ -125,7 +142,7 @@ namespace Console_PhoneBook.App.Functionality
 
         }
 
-        public void ExportAllContacts()
+        public void ExportPhoneBook()
         {
             var fileMetaDataValues = _userInterface.GetFileMetaDataValues();
 
@@ -151,27 +168,6 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
             _userInterface.PressKeyToContinue();
             _userInterface.TerminateExecution();
-        }
-
-        public void LoadData()
-        {
-            List<IGenericContact> loadedContacts;
-
-            try
-            {
-                loadedContacts = _dataRepository.LoadDataFromFile() as List<IGenericContact>;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            Register = loadedContacts;
-            _userInterface.PrintLine("The following contacts were load from repository");
-            PrintAllContacts();
-            _userInterface.PressKeyToContinue();
-            return;
         }
     }
 }

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FeaturesToImplement.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="App\ConsoleUI\" />
   </ItemGroup>
 

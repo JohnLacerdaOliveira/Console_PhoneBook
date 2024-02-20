@@ -20,6 +20,7 @@ namespace Console_PhoneBook
         private static IContactsRegister _contactsRegister = new ContactsRegister();
 
         //Functionality
+        private static MenuDelegates _menuDelegates = new MenuDelegates();
         private static IAppFunctionality _appFunctionality = new AppFunctionality(
             _userInterface,
             _dataRepository,
@@ -27,6 +28,7 @@ namespace Console_PhoneBook
 
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
+            _menuDelegates,
             _appFunctionality,
             _userInterface);
 
