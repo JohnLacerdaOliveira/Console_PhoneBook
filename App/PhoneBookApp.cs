@@ -6,17 +6,16 @@ namespace Console_PhoneBook.App
     public class PhoneBookApp
     {
         //TODO - Still need to understand this
-        private MenuDelegates _menuDelegates;
+        private IMenuDelegates _menu;
         private readonly IAppFunctionality _appFunctionality;
         private readonly IConsoleUI _userInterface;
 
-
         public PhoneBookApp(
-            MenuDelegates menuDelegates,
+            IMenuDelegates menuDelegates,
             IAppFunctionality appFunctionality,
             IConsoleUI userInterface)
         {
-            _menuDelegates = menuDelegates;
+            _menu = menuDelegates;
             _appFunctionality = appFunctionality;
             _userInterface = userInterface;
         }
@@ -31,8 +30,8 @@ namespace Console_PhoneBook.App
                 _userInterface.Clear();
                 _userInterface.PrintLine("PhoneBook Menu:");
 
-                int choice = _userInterface.PromptMenuChoice(_menuDelegates.Keys);
-                _menuDelegates.ElementAt(choice - 1).Value.Invoke(_appFunctionality);
+                int choice = _userInterface.PromptMenuChoice(_menu.Options);
+                _menu.InvokeCorrespondingMethod(choice);
             }
         }
     }
