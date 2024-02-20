@@ -25,7 +25,7 @@ namespace Console_PhoneBook.App.Functionality
 
         public void AddContact()
         {
-            var input = new Dictionary<string, string>();
+            var contact = new Dictionary<string, string>();
 
             foreach (var property in IGenericContact.GetAllPropertiesNames())
             {
@@ -35,11 +35,11 @@ namespace Console_PhoneBook.App.Functionality
                 //TODO - Validate input new Contact input
                 if (value is not null && value.Length > 0)
                 {
-                    input[property] = value;
+                    contact[property] = value;
                 }
             }
             //TODO - inplement a Contact contructor that takes a dictionary as input
-            Register.Add(new Contact(input["Name"], input["PhoneNumber"]));
+            Register.Add(new Contact(contact["Name"], contact["PhoneNumber"]));
 
         }
 
