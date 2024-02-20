@@ -25,6 +25,5 @@ namespace Console_PhoneBook.DataStorage.FileAccess
 
             throw new ArgumentException("Apropriate repository for given File Format could not be found");
         }
-
     }
 }

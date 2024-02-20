@@ -10,23 +10,38 @@ namespace Console_PhoneBook.App.Functionality
         private readonly IConsoleUI _userInterface;
         private readonly IGenericRepository _dataRepository;
         private List<IGenericContact> Register { get; set; }
+        private FileMetaData _fileMetaData;
 
         public AppFunctionality(
             IConsoleUI userInterface,
             IGenericRepository genericRepository,
-            IContactsRegister contactsRegister)
+            IContactsRegister contactsRegister,
+            FileMetaData fileMetaData)
         {
             _userInterface = userInterface;
             _dataRepository = genericRepository;
             //TODO - There must be a better way to deal with this
             Register = contactsRegister.Register as List<IGenericContact>;
+            _fileMetaData = fileMetaData;
         }
 
         public void ImportPhoneBook()
         {
-
             //TODO - menu option so import behaves acording to user preferences
             List<IGenericContact> loadedContacts;
+
+            var possibleImports = LookUpValidFilesToImport();
+            var shortnedPossibleImports = new List<string>();
+
+            foreach(var filePath in possibleImports)
+            {
+                shortnedPossibleImports.Add(filePath.Split("\\").Last());
+            }
+
+            int choice = _userInterface.PromptMenuChoice(possibleImports);
+
+
+           
 
             try
             {
@@ -42,6 +57,27 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PrintLine("The following contacts were load from repository");
             PrintAllContacts();
             return;
+        }
+
+        private IEnumerable<string> LookUpValidFilesToImport()
+        {
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string[] files = Directory.GetFiles(currentDirectory, "*", SearchOption.AllDirectories);
+
+            var supportedFileTypes = FileFormat.json.GetAllSupportedFileFormats();
+            List<string> validFilesToImport = new List<string>();
+
+            foreach (var file in files)
+            {
+                foreach (var filetype in supportedFileTypes)
+                {
+                    if (file.EndsWith(filetype))
+                    {
+                        validFilesToImport.Add(file);
+                    }
+                }
+            }
+            return validFilesToImport;
         }
 
         public void PrintAllContacts() => _userInterface.PrintAllContacts(Register);

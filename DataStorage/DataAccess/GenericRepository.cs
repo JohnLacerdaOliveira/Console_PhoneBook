@@ -6,7 +6,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 {
     public abstract class GenericRepository : IGenericRepository
     {
-        protected readonly FileMetaData _fileMetaData;
+        private readonly FileMetaData _fileMetaData;
 
         public GenericRepository(FileMetaData fileMetaData)
         {
@@ -30,9 +30,12 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             {
                 throw new IOException($"An error occcured while reading from the file: {_fileMetaData.FilePath}");
             }
+            finally
+            {
+
+            }
 
             if (fileData.Length == 0) return new List<Contact>();
-
             return Parse(fileData);
         }
 

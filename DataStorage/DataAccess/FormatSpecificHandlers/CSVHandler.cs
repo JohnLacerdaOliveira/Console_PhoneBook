@@ -6,8 +6,8 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
     public class CSVHandler : GenericRepository
     {
-        public CSVHandler(FileMetaData fileMetaData) : base(fileMetaData)
-        {
+        public CSVHandler(FileMetaData fileMetaData) : base(fileMetaData) 
+        { 
         }
 
         //TODO - Log rejected entries and properties

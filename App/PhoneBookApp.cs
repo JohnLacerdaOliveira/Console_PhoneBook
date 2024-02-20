@@ -6,7 +6,7 @@ namespace Console_PhoneBook.App
     public class PhoneBookApp
     {
         //TODO - Still need to understand this
-        private IMenuDelegates _menu;
+        private readonly IMenuDelegates _menu;
         private readonly IAppFunctionality _appFunctionality;
         private readonly IConsoleUI _userInterface;
 

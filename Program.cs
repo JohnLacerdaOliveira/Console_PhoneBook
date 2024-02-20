@@ -7,7 +7,7 @@ using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook
 {
-    internal class Program
+    internal sealed class Program
     {
         //User Interface
         private static IConsoleUI _userInterface = new ConsoleUI();
@@ -23,8 +23,10 @@ namespace Console_PhoneBook
         private static IAppFunctionality _appFunctionality = new AppFunctionality(
             _userInterface,
             _dataRepository,
-            _contactsRegister);
-        private static IMenuDelegates _menuDelegates = new MenuDelegates(_appFunctionality);
+            _contactsRegister,
+            _fileMetaData);
+        private static IMenuDelegates _menuDelegates = new MenuDelegates(
+            _appFunctionality);
 
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
