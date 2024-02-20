@@ -1,4 +1,5 @@
 ﻿using Console_PhoneBook.DataStorage.DataAccess;
+using Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers;
 
 namespace Console_PhoneBook.DataStorage.FileAccess
 {
@@ -15,10 +16,12 @@ namespace Console_PhoneBook.DataStorage.FileAccess
             _fileDirectory = fileDirectory;
         }
 
-        public IGenericRepository GetRepository() 
+        public IGenericRepository GetRepository()
         {
-            if (this._fileFormat == FileFormat.csv) return new CSVRepository(this);
-            if (this._fileFormat == FileFormat.vcf) return new VCFRepository(this);
+            if (this._fileFormat == FileFormat.csv) return new CSVHandler(this);
+            if (this._fileFormat == FileFormat.vcf) return new VCFHandler(this);
+            if (this._fileFormat == FileFormat.json) return new JSONHandler(this);
+
 
             throw new ArgumentException("Apropriate repository for given File Format could not be found");
         }

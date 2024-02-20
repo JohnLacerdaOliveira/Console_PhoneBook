@@ -2,11 +2,11 @@
 using Console_PhoneBook.Model;
 using System.Text;
 
-namespace Console_PhoneBook.DataStorage.DataAccess
+namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
-    public class CSVRepository : GenericRepository
+    public class CSVHandler : GenericRepository
     {
-        public CSVRepository(FileMetaData fileMetaData) : base(fileMetaData)
+        public CSVHandler(FileMetaData fileMetaData) : base(fileMetaData)
         {
         }
 
@@ -16,10 +16,10 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         {
             //TODO - Implement Generic type on the collection type
             var register = new List<IGenericContact>();
-            if(fileData.Length == 0) return register;
+            if (fileData.Length == 0) return register;
 
             bool hasHeader = false;
-            var headerValues = new Dictionary<string,string?>();
+            var headerValues = new Dictionary<string, string?>();
 
             string[] contacts = fileData.Split(Environment.NewLine);
             string[] header = contacts[0].Split(",");
@@ -27,7 +27,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             //Parse header
             foreach (var headerValue in header)
             {
-                foreach (var propertyName in IGenericContact.GetAllPropertiesNames()) 
+                foreach (var propertyName in IGenericContact.GetAllPropertiesNames())
                 {
                     if (headerValue.ToLower() == propertyName.ToLower())
                     {
@@ -35,19 +35,19 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                         hasHeader = true;
                         break;
                     }
-                } 
+                }
             }
 
             if (hasHeader)
-            { 
-                contacts[0] = ""; 
+            {
+                contacts[0] = "";
             }
             else
             {
                 //TODO - Log the errors
                 return register;
             }
-            
+
             //Parse Contact
             foreach (var contact in contacts)
             {
@@ -58,11 +58,11 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 if (contactData.Length != header.Length) continue;
 
                 var contactProperties = new Dictionary<string, string>();
-                foreach(var property in headerValues.Keys)
+                foreach (var property in headerValues.Keys)
                 {
                     contactProperties.Add(property, contactData[contactDataIndex++]);
                 }
-                
+
                 //TODO - Contact must have a name
                 register.Add(new Contact(contactProperties));
             }

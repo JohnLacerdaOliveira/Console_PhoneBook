@@ -3,12 +3,12 @@ using Console_PhoneBook.Model;
 using System.Reflection;
 using System.Text;
 
-namespace Console_PhoneBook.DataStorage.DataAccess
+namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
     //TODO - implement VCF Parsing functionality
-    public class VCFRepository : GenericRepository
+    public class VCFHandler : GenericRepository
     {
-        public VCFRepository(FileMetaData fileMetaData) : base(fileMetaData)
+        public VCFHandler(FileMetaData fileMetaData) : base(fileMetaData)
         {
         }
 

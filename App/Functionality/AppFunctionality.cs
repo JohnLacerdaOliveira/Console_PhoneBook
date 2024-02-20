@@ -130,7 +130,7 @@ namespace Console_PhoneBook.App.Functionality
             var fileMetaDataValues = _userInterface.GetFileMetaDataValues();
 
 
-            bool isValidFileFormat = Enum.TryParse<FileFormat>(fileMetaDataValues["fileFormat"], out FileFormat fileFormat);
+            bool isValidFileFormat = Enum.TryParse(fileMetaDataValues["fileFormat"], out FileFormat fileFormat);
             bool isValidFileDirectory = fileMetaDataValues["fileDirectory"] is not null;
 
             if (isValidFileFormat && isValidFileDirectory)

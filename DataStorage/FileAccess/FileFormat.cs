@@ -3,6 +3,7 @@
     public enum FileFormat
     {
         csv,
-        vcf
+        vcf,
+        json
     }
 }
