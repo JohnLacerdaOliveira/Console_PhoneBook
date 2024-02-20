@@ -182,7 +182,7 @@ namespace Console_PhoneBook.App.UserInterface
             IEnumerable<string> availableFileFormats = Enum.GetNames(typeof(FileFormat));
 
 
-            PrintEmptyLines(2);
+            PrintLine("");
             PrintLine("Select export file format: ");
             int option = PromptMenuChoice(availableFileFormats);
 
