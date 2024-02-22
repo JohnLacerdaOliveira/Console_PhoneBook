@@ -6,17 +6,12 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
     public class CSVHandler : GenericRepository
     {
-        public CSVHandler(FileMetaData fileMetaData) : base(fileMetaData) 
-        { 
-        }
-
         //TODO - Log rejected entries and properties
         //TODO - Log results
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             //TODO - Implement Generic type on the collection type
             var register = new List<IGenericContact>();
-            if (fileData.Length == 0) return register;
 
             bool hasHeader = false;
             var headerValues = new Dictionary<string, string?>();
@@ -24,6 +19,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             string[] contacts = fileData.Split(Environment.NewLine);
             string[] header = contacts[0].Split(",");
 
+            if (contacts is null || contacts.Length == 0) return register;
             //Parse header
             foreach (var headerValue in header)
             {

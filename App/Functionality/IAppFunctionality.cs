@@ -4,6 +4,7 @@ namespace Console_PhoneBook.App.Functionality
 {
     public interface IAppFunctionality
     {
+        public abstract void CreateNewPhoneBook();
         public abstract void ImportPhoneBook();
         public abstract void PrintAllContacts();
         public abstract IGenericContact LiveSearch();

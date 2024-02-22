@@ -13,25 +13,18 @@ namespace Console_PhoneBook
         private static IConsoleUI _userInterface = new ConsoleUI();
 
         //Data Access
-        private static FileMetaData _fileMetaData = new FileMetaData(FileFormat.json);
-        private static IGenericRepository _dataRepository = _fileMetaData.GetRepository();
 
         //Model
         private static IContactsRegister _contactsRegister = new ContactsRegister();
 
         //Functionality
-        private static IAppFunctionality _appFunctionality = new AppFunctionality(
-            _userInterface,
-            _dataRepository,
-            _contactsRegister,
-            _fileMetaData);
-        private static IMenuDelegates _mainMenuDelegates = new MenuDelegates(
+        private static IAppFunctionality _appFunctionality = new AppFunctionality(_userInterface);
+        private static IMenu _mainMenuDelegates = new Menus(
             _appFunctionality);
 
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
             _mainMenuDelegates,
-            _appFunctionality,
             _userInterface);
 
         static void Main(string[] args)

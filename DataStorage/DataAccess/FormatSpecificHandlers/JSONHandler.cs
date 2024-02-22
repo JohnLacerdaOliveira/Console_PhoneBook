@@ -7,10 +7,6 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
     internal class JSONHandler : GenericRepository
     {
-        public JSONHandler(FileMetaData fileMetaData) : base(fileMetaData)
-        {
-        }
-
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             var register = new List<IGenericContact>();
@@ -18,6 +14,8 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             if (string.IsNullOrEmpty(fileData)) return register;
 
             var contacts = JsonSerializer.Deserialize<List<Contact>>(fileData);
+
+            if(contacts is null || contacts.Count == 0) return register;
 
             foreach (var contact in contacts)
             {

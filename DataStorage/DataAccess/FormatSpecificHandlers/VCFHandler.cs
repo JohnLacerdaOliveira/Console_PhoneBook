@@ -8,20 +8,16 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
     //TODO - implement VCF Parsing functionality
     public class VCFHandler : GenericRepository
     {
-        public VCFHandler(FileMetaData fileMetaData) : base(fileMetaData)
-        {
-        }
 
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             var register = new List<IGenericContact>();
-            if (fileData.Length == 0) return register;
+            
 
             var delimiter = "END:VCARD";
             string[] vCards = fileData.Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
 
-            //TODO - not needed but it more correct, I guess...
-            //vCards = vCards.Select(vCard => vCard + delimiter).ToArray();
+            if (vCards is null || vCards.Length == 0) return register;
 
             foreach (string vCard in vCards)
             {

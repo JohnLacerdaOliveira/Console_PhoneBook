@@ -1,5 +1,6 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
+using System.Runtime.CompilerServices;
 
 namespace Console_PhoneBook.App.UserInterface
 {
@@ -8,16 +9,14 @@ namespace Console_PhoneBook.App.UserInterface
 
         public string? PromptImport(IEnumerable<string> candidates)
         {
-            string[] names = { "Alice", "Bob", "Charlie", "David" };
 
             if (candidates.Count() == 0)
             {
                 if (PromptYesOrNo("There appear to be no valid PhoneBooks, skip import")) return null;
 
-
-                PrintLine("TODO : enter custom filepath with valid Phonebook");
-
-
+                //TODO
+                PrintLine("TODO : enter custom filepath with valid Phonebook...");
+                return null;
             }
 
             if (candidates.Count() > 0)
@@ -33,7 +32,14 @@ namespace Console_PhoneBook.App.UserInterface
                     }
 
                     int choice = PromptMenuChoice(shortenedCandidates);
-                    return choice.ToString();
+
+                    var index = 0;
+                    foreach (var candidate in candidates)
+                    {
+                        if (index == choice) return candidate;
+                        index++;
+                    }
+                   
                 }
 
                 return null;
