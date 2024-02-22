@@ -30,17 +30,11 @@ namespace Console_PhoneBook.App.Functionality
             //TODO - menu option so import behaves acording to user preferences
             List<IGenericContact> loadedContacts;
 
-            var possibleImports = LookUpValidFilesToImport();
-            var shortnedPossibleImports = new List<string>();
-
-            foreach(var filePath in possibleImports)
-            {
-                shortnedPossibleImports.Add(filePath.Split("\\").Last());
-            }
-
-            int choice = _userInterface.PromptMenuChoice(possibleImports);
+            var candidates = LookUpValidFilesToImport();
+            _userInterface.PromptImport(candidates);
 
 
+            
            
 
             try
@@ -71,7 +65,9 @@ namespace Console_PhoneBook.App.Functionality
             {
                 foreach (var filetype in supportedFileTypes)
                 {
-                    if (file.EndsWith(filetype))
+                    if (file.EndsWith(filetype) && 
+                        !file.Contains("runtime") && 
+                        !file.Contains("dep"))
                     {
                         validFilesToImport.Add(file);
                     }

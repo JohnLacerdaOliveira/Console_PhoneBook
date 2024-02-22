@@ -5,17 +5,26 @@ namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
     {
+        public Dictionary<string, Action<IAppFunctionality>> StartMenu { get; init; } = new Dictionary<string, Action<IAppFunctionality>>
+        {
+            { "Import Phonebook", (func) => func.ImportPhoneBook() },
+            { "Create new PhoneBook", null},
+            { "Settings", (func) => func.DeleteContact() },
+            { "Exit", (func) => func.ExitApplication() }
+        };
+
         //TODO - Still need to understand this
-        private readonly IMenuDelegates _menu;
+        private readonly IMenuDelegates _mainMenu;
         private readonly IAppFunctionality _appFunctionality;
         private readonly IConsoleUI _userInterface;
 
+
         public PhoneBookApp(
-            IMenuDelegates menuDelegates,
+            IMenuDelegates MenuDelegates,
             IAppFunctionality appFunctionality,
             IConsoleUI userInterface)
         {
-            _menu = menuDelegates;
+            _mainMenu = MenuDelegates;
             _appFunctionality = appFunctionality;
             _userInterface = userInterface;
         }
@@ -23,15 +32,17 @@ namespace Console_PhoneBook.App
         public void Run()
         {
             _userInterface.PrintWelcomeScreen();
-            _appFunctionality.ImportPhoneBook();
+
+            int startchoice = _userInterface.PromptMenuChoice(StartMenu.Keys);
+            _mainMenu.InvokeCorrespondingMethod(startchoice);
 
             while (true)
             {
                 _userInterface.Clear();
                 _userInterface.PrintLine("PhoneBook Menu:");
 
-                int choice = _userInterface.PromptMenuChoice(_menu.Options);
-                _menu.InvokeCorrespondingMethod(choice);
+                int choice = _userInterface.PromptMenuChoice(_mainMenu.Options);
+                _mainMenu.InvokeCorrespondingMethod(choice);
             }
         }
     }

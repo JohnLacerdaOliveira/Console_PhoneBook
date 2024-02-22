@@ -4,6 +4,7 @@ namespace Console_PhoneBook.App.UserInterface
 {
     public interface IConsoleUI
     {
+        public abstract string? PromptImport(IEnumerable<string> candidates);
         public abstract void Print(string message);
         public abstract void PrintLine(string message);
         public abstract void PrintAllContacts(IEnumerable<IGenericContact> register);

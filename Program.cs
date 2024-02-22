@@ -25,12 +25,12 @@ namespace Console_PhoneBook
             _dataRepository,
             _contactsRegister,
             _fileMetaData);
-        private static IMenuDelegates _menuDelegates = new MenuDelegates(
+        private static IMenuDelegates _mainMenuDelegates = new MenuDelegates(
             _appFunctionality);
 
 
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
-            _menuDelegates,
+            _mainMenuDelegates,
             _appFunctionality,
             _userInterface);
 

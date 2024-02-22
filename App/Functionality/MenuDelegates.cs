@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Console_PhoneBook.App.Functionality
+﻿namespace Console_PhoneBook.App.Functionality
 {
     public class MenuDelegates : IMenuDelegates
     {
         private readonly IAppFunctionality _appFunctionality;
-        public IEnumerable<string> Options => Delegates.Keys;
+        public IEnumerable<string> Options => MainMenu.Keys;
 
-        public Dictionary<string, Action<IAppFunctionality>> Delegates { get; init; } = new Dictionary<string, Action<IAppFunctionality>>
+        public Dictionary<string, Action<IAppFunctionality>> MainMenu { get; init; } = new Dictionary<string, Action<IAppFunctionality>>
         {
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
             { "View All Contacts", (func) => func.PrintAllContacts() },
@@ -21,6 +17,7 @@ namespace Console_PhoneBook.App.Functionality
             { "Exit", (func) => func.ExitApplication() }
         };
 
+ 
         public MenuDelegates(IAppFunctionality appFunctionality)
         {
             _appFunctionality = appFunctionality;
@@ -28,7 +25,7 @@ namespace Console_PhoneBook.App.Functionality
 
         public void InvokeCorrespondingMethod(int selectedOption)
         {
-            var option = Delegates.ElementAt(selectedOption - 1);
+            var option = MainMenu.ElementAt(selectedOption - 1);
             option.Value.Invoke(_appFunctionality);
         }
     }
