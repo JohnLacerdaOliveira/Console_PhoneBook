@@ -12,11 +12,6 @@ namespace Console_PhoneBook
         //User Interface
         private static IConsoleUI _userInterface = new ConsoleUI();
 
-        //Data Access
-
-        //Model
-        private static IContactsRegister _contactsRegister = new ContactsRegister();
-
         //Functionality
         private static IAppFunctionality _appFunctionality = new AppFunctionality(_userInterface);
         private static IMenu _mainMenuDelegates = new Menus(

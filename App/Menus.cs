@@ -1,6 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using Console_PhoneBook.App.Functionality;
 
-namespace Console_PhoneBook.App.Functionality
+namespace Console_PhoneBook.App
 {
     public class Menus : IMenu
     {

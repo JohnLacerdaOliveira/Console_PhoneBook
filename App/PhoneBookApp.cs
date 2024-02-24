@@ -1,14 +1,11 @@
-﻿using Console_PhoneBook.App.Functionality;
-using Console_PhoneBook.App.UserInterface;
+﻿using Console_PhoneBook.App.UserInterface;
 
 namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
     {  
-        //TODO - Still need to understand this
         private readonly IMenu _menus;
         private readonly IConsoleUI _userInterface;
-
 
         public PhoneBookApp(
             IMenu Menus,
@@ -22,7 +19,7 @@ namespace Console_PhoneBook.App
         {
             _userInterface.PrintWelcomeScreen();
 
-            int startchoice = _userInterface.PromptMenuChoice(_menus.Start.Keys);
+            int startchoice = _userInterface.PromptMenuChoice(_menus.GetStartOptions);
             _menus.InvokeStartMethod(startchoice);
 
             while (true)
@@ -30,7 +27,7 @@ namespace Console_PhoneBook.App
                 _userInterface.Clear();
                 _userInterface.PrintLine("PhoneBook Menu:");
 
-                int choice = _userInterface.PromptMenuChoice(_menus.Main.Keys);
+                int choice = _userInterface.PromptMenuChoice(_menus.GetMainOptions);
                 _menus.InvokeMainMethod(choice);
             }
         }

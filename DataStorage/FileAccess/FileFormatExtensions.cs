@@ -2,9 +2,9 @@
 {
     public static class FileFormatExtensions
     {
-        public static IEnumerable<string> GetAllSupportedFileFormats(this FileFormat fileFormat) 
+        public static IEnumerable<string> GetAllSupportedFileFormats(this FileExtension fileFormat) 
         {
-            return Enum.GetValues(typeof(FileFormat)).Cast<FileFormat>().Select(e => e.ToString());
+            return Enum.GetValues(typeof(FileExtension)).Cast<FileExtension>().Select(e => e.ToString());
         }
 
     }

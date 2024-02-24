@@ -220,14 +220,14 @@ namespace Console_PhoneBook.App.UserInterface
             }
 
             //Get fileFormat
-            IEnumerable<string> availableFileFormats = Enum.GetNames(typeof(FileFormat));
+            IEnumerable<string> availableFileFormats = Enum.GetNames(typeof(FileExtension));
 
 
             PrintLine("");
             PrintLine("Select export file format: ");
             int option = PromptMenuChoice(availableFileFormats);
 
-            fileMetaDataValues["fileFormat"] = ((FileFormat)(option - 1)).ToString();
+            fileMetaDataValues["fileFormat"] = ((FileExtension)(option - 1)).ToString();
 
             return fileMetaDataValues;
         }

@@ -1,6 +1,6 @@
 ﻿namespace Console_PhoneBook.DataStorage.FileAccess
 {
-    public enum FileFormat
+    public enum FileExtension
     {
         csv,
         vcf,

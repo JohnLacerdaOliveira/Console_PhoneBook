@@ -6,11 +6,18 @@ namespace Console_PhoneBook.DataStorage.FileAccess
     //TODO - review implementation
     public class FileMetaData 
     {
-        public FileFormat FileFormat { get; init; }
+        public FileExtension FileExtension { get; init; }
         public string FileDirectory { get; init; }
         public string FileName { get; init; }  = "PhoneBookRepository";
 
-        public string FilePath => $"{FileDirectory}{FileName}.{FileFormat}";
+        public string FilePath => $"{FileDirectory}{FileName}.{FileExtension}";
+
+        public FileMetaData(FileExtension fileFormat, string fileDirectory, string fileName = "PhoneBookRepository")
+        {
+            FileExtension = fileFormat;
+            FileDirectory = fileDirectory;
+            FileName = fileName;
+        }
 
         public FileMetaData(Dictionary<string, string> fileMetaDataProperties)
         {
