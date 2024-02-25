@@ -1,5 +1,0 @@
-﻿1. Ability to, at Startup, and based on what file types are on the bin folder to ask which one to import
-2. implement somer file type handlers, con only think of psv and xml for now
-3. order by functionality on search
-4. global navigaton keys mainly esc. to go back in menu
-5. import functionality with prompt to save the current register
