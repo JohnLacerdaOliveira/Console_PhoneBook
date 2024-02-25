@@ -28,16 +28,18 @@ FEATURES:
 12.Data Validation: Validate user input to ensure that contact information is entered correctly and consistently. Provide feedback to users if any errors are detected.
 
 
-# <Your-Project-Title>
+# <Console PhoneBook>
 
 ## Description
+Console PhoneBook is a personal learning project aimed at simplifying tasks of contact management and format conversion. The goal was to create a tool that would streamline contact managment processes without unnecessary complexity.
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+The idea was simple: provide a user-friendly console application capable of performing all the essential CRUD operations on contacts—adding, viewing, updating, and deleting—while also offering the convenience of format conversion between popular formats like CSV, VCF, JSON, and XML.
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+Through this project, I gained valuable insights into software development, including coding practices, design considerations, and the importance of user experience. But perhaps most importantly, I discovered that even modest projects like this one have the potential to teach us a great deal when approached with curiosity and dedication.
+
+Console PhoneBook isn't meant to be the flashiest tool out there, but it's my hope that it can actully be a usefull tool for others facing similar challenges in managing their contacts and data formats.
+
+Give it a try, share your feedback
 
 ## Table of Contents (Optional)
 
@@ -50,7 +52,17 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Console PhoneBook is a terminal application designed to be simple and straightforward to use. To get started, follow these steps:
+
+**Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download the executable file (ConsolePhoneBook.exe).
+
+**Run the Application:** Once you've downloaded the executable, open your terminal and navigate to the directory where you saved the file. Then, simply run the executable using the appropriate command for your operating system (./ConsolePhoneBook.exe on Unix-based systems or ConsolePhoneBook.exe on Windows). A simple double click on the .exe file will work fine aswell.
+
+**Testing:** Within the bin/Debug/net6.0 directory, you'll find test files for all supported formats. These files can be used to conveniently test the application's functionality with various data formats.
+
+Console PhoneBook is cross-platform and can be run on Windows, macOS, and Linux systems without the need for installation. There are no additional dependencies or requirements—simply download the executable and start managing your contacts effortlessly.
+
+
 
 ## Usage
 
@@ -72,7 +84,11 @@ If you followed tutorials, include links to those here as well.
 
 ## License
 
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
+This project is licensed under the [MIT License](LICENSE).
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+The MIT License is a permissive open-source license that allows users to do whatever they want with the project, as long as they include the original copyright notice and disclaimer of warranty.
 
 ---
 
@@ -86,11 +102,43 @@ Badges aren't necessary, per se, but they demonstrate street cred. Badges let ot
 
 ## Features
 
-If your project has a lot of features, list them here.
+1. Add Contact
+2. View All Contacts
+3. Search Contacts
+4. Edit Contact
+5. Delete Contact
+6. Save/Load Contacts
+7. Import/Export Contacts
+8. Error Handling
+
 
 ## How to Contribute
 
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
+While I'm currently the sole developer working on this project, I welcome contributions / suggestions.
+
+### Getting Started
+
+1. Fork the repository by clicking the "Fork" button on GitHub.
+2. Clone your forked repository to your local machine:
+3. git clone https://github.com/your-username/your-repository.git
+4. Open the project in your preferred IDE or text editor (e.g., Visual Studio, Visual Studio Code).
+
+###Contributing Ideas and Feedback
+If you have ideas for new features, improvements, or feedback on the existing functionality, please feel free to share them by opening an issue in the issue tracker. I value your input and will do my best to consider and incorporate your suggestions into the project.
+
+###Code Contributions
+While I'm primarily responsible for writing and maintaining the codebase, I'm open to accepting code contributions from other learners who are interested in practicing their coding skills. If you'd like to contribute code changes, please follow these steps:
+
+1.Create a new branch for your changes:
+    `git checkout -b feature/my-feature`
+2.Make your changes to the codebase. Feel free to experiment and learn as you go.
+3.Test your changes locally to ensure they work as expected.
+4.Commit your changes with clear and descriptive commit messages:
+    `git commit -m "Add feature X"`
+5.Push your changes to your forked repository:
+    `git push origin feature/my-feature`
+6.Submit a pull request from your branch to the main repository's master branch on GitHub. Be sure to provide a detailed description of your changes and any relevant context.
+
 
 ## Tests
 
