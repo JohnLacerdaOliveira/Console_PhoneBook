@@ -2,14 +2,15 @@
 using Console_PhoneBook.DataStorage.DataAccess;
 using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
+using System.Xml.Linq;
 
 namespace Console_PhoneBook.App.Functionality
 {
     public class AppFunctionality : IAppFunctionality
     {
         private readonly IConsoleUI _userInterface;
-        private readonly IGenericRepository _dataRepository;
-        private List<IGenericContact> Register { get; set; }
+
+        private List<IGenericContact> Register { get; set; } = new List<IGenericContact>();
 
         public AppFunctionality(
             IConsoleUI userInterface)
@@ -25,7 +26,6 @@ namespace Console_PhoneBook.App.Functionality
 
         public void ImportPhoneBook()
         {
-          
             List<IGenericContact> loadedContacts;
 
             var candidates = LookUpValidFilesToImport();
@@ -33,20 +33,21 @@ namespace Console_PhoneBook.App.Functionality
 
             if (filePath is null)
             {
-                _userInterface.PrintLine("");
+                _userInterface.ClearAll();
                 _userInterface.PrintLine("Application will start will blank PhoneBook");
+                _userInterface.PrintLine("");
+                _userInterface.PrintLine("Press any key to continue...");
                 _userInterface.ReadKey(true);
                 CreateNewPhoneBook();
                 return;
             }
-
-            //TODO - create new file metadata intance to pass the correct handler to the Load Data
-            var fileMetaData = GetImportFileMetaData(filePath);
-
+     
+            var fileMetaData = GetImportFileMetadata(filePath);
+            var repository = RepositoryFactory.GetRepository(fileMetaData.FileExtension);
 
             try
             {
-                loadedContacts = _dataRepository.LoadDataFromFile(fileMetaData) as List<IGenericContact>;
+                loadedContacts = repository.LoadFromFile(fileMetaData) as List<IGenericContact>;
 
             }
             catch (Exception)
@@ -55,28 +56,33 @@ namespace Console_PhoneBook.App.Functionality
             }
 
             Register = loadedContacts;
+            _userInterface.ClearAll();
+            _userInterface.PrintLine("");
             _userInterface.PrintLine("The following contacts were load from repository");
+            _userInterface.PrintLine("");
             PrintAllContacts();
             return;
         }
 
         private IEnumerable<string> LookUpValidFilesToImport()
         {
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string[] files = Directory.GetFiles(currentDirectory, "*", SearchOption.AllDirectories);
-
-            var supportedFileTypes = FileExtension.json.GetAllSupportedFileFormats();
             List<string> validFilesToImport = new List<string>();
 
-            foreach (var file in files)
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string[] candidateFiles = Directory.GetFiles(currentDirectory, "*", SearchOption.AllDirectories);
+
+            var supportedFileTypes = Enum.GetValues(typeof(FileExtensions));
+
+            foreach (var file in candidateFiles)
             {
                 foreach (var filetype in supportedFileTypes)
                 {
-                    if (file.EndsWith(filetype) &&
+                    if (file.EndsWith(filetype.ToString()) &&
                         !file.Contains("runtime") &&
                         !file.Contains("dep"))
                     {
                         validFilesToImport.Add(file);
+                        break;
                     }
                 }
             }
@@ -94,7 +100,7 @@ namespace Console_PhoneBook.App.Functionality
 
             do
             {
-                _userInterface.Clear();
+                _userInterface.ClearAll();
                 _userInterface.SetCursorVisibilityTo(false);
                 _userInterface.PrintLine($"Search: {input}\n");
 
@@ -134,26 +140,24 @@ namespace Console_PhoneBook.App.Functionality
 
         public void AddContact()
         {
-            var contact = new Dictionary<string, string>();
+            var contactProperties = new Dictionary<string, string>();
 
             foreach (var property in IGenericContact.GetAllPropertiesNames())
             {
                 _userInterface.Print($"Insert {property}: ");
 
-                contact[property] = _userInterface.ReadLine(); //ReadLine already implements some basic verification
+                contactProperties[property] = _userInterface.ReadLine(); //ReadLine already implements some basic verification
 
             }
-           
-            Register.Add(new Contact(contact));
 
+            Register.Add(new Contact(contactProperties));
         }
 
         public void EditContact()
         {
             var contactToEdit = LiveSearch();
+            var contactProperties = IGenericContact.GetAllPropertiesNames();
 
-            //TODO - See the need for IGenericContact.GetAllPropertiesNames()
-            var contactProperties = contactToEdit.GetType().GetFields().Select(field => field.Name).ToArray();
             var menuChoice = _userInterface.PromptMenuChoice(contactProperties);
 
             var counter = 1;
@@ -174,22 +178,24 @@ namespace Console_PhoneBook.App.Functionality
         public void DeleteContact()
         {
             var contactToDelete = LiveSearch();
-
             Register.Remove(contactToDelete);
-            _userInterface.PrintLine($"{contactToDelete.Name} was removed");
-            return;
-
+            _userInterface.PrintLine($"{contactToDelete.Name} was removed");      
         }
 
         public void ExportPhoneBook()
         {
+            if (Register.Count() == 0)
+            {
+                _userInterface.PrintLine("");
+                _userInterface.PrintLine("There are no contacts to export...");
+                _userInterface.ReadKey(true);
+                return;
+            }
 
-            var fileMetaData = GetExportFileMetaData();
-
-
+            var fileMetaData = GetExportFileMetadata();
 
             var exportRepository = RepositoryFactory.GetRepository(fileMetaData.FileExtension);
-            exportRepository.SaveDataToFile(Register, fileMetaData);
+            exportRepository.SaveToFile(Register, fileMetaData);
 
             _userInterface.PrintLine("");
             _userInterface.PrintLine($"Success, you'll find the export file in {fileMetaData.FilePath}");
@@ -197,39 +203,50 @@ namespace Console_PhoneBook.App.Functionality
         }
 
         //TODO - review implementation
-        public FileMetaData GetExportFileMetaData()
+        public FileMetadata GetExportFileMetadata()
         {
             var fileMetaDataValues = _userInterface.GetFileMetaDataValues();
+            bool isValidFileFormat = Enum.TryParse(fileMetaDataValues["FileExtension"], out FileExtensions fileFormat);
 
-            bool isValidFileFormat = Enum.TryParse(fileMetaDataValues["fileFormat"], out FileExtension fileFormat);
-            bool isValidFileDirectory = fileMetaDataValues["fileDirectory"] is not null;
+            // TODO - fails to export to a file that doesn't already exists
 
-            if (isValidFileFormat && isValidFileDirectory)
+
+            if (isValidFileFormat)
             {
-                return new FileMetaData(fileMetaDataValues);
+                return new FileMetadata(fileFormat, fileMetaDataValues["FileDirectory"]);
             }
 
             throw new NotImplementedException();
         }
 
         //TODO - review implementation
-        public FileMetaData GetImportFileMetaData(string filePath)
+        public FileMetadata GetImportFileMetadata(string filePath)
         {
-            var fileExtension = Path.GetExtension(filePath);
-            var fileName = Path.GetFileName(filePath);
+            var fileName = Path.GetFileName(filePath).Split(".")[0];
+            var fileExtension = Path.GetFileName(filePath).Split(".")[1];
             var fileDirectory = Path.GetDirectoryName(filePath);
 
-            Enum.TryParse(fileExtension, out FileExtension extension);
+            Enum.TryParse(fileExtension, out FileExtensions extension);
 
-            return new FileMetaData(extension, fileDirectory);
+            return new FileMetadata(extension, fileDirectory, fileName);
         }
 
         public void ExitApplication()
         {
-            //TODO - rethink auto save 
+            if (Register is not null)
+            {
+                if (Register.Count() != 0)
+                {
+                    var shouldSave = _userInterface.PromptYesOrNo("Save contacts before exiting?");
 
-            //_userInterface.PrintLine("All new contacts added will be added to the repository");
-            // _dataRepository.SaveDataToFile(Register);
+                    if (shouldSave)
+                    {
+                        ExportPhoneBook();
+                    }
+                }
+            }
+
+            _userInterface.ClearAll();
             _userInterface.PrintLine("Exiting Phonebook. Goodbye!");
             _userInterface.PressKeyToContinue();
             _userInterface.TerminateExecution();

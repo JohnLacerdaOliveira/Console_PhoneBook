@@ -1,6 +1,5 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
-using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess
 {
@@ -9,7 +8,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         public abstract IEnumerable<IGenericContact> Parse(string fileData);
         public abstract string Serialize(IEnumerable<IGenericContact> register);
 
-        public IEnumerable<IGenericContact> LoadDataFromFile(FileMetaData fileMetaData)
+        public IEnumerable<IGenericContact> LoadFromFile(FileMetadata fileMetaData)
         {
             string? fileData = default;
 
@@ -24,13 +23,13 @@ namespace Console_PhoneBook.DataStorage.DataAccess
             {
                 throw new IOException($"An error occcured while reading from the file: {fileMetaData.FilePath}");
             }
- 
+
             return Parse(fileData);
         }
 
-        public void SaveDataToFile(IEnumerable<IGenericContact> register, FileMetaData fileMetaData)
+        public void SaveToFile(IEnumerable<IGenericContact> register, FileMetadata fileMetaData)
         {
-            File.WriteAllText(fileMetaData.FilePath,Serialize(register));
+            File.WriteAllText(fileMetaData.FilePath, Serialize(register));
         }
     }
 }

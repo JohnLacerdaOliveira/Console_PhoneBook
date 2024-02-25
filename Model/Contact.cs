@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Console_PhoneBook.Model
 {
@@ -9,16 +10,16 @@ namespace Console_PhoneBook.Model
         public string Name { get; set; }
         public string? PhoneNumber { get; set; }
 
-        public Contact(string name, string phoneNumber)
+        [JsonConstructor]
+        public Contact()
         {
-            Name = name;
-            PhoneNumber = phoneNumber;
+    
         }
 
         public Contact(Dictionary<string, string> contactValues) 
         {
-            //TODO - Validate if Name has value?
-            foreach(var propertyInfo in this.GetType().GetProperties())
+            
+            foreach(var propertyInfo in GetType().GetProperties())
             {
                 propertyInfo.SetValue(this, contactValues[propertyInfo.Name]);
             }
@@ -31,7 +32,7 @@ namespace Console_PhoneBook.Model
 
             foreach (var propertyName in IGenericContact.GetAllPropertiesNames())
             {
-                description.Append($"{this.GetType().GetProperty(propertyName).GetValue(this)} ");
+                description.Append($"{GetType().GetProperty(propertyName).GetValue(this)} ");
             }
 
             return description.ToString();

@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
-    //TODO - implement VCF Parsing functionality
-    public class VCFHandler : GenericRepository
+    public class VCFHandler : GenericRepository 
     {
 
         public override IEnumerable<IGenericContact> Parse(string fileData)
@@ -41,6 +40,8 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
                         }
                     }
                 }
+
+               
                 register.Add(new Contact(contactProperties));
             }
 
@@ -61,7 +62,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 
                 foreach (var value in VCardProperties.Map.Values)
                 {
-                    PropertyInfo? property = contact.GetType().GetProperty(value, BindingFlags.IgnoreCase);
+                    PropertyInfo? property = typeof(IGenericContact).GetProperty(value, BindingFlags.IgnoreCase);
 
                     if (property != null)
                     {

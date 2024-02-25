@@ -1,5 +1,4 @@
-﻿using Console_PhoneBook.DataStorage.FileAccess;
-using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.Model;
 using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
@@ -23,11 +22,11 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             //Parse header
             foreach (var headerValue in header)
             {
-                foreach (var propertyName in IGenericContact.GetAllPropertiesNames())
+                foreach (var propertyName in typeof(IGenericContact).GetProperties())
                 {
-                    if (headerValue.ToLower() == propertyName.ToLower())
+                    if (headerValue.ToLower() == propertyName.ToString().ToLower())
                     {
-                        headerValues.Add(propertyName, null);
+                        headerValues.Add(propertyName.ToString(), null);
                         hasHeader = true;
                         break;
                     }
@@ -70,7 +69,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
         {
             var csvBuilder = new StringBuilder();
 
-            var propertyNames = IGenericContact.GetAllPropertiesNames();
+            var propertyNames = typeof(IGenericContact).GetProperties().Select(n => n.ToString()).ToArray();
 
             if (propertyNames == null) return string.Empty; // No data to serialize
 
@@ -86,11 +85,11 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
                     {
                         var propertyValue = propertyInfo.GetValue(contact);
                         contactValues.Add(propertyValue != null ? propertyValue.ToString() : "");
+                        break;
                     }
-                    else
-                    {
-                        contactValues.Add(""); // Property not found, add empty value
-                    }
+
+                    contactValues.Add(""); // Property not found, add empty value
+
                 }
                 csvBuilder.AppendLine(string.Join(",", contactValues));
             }

@@ -1,9 +1,6 @@
 ﻿using Console_PhoneBook.App;
 using Console_PhoneBook.App.Functionality;
 using Console_PhoneBook.App.UserInterface;
-using Console_PhoneBook.DataStorage.DataAccess;
-using Console_PhoneBook.DataStorage.FileAccess;
-using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook
 {
@@ -17,7 +14,7 @@ namespace Console_PhoneBook
         private static IMenu _mainMenuDelegates = new Menus(
             _appFunctionality);
 
-
+        //Application Workflow
         private static PhoneBookApp _phoneBookApp = new PhoneBookApp(
             _mainMenuDelegates,
             _userInterface);

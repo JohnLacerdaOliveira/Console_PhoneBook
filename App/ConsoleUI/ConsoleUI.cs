@@ -1,17 +1,16 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
-using System.Runtime.CompilerServices;
 
 namespace Console_PhoneBook.App.UserInterface
 {
     public class ConsoleUI : IConsoleUI
     {
-
         public string? PromptImport(IEnumerable<string> candidates)
         {
 
             if (candidates.Count() == 0)
             {
+                ClearAll();
                 if (PromptYesOrNo("There appear to be no valid PhoneBooks, skip import")) return null;
 
                 //TODO
@@ -21,8 +20,11 @@ namespace Console_PhoneBook.App.UserInterface
 
             if (candidates.Count() > 0)
             {
+                ClearAll();
                 if (PromptYesOrNo($"{candidates.Count()} PhoneBooks were found would, select one to import?"))
                 {
+
+                    ClearAll();
                     PrintLine("Select a PhoneBook:");
 
                     var shortenedCandidates = new List<string>();
@@ -31,15 +33,15 @@ namespace Console_PhoneBook.App.UserInterface
                         shortenedCandidates.Add(filePath.Split("\\").Last());
                     }
 
+                    Print("");
                     int choice = PromptMenuChoice(shortenedCandidates);
 
-                    var index = 0;
+                    var index = 1;
                     foreach (var candidate in candidates)
                     {
-                        if (index == choice) return candidate;
-                        index++;
+                        if (index++ == choice) return candidate;
                     }
-                   
+
                 }
 
                 return null;
@@ -55,6 +57,12 @@ namespace Console_PhoneBook.App.UserInterface
         public void PrintLine(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void PrintOnce(string message)
+        {
+            Print("\r" + new string(' ', Console.WindowWidth - 1) + "\r");
+            Print(message);
         }
 
         public void PrintAllContacts(IEnumerable<IGenericContact> register)
@@ -95,6 +103,7 @@ namespace Console_PhoneBook.App.UserInterface
         public bool PromptYesOrNo(string question)
         {
             PrintLine($"{question} (Y/N):");
+            PrintLine("");
 
             while (true)
             {
@@ -103,7 +112,7 @@ namespace Console_PhoneBook.App.UserInterface
                 if (answer == "y") return true;
                 if (answer == "n") return false;
 
-                PrintLine("Please enter 'y' for Yes or 'n' for No.");
+                PrintOnce("Please enter 'y' for Yes or 'n' for No.");
             }
         }
 
@@ -116,6 +125,7 @@ namespace Console_PhoneBook.App.UserInterface
                 PrintLine($"{counter++}. {option}");
             }
 
+            PrintLine("");
             while (true)
             {
                 var key = ReadKey(true);
@@ -126,8 +136,8 @@ namespace Console_PhoneBook.App.UserInterface
 
                     if (option > 0 && option <= options.Count()) return option;
                 }
-
-                PrintLine("Invalid choice. Please enter a valid option.");
+ 
+                PrintOnce("Invalid choice. Please enter a valid option.");
             }
         }
 
@@ -151,7 +161,8 @@ namespace Console_PhoneBook.App.UserInterface
         {
             ReadKey(true);
         }
-        public void Clear()
+
+        public void ClearAll()
         {
             Console.Clear();
         }
@@ -185,22 +196,24 @@ namespace Console_PhoneBook.App.UserInterface
             PrintEmptyLines(6);
             PrintCentered("Press any key to continue...");
             PressKeyToContinue();
-            Clear();
+            ClearAll();
             SetCursorVisibilityTo(true);
         }
 
         public Dictionary<string, string?> GetFileMetaDataValues()
         {
-            var fileMetaDataValues = new Dictionary<string, string?>()
+            var fileMetaDataValues = new Dictionary<string, string?>();
+            var properties = typeof(FileMetadata).GetProperties();
+
+            foreach (var property in properties)
             {
-                ["fileDirectory"] = null,
-                ["fileFormat"] = null
-            };
+                fileMetaDataValues.Add(property.Name, null);
+            }
 
             //Get fileDirectory
             if (PromptYesOrNo("Would you like to export to Desktop ?"))
             {
-                fileMetaDataValues["fileDirectory"] = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
+                fileMetaDataValues["FileDirectory"] = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
             else
             {
@@ -220,14 +233,14 @@ namespace Console_PhoneBook.App.UserInterface
             }
 
             //Get fileFormat
-            IEnumerable<string> availableFileFormats = Enum.GetNames(typeof(FileExtension));
+            IEnumerable<string> availableFileFormats = Enum.GetNames(typeof(FileExtensions));
 
 
             PrintLine("");
             PrintLine("Select export file format: ");
             int option = PromptMenuChoice(availableFileFormats);
 
-            fileMetaDataValues["fileFormat"] = ((FileExtension)(option - 1)).ToString();
+            fileMetaDataValues["FileExtension"] = ((FileExtensions)(option - 1)).ToString();
 
             return fileMetaDataValues;
         }

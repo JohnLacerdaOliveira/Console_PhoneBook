@@ -1,4 +1,5 @@
-﻿using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.DataStorage.FileAccess;
+using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App.Functionality
 {
@@ -11,6 +12,8 @@ namespace Console_PhoneBook.App.Functionality
         public abstract void AddContact();
         public abstract void EditContact();
         public abstract void DeleteContact();
+        public abstract FileMetadata GetExportFileMetadata();
+        public abstract FileMetadata GetImportFileMetadata(string filePath);
         public abstract void ExportPhoneBook();
         public abstract void ExitApplication();
     }

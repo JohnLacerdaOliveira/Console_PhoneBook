@@ -1,21 +1,26 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Console_PhoneBook.App.Functionality;
+﻿using Console_PhoneBook.App.Functionality;
 
 namespace Console_PhoneBook.App
 {
     public class Menus : IMenu
     {
         private readonly IAppFunctionality _appFunctionality;
-        public Dictionary<string, Action<IAppFunctionality>> Start { get; init; } = new Dictionary<string, Action<IAppFunctionality>>
+
+        public Menus(IAppFunctionality appFunctionality)
+        {
+            _appFunctionality = appFunctionality;
+        }
+
+        public Dictionary<string, Action<IAppFunctionality>> Start { get; init; } = new()
         {
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
-            { "Create new PhoneBook",(func) => func.CreateNewPhoneBook()},
+            { "New PhoneBook",(func) => func.CreateNewPhoneBook()},
             //TODO - create settings menu
-            { "Settings", (func) => func.ExitApplication() },
+            //{ "Settings", (func) => func.AppSettings() },
             { "Exit", (func) => func.ExitApplication() }
         };
 
-        public Dictionary<string, Action<IAppFunctionality>> Main { get; init; } = new Dictionary<string, Action<IAppFunctionality>>
+        public Dictionary<string, Action<IAppFunctionality>> Main { get; init; } = new()
         {
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
             { "View All Contacts", (func) => func.PrintAllContacts() },
@@ -26,11 +31,6 @@ namespace Console_PhoneBook.App
             { "Export PhoneBook", (func) => func.ExportPhoneBook() },
             { "Exit", (func) => func.ExitApplication() }
         };
-
-        public Menus(IAppFunctionality appFunctionality)
-        {
-            _appFunctionality = appFunctionality;
-        }
 
         public void InvokeStartMethod(int selectedOption)
         {

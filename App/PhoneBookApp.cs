@@ -1,4 +1,5 @@
-﻿using Console_PhoneBook.App.UserInterface;
+﻿using Console_PhoneBook.App.Functionality;
+using Console_PhoneBook.App.UserInterface;
 
 namespace Console_PhoneBook.App
 {
@@ -19,16 +20,16 @@ namespace Console_PhoneBook.App
         {
             _userInterface.PrintWelcomeScreen();
 
-            int startchoice = _userInterface.PromptMenuChoice(_menus.GetStartOptions);
+            int startchoice = _userInterface.PromptMenuChoice(_menus.Start.Keys);
             _menus.InvokeStartMethod(startchoice);
 
             while (true)
             {
-                _userInterface.Clear();
+                _userInterface.ClearAll();
                 _userInterface.PrintLine("PhoneBook Menu:");
 
-                int choice = _userInterface.PromptMenuChoice(_menus.GetMainOptions);
-                _menus.InvokeMainMethod(choice);
+                int mainChoice = _userInterface.PromptMenuChoice(_menus.Main.Keys);
+                _menus.InvokeMainMethod(mainChoice);
             }
         }
     }
