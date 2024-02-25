@@ -14,8 +14,8 @@ namespace Console_PhoneBook.App.Functionality
         private List<IGenericContact> Register { get; set; } = new List<IGenericContact>();
 
         public AppFunctionality(
-            IConsoleUI userInterface,
-            IEnumerable<IGenericContact> register)
+            IConsoleUI userInterface/*,
+            IContactsRegister register*/)
         {
             _userInterface = userInterface;
         }

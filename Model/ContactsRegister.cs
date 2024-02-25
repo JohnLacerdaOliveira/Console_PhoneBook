@@ -1,23 +1,42 @@
-﻿namespace Console_PhoneBook.Model
-{
-    internal class ContactsRegister<TCollection> : IContactsRegister where TCollection : ICollection<IGenericContact>
-    {
-        public TCollection Register { get; init; }
+﻿using System;
+using System.Diagnostics.Contracts;
 
-        public ContactsRegister(TCollection register)
+namespace Console_PhoneBook.Model
+{
+    public class ContactsRegister<TCollection> : IRegister where TCollection : ICollection<IGenericContact>, new()
+    {
+        public IEnumerable<IGenericContact> Register { get; init; }
+
+        public ContactsRegister()
         {
-            Register = register;
+            Register = new TCollection();
         }
 
-        public void Add(IGenericContact contact)
+        public void Add(IGenericContact Contact)
         {
-            if (Register is TCollection collection)
-                collection.Add(contact);
+            if (Register is TCollection list)
+                list.Add(Contact);
+        }
+
+        public void Update(IGenericContact contact)
+        {
+            foreach (var item in Register)
+            {
+                if (ReferenceEquals(item, contact))
+                {
+                    if (Register is TCollection list)
+                    {
+                        list.Remove(item); 
+                        list.Add(contact);
+                    }
+                    return;
+                }
+            }
         }
 
         public void Delete(IGenericContact contact)
         {
-            if (Register is List<IGenericContact> list)
+            if (Register is TCollection list)
                 list.Remove(contact);
         }
     }
