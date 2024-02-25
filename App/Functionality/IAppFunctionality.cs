@@ -8,7 +8,7 @@ namespace Console_PhoneBook.App.Functionality
         public abstract void CreateNewPhoneBook();
         public abstract void ImportPhoneBook();
         public abstract void PrintAllContacts();
-        public abstract IGenericContact LiveSearch();
+        public abstract IGenericContact Search();
         public abstract void AddContact();
         public abstract void EditContact();
         public abstract void DeleteContact();

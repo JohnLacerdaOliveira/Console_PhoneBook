@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Console_PhoneBook.Model
@@ -13,13 +11,13 @@ namespace Console_PhoneBook.Model
         [JsonConstructor]
         public Contact()
         {
-    
+
         }
 
-        public Contact(Dictionary<string, string> contactValues) 
+        public Contact(Dictionary<string, string> contactValues)
         {
-            
-            foreach(var propertyInfo in GetType().GetProperties())
+
+            foreach (var propertyInfo in GetType().GetProperties())
             {
                 propertyInfo.SetValue(this, contactValues[propertyInfo.Name]);
             }
@@ -30,9 +28,9 @@ namespace Console_PhoneBook.Model
         {
             var description = new StringBuilder();
 
-            foreach (var propertyName in IGenericContact.GetAllPropertiesNames())
+            foreach (var property in GetType().GetProperties())
             {
-                description.Append($"{GetType().GetProperty(propertyName).GetValue(this)} ");
+                description.Append($"{property.GetValue(this)} ");
             }
 
             return description.ToString();

@@ -2,7 +2,7 @@
 
 namespace Console_PhoneBook.App
 {
-    public interface IMenu
+    public interface IMenus
     {
         public Dictionary<string, Action<IAppFunctionality>> Start { get; }
         public Dictionary<string, Action<IAppFunctionality>> Main { get; }

@@ -5,11 +5,11 @@ namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
     {  
-        private readonly IMenu _menus;
+        private readonly IMenus _menus;
         private readonly IConsoleUI _userInterface;
 
         public PhoneBookApp(
-            IMenu Menus,
+            IMenus Menus,
             IConsoleUI userInterface)
         {
             _menus = Menus;

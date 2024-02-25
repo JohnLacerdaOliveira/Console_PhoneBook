@@ -1,17 +1,24 @@
-﻿using Console_PhoneBook.App.Functionality;
-using Console_PhoneBook.DataStorage.DataAccess;
-using System.Collections.Generic;
-
-namespace Console_PhoneBook.Model
+﻿namespace Console_PhoneBook.Model
 {
-    internal class ContactsRegister : IContactsRegister
+    internal class ContactsRegister<TCollection> : IContactsRegister where TCollection : ICollection<IGenericContact>
     {
-        public  IEnumerable<IGenericContact> Register { get; set; }
+        public TCollection Register { get; init; }
 
-        public ContactsRegister()
+        public ContactsRegister(TCollection register)
         {
-            Register = new List<IGenericContact>();
+            Register = register;
+        }
 
+        public void Add(IGenericContact contact)
+        {
+            if (Register is TCollection collection)
+                collection.Add(contact);
+        }
+
+        public void Delete(IGenericContact contact)
+        {
+            if (Register is List<IGenericContact> list)
+                list.Remove(contact);
         }
     }
 }

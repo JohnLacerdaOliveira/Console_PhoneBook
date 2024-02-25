@@ -1,8 +1,9 @@
 ﻿using Console_PhoneBook.App.Functionality;
+using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App
 {
-    public class Menus : IMenu
+    public class Menus : IMenus
     {
         private readonly IAppFunctionality _appFunctionality;
 
@@ -24,7 +25,7 @@ namespace Console_PhoneBook.App
         {
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
             { "View All Contacts", (func) => func.PrintAllContacts() },
-            { "Search Contact", (func) => func.LiveSearch() },
+            { "Search Contact", (func) => func.Search() },
             { "Add Contact", (func) => func.AddContact() },
             { "Edit Contact", (func) => func.EditContact() },
             { "Delete Contact", (func) => func.DeleteContact() },

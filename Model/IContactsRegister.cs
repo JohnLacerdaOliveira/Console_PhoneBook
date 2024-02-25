@@ -1,10 +1,9 @@
-﻿using Console_PhoneBook.App;
-
-namespace Console_PhoneBook.Model
+﻿namespace Console_PhoneBook.Model
 {
     public interface IContactsRegister
     {
-        public abstract IEnumerable<IGenericContact> Register { get; set; }
+        public abstract void Add(IGenericContact contact);
+        public abstract void Delete(IGenericContact contact);
 
     }
 }

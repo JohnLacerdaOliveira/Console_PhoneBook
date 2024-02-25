@@ -11,7 +11,7 @@ namespace Console_PhoneBook
 
         //Functionality
         private static IAppFunctionality _appFunctionality = new AppFunctionality(_userInterface);
-        private static IMenu _mainMenuDelegates = new Menus(
+        private static IMenus _mainMenuDelegates = new Menus(
             _appFunctionality);
 
         //Application Workflow

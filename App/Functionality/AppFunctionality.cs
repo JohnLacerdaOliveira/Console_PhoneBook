@@ -2,6 +2,7 @@
 using Console_PhoneBook.DataStorage.DataAccess;
 using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
+using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 
 namespace Console_PhoneBook.App.Functionality
@@ -13,7 +14,8 @@ namespace Console_PhoneBook.App.Functionality
         private List<IGenericContact> Register { get; set; } = new List<IGenericContact>();
 
         public AppFunctionality(
-            IConsoleUI userInterface)
+            IConsoleUI userInterface,
+            IEnumerable<IGenericContact> register)
         {
             _userInterface = userInterface;
         }
@@ -91,7 +93,7 @@ namespace Console_PhoneBook.App.Functionality
 
         public void PrintAllContacts() => _userInterface.PrintAllContacts(Register);
 
-        public IGenericContact LiveSearch()
+        public IGenericContact Search()
         {
             var matches = new List<IGenericContact>();
 
@@ -142,11 +144,11 @@ namespace Console_PhoneBook.App.Functionality
         {
             var contactProperties = new Dictionary<string, string>();
 
-            foreach (var property in IGenericContact.GetAllPropertiesNames())
+            foreach (var property in typeof(IGenericContact).GetProperties())
             {
-                _userInterface.Print($"Insert {property}: ");
+                _userInterface.Print($"Insert {property.Name}: ");
 
-                contactProperties[property] = _userInterface.ReadLine(); //ReadLine already implements some basic verification
+                contactProperties[property.Name] = _userInterface.ReadLine(); //ReadLine already implements some basic verification
 
             }
 
@@ -155,8 +157,8 @@ namespace Console_PhoneBook.App.Functionality
 
         public void EditContact()
         {
-            var contactToEdit = LiveSearch();
-            var contactProperties = IGenericContact.GetAllPropertiesNames();
+            var contactToEdit = Search();
+            var contactProperties = typeof(IGenericContact).GetProperties().Select(p => p.Name);
 
             var menuChoice = _userInterface.PromptMenuChoice(contactProperties);
 
@@ -177,7 +179,7 @@ namespace Console_PhoneBook.App.Functionality
 
         public void DeleteContact()
         {
-            var contactToDelete = LiveSearch();
+            var contactToDelete = Search();
             Register.Remove(contactToDelete);
             _userInterface.PrintLine($"{contactToDelete.Name} was removed");      
         }
