@@ -10,26 +10,25 @@ namespace Console_PhoneBook.App.Functionality
     public class AppFunctionality : IAppFunctionality
     {
         private readonly IConsoleUI _userInterface;
-
-        private List<IGenericContact> Register { get; set; } = new List<IGenericContact>();
+        private readonly IRegister _contactsRegister;
 
         public AppFunctionality(
-            IConsoleUI userInterface/*,
-            IContactsRegister register*/)
+            IConsoleUI userInterface, 
+            IRegister contactsRegister
+            )
         {
             _userInterface = userInterface;
+            _contactsRegister = contactsRegister;
         }
 
-        //TODO - It is a bit stupid this method works empty
+        //Redundant but whatever
         public void CreateNewPhoneBook()
         {
-            Register = new List<IGenericContact>();
+            _contactsRegister.Clear();
         }
 
         public void ImportPhoneBook()
         {
-            List<IGenericContact> loadedContacts;
-
             var candidates = LookUpValidFilesToImport();
             var filePath = _userInterface.PromptImport(candidates);
 
@@ -49,7 +48,12 @@ namespace Console_PhoneBook.App.Functionality
 
             try
             {
-                loadedContacts = repository.LoadFromFile(fileMetaData) as List<IGenericContact>;
+                var loadedContacts = repository.LoadFromFile(fileMetaData);
+               
+                foreach(var item in loadedContacts)
+                {
+                    _contactsRegister.Add(item);
+                }
 
             }
             catch (Exception)
@@ -57,7 +61,6 @@ namespace Console_PhoneBook.App.Functionality
                 throw;
             }
 
-            Register = loadedContacts;
             _userInterface.ClearAll();
             _userInterface.PrintLine("");
             _userInterface.PrintLine("The following contacts were load from repository");
@@ -91,11 +94,11 @@ namespace Console_PhoneBook.App.Functionality
             return validFilesToImport;
         }
 
-        public void PrintAllContacts() => _userInterface.PrintAllContacts(Register);
+        public void PrintAllContacts() => _userInterface.PrintAllContacts(_contactsRegister.Register);
 
         public IGenericContact Search()
         {
-            var matches = new List<IGenericContact>();
+            IEnumerable<IGenericContact> matches = default;
 
             ConsoleKeyInfo key;
             string input = "";
@@ -110,15 +113,12 @@ namespace Console_PhoneBook.App.Functionality
 
                 if (input.Length != 0)
                 {
-                    matches = Register.Where(contact => contact.ToString().Contains(input, StringComparison.OrdinalIgnoreCase)).ToList();
+                    matches = _contactsRegister.Register.Where(contact => contact.ToString().Contains(input, StringComparison.OrdinalIgnoreCase));
                 }
 
-                foreach (var match in matches)
-                {
-                    _userInterface.PrintLine(match.ToString());
-                }
+                _userInterface.PrintAllContacts(matches, false);
 
-                if (matches.Count == 1) _userInterface.PrintLine("\nPress Enter to Select");
+                if (matches.Count() == 1) _userInterface.PrintLine("\nPress Enter to Select");
 
                 key = _userInterface.ReadKey(true);
 
@@ -134,7 +134,7 @@ namespace Console_PhoneBook.App.Functionality
                     }
                 }
 
-            } while (key.Key != ConsoleKey.Enter || matches.Count != 1);
+            } while (key.Key != ConsoleKey.Enter || matches.Count() != 1);
 
             _userInterface.SetCursorVisibilityTo(true);
             return matches.First();
@@ -148,11 +148,11 @@ namespace Console_PhoneBook.App.Functionality
             {
                 _userInterface.Print($"Insert {property.Name}: ");
 
-                contactProperties[property.Name] = _userInterface.ReadLine(); //ReadLine already implements some basic verification
-
+                //ReadLine already implements some basic verification
+                contactProperties[property.Name] = _userInterface.ReadLine(); 
             }
 
-            Register.Add(new Contact(contactProperties));
+            _contactsRegister.Add(new Contact(contactProperties));
         }
 
         public void EditContact()
@@ -180,13 +180,13 @@ namespace Console_PhoneBook.App.Functionality
         public void DeleteContact()
         {
             var contactToDelete = Search();
-            Register.Remove(contactToDelete);
+            _contactsRegister.Delete(contactToDelete);
             _userInterface.PrintLine($"{contactToDelete.Name} was removed");      
         }
 
         public void ExportPhoneBook()
         {
-            if (Register.Count() == 0)
+            if (_contactsRegister.Register.Count() == 0)
             {
                 _userInterface.PrintLine("");
                 _userInterface.PrintLine("There are no contacts to export...");
@@ -197,7 +197,7 @@ namespace Console_PhoneBook.App.Functionality
             var fileMetaData = GetExportFileMetadata();
 
             var exportRepository = RepositoryFactory.GetRepository(fileMetaData.FileExtension);
-            exportRepository.SaveToFile(Register, fileMetaData);
+            exportRepository.SaveToFile(_contactsRegister.Register, fileMetaData);
 
             _userInterface.PrintLine("");
             _userInterface.PrintLine($"Success, you'll find the export file in {fileMetaData.FilePath}");
@@ -235,9 +235,9 @@ namespace Console_PhoneBook.App.Functionality
 
         public void ExitApplication()
         {
-            if (Register is not null)
+            if (_contactsRegister.Register is not null)
             {
-                if (Register.Count() != 0)
+                if (_contactsRegister.Register.Count() != 0)
                 {
                     var shouldSave = _userInterface.PromptYesOrNo("Save contacts before exiting?");
 

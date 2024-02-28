@@ -8,7 +8,7 @@ namespace Console_PhoneBook.App.UserInterface
         public abstract void Print(string message);
         public abstract void PrintLine(string message);
         public abstract void PrintOnce(string message);
-        public abstract void PrintAllContacts(IEnumerable<IGenericContact> register);
+        public abstract void PrintAllContacts(IEnumerable<IGenericContact> register, bool wait = true);
         public abstract void PrintEmptyLines(int numberOfEmptyLines);
         public abstract void PrintCentered(string message);
         public abstract bool PromptYesOrNo(string question);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-
-namespace Console_PhoneBook.Model
+﻿namespace Console_PhoneBook.Model
 {
     public class ContactsRegister<TCollection> : IRegister where TCollection : ICollection<IGenericContact>, new()
     {
@@ -18,7 +15,7 @@ namespace Console_PhoneBook.Model
                 list.Add(Contact);
         }
 
-        public void Update(IGenericContact contact)
+        public void Edit(IGenericContact contact)
         {
             foreach (var item in Register)
             {
@@ -26,7 +23,7 @@ namespace Console_PhoneBook.Model
                 {
                     if (Register is TCollection list)
                     {
-                        list.Remove(item); 
+                        list.Remove(item);
                         list.Add(contact);
                     }
                     return;
@@ -38,6 +35,17 @@ namespace Console_PhoneBook.Model
         {
             if (Register is TCollection list)
                 list.Remove(contact);
+        }
+
+        public void Clear()
+        {
+            foreach (var item in Register)
+            {
+                if (item is TCollection)
+                {
+                    ((TCollection)item).Clear();
+                }
+            }
         }
     }
 }

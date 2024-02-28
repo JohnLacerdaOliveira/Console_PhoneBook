@@ -19,14 +19,16 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             string[] header = contacts[0].Split(",");
 
             if (contacts is null || contacts.Length == 0) return register;
+
+            var headerProperties = typeof(IGenericContact).GetProperties();
             //Parse header
             foreach (var headerValue in header)
             {
-                foreach (var propertyName in typeof(IGenericContact).GetProperties())
+                foreach (var propertyName in headerProperties)
                 {
-                    if (headerValue.ToLower() == propertyName.ToString().ToLower())
+                    if (headerValue.ToLower() == propertyName.Name.ToLower())
                     {
-                        headerValues.Add(propertyName.ToString(), null);
+                        headerValues.Add(propertyName.Name, null);
                         hasHeader = true;
                         break;
                     }

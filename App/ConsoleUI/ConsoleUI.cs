@@ -65,14 +65,14 @@ namespace Console_PhoneBook.App.UserInterface
             Print(message);
         }
 
-        public void PrintAllContacts(IEnumerable<IGenericContact> register)
+        public void PrintAllContacts(IEnumerable<IGenericContact> register, bool wait = true)
         {
             foreach (var contact in register)
             {
                 PrintLine(contact.ToString());
             }
 
-            PressKeyToContinue();
+            if(wait) PressKeyToContinue();
         }
 
         public void PrintEmptyLines(int numberOfEmptyLines)
