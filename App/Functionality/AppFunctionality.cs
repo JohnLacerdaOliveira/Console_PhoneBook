@@ -2,8 +2,6 @@
 using Console_PhoneBook.DataStorage.DataAccess;
 using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
-using System.Diagnostics.Contracts;
-using System.Xml.Linq;
 
 namespace Console_PhoneBook.App.Functionality
 {
@@ -13,7 +11,7 @@ namespace Console_PhoneBook.App.Functionality
         private readonly IRegister _contactsRegister;
 
         public AppFunctionality(
-            IConsoleUI userInterface, 
+            IConsoleUI userInterface,
             IRegister contactsRegister
             )
         {
@@ -42,15 +40,15 @@ namespace Console_PhoneBook.App.Functionality
                 CreateNewPhoneBook();
                 return;
             }
-     
+
             var fileMetaData = GetImportFileMetadata(filePath);
             var repository = RepositoryFactory.GetRepository(fileMetaData.FileExtension);
 
             try
             {
                 var loadedContacts = repository.LoadFromFile(fileMetaData);
-               
-                foreach(var item in loadedContacts)
+
+                foreach (var item in loadedContacts)
                 {
                     _contactsRegister.Add(item);
                 }
@@ -149,7 +147,7 @@ namespace Console_PhoneBook.App.Functionality
                 _userInterface.Print($"Insert {property.Name}: ");
 
                 //ReadLine already implements some basic verification
-                contactProperties[property.Name] = _userInterface.ReadLine(); 
+                contactProperties[property.Name] = _userInterface.ReadLine();
             }
 
             _contactsRegister.Add(new Contact(contactProperties));
@@ -158,12 +156,12 @@ namespace Console_PhoneBook.App.Functionality
         public void EditContact()
         {
             var contactToEdit = Search();
-            var contactProperties = typeof(IGenericContact).GetProperties().Select(p => p.Name);
+            var genericContactProperties = typeof(IGenericContact).GetProperties().Select(p => p.Name);
 
-            var menuChoice = _userInterface.PromptMenuChoice(contactProperties);
+            var menuChoice = _userInterface.PromptMenuChoice(genericContactProperties);
 
             var counter = 1;
-            foreach (var property in contactProperties)
+            foreach (var property in genericContactProperties)
             {
                 if (menuChoice == counter)
                 {
@@ -181,7 +179,7 @@ namespace Console_PhoneBook.App.Functionality
         {
             var contactToDelete = Search();
             _contactsRegister.Delete(contactToDelete);
-            _userInterface.PrintLine($"{contactToDelete.Name} was removed");      
+            _userInterface.PrintLine($"{contactToDelete.Name} was removed");
         }
 
         public void ExportPhoneBook()
@@ -210,15 +208,8 @@ namespace Console_PhoneBook.App.Functionality
             var fileMetaDataValues = _userInterface.GetFileMetaDataValues();
             bool isValidFileFormat = Enum.TryParse(fileMetaDataValues["FileExtension"], out FileExtensions fileFormat);
 
-            // TODO - fails to export to a file that doesn't already exists
+            return new FileMetadata(fileFormat, fileMetaDataValues["FileDirectory"]);
 
-
-            if (isValidFileFormat)
-            {
-                return new FileMetadata(fileFormat, fileMetaDataValues["FileDirectory"]);
-            }
-
-            throw new NotImplementedException();
         }
 
         //TODO - review implementation

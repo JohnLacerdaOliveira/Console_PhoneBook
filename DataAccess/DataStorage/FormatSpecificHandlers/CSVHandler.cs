@@ -71,7 +71,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
         {
             var csvBuilder = new StringBuilder();
 
-            var propertyNames = typeof(IGenericContact).GetProperties().Select(n => n.ToString()).ToArray();
+            var propertyNames = typeof(IGenericContact).GetProperties().Select(n => n.Name).ToArray();
 
             if (propertyNames == null) return string.Empty; // No data to serialize
 
@@ -87,10 +87,10 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
                     {
                         var propertyValue = propertyInfo.GetValue(contact);
                         contactValues.Add(propertyValue != null ? propertyValue.ToString() : "");
-                        break;
+                       
                     }
 
-                    contactValues.Add(""); // Property not found, add empty value
+                    //contactValues.Add(""); // Property not found, add empty value
 
                 }
                 csvBuilder.AppendLine(string.Join(",", contactValues));
