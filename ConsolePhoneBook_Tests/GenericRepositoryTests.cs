@@ -30,7 +30,7 @@ namespace ConsolePhoneBook_Tests
             var result = _genericRepositoryMock.Object.LoadFromFile(fileMetaData);
 
             // Assert
-            Assert.IsEmpty(result);
+            Assert.AreEqual(result, Enumerable.Empty<IGenericContact>());
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace ConsolePhoneBook_Tests
             var result = _genericRepositoryMock.Object.LoadFromFile(fileMetaData);
 
             // Assert
-            Assert.IsEmpty(result);
+            Assert.AreEqual(result, Enumerable.Empty<IGenericContact>());
         }
     }
 }

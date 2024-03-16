@@ -1,5 +1,9 @@
 ﻿using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ConsolePhoneBook_Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace Console_PhoneBook.DataStorage.DataAccess
 {

@@ -39,12 +39,9 @@
 
         public void Clear()
         {
-            foreach (var item in Register)
+            if (Register is ICollection<IGenericContact> collection)
             {
-                if (item is TCollection)
-                {
-                    ((TCollection)item).Clear();
-                }
+                collection.Clear();
             }
         }
     }

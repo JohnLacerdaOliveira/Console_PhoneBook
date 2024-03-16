@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 
-
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
     internal class CSVHandler : GenericRepository
