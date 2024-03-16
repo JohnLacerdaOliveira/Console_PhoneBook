@@ -33,7 +33,7 @@ namespace Console_PhoneBook.Model
                 description.Append($"{property.GetValue(this)} ");
             }
 
-            return description.ToString();
+            return description.ToString().Trim();
         }
     }
 }
