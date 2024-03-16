@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
-    public class VCFHandler : GenericRepository 
+    internal class VCFHandler : GenericRepository 
     {
 
         public override IEnumerable<IGenericContact> Parse(string fileData)
@@ -62,10 +62,11 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 
                 foreach (var value in VCardProperties.Map.Values)
                 {
-                    PropertyInfo? property = typeof(IGenericContact).GetProperty(value, BindingFlags.IgnoreCase);
+                    PropertyInfo? property = typeof(IGenericContact).GetProperty(value);
 
                     if (property != null)
                     {
+                        //"value" property should work
                         string key = VCardProperties.Map.FirstOrDefault(x => x.Value == value).Key;
                         vCards.AppendLine($"{key}:{property.GetValue(contact)}");
                     }

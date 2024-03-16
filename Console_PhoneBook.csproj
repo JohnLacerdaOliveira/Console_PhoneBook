@@ -5,14 +5,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>Console_PhoneBook.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="FeaturesToImplement.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="App\ConsoleUI\" />
+    <Compile Remove="ConsolePhoneBook_Tests\**" />
+    <EmbeddedResource Remove="ConsolePhoneBook_Tests\**" />
+    <None Remove="ConsolePhoneBook_Tests\**" />
   </ItemGroup>
 
 </Project>

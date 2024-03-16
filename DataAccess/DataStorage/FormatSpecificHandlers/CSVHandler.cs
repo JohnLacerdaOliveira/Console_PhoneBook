@@ -1,9 +1,11 @@
 ﻿using Console_PhoneBook.Model;
+using System.Runtime.CompilerServices;
 using System.Text;
+
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
-    public class CSVHandler : GenericRepository
+    internal class CSVHandler : GenericRepository
     {
         //TODO - Log rejected entries and properties
         //TODO - Log results

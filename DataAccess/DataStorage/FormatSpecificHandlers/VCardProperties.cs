@@ -1,4 +1,4 @@
-﻿public static class VCardProperties
+﻿internal static class VCardProperties
 {
     public static Dictionary<string, string> Map { get; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {

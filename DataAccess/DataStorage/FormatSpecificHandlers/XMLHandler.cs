@@ -1,4 +1,8 @@
 ﻿using Console_PhoneBook.Model;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
@@ -7,23 +11,47 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
     {
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
-            var register = new List<IGenericContact>();
-            if (string.IsNullOrEmpty(fileData)) return register;
-
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Contact>));
-            using (StringReader reader = new StringReader(fileData))
+            if (string.IsNullOrEmpty(fileData))
             {
-                return (List<IGenericContact>)serializer.Deserialize(reader);
+                return Enumerable.Empty<IGenericContact>();
+            }
+
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Contact>));
+                using (StringReader reader = new StringReader(fileData))
+                {
+                    return (List<Contact>)serializer.Deserialize(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception appropriately
+                throw new InvalidOperationException("Error occurred while parsing XML data.", ex);
             }
         }
 
         public override string Serialize(IEnumerable<IGenericContact> register)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Contact>));
-            using (StringWriter writer = new StringWriter())
+            if (register == null)
             {
-                serializer.Serialize(writer, register);
-                return writer.ToString();
+                throw new ArgumentNullException(nameof(register));
+            }
+
+            try
+            {
+                var contacts = register.OfType<Contact>().ToList();
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Contact>));
+                using (StringWriter writer = new StringWriter())
+                {
+                    serializer.Serialize(writer, contacts);
+                    return writer.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception appropriately
+                throw new InvalidOperationException("Error occurred while serializing contacts to XML.", ex);
             }
         }
     }

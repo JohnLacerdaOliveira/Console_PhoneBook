@@ -11,7 +11,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             var register = new List<IGenericContact>();
             if (string.IsNullOrEmpty(fileData)) return register;
 
-            var contacts = JsonSerializer.Deserialize<List<IGenericContact>>(fileData);
+            var contacts = JsonSerializer.Deserialize<List<Contact>>(fileData);
 
             if (contacts is null || contacts.Count == 0) return register;
 

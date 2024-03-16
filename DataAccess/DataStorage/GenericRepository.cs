@@ -12,12 +12,12 @@ namespace Console_PhoneBook.DataStorage.DataAccess
         {
             string? fileData = default;
 
-            if (!File.Exists(fileMetaData.FilePath)) File.Create(fileMetaData.FilePath);
+            if (!File.Exists(fileMetaData.FilePath)) return Enumerable.Empty<IGenericContact>();
 
             try
             {
                 fileData = File.ReadAllText(fileMetaData.FilePath);
-                if (fileData.Length == 0) return new List<IGenericContact>();
+                if (fileData.Length == 0) return Enumerable.Empty<IGenericContact>();
             }
             catch (Exception)
             {
