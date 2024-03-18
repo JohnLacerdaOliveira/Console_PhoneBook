@@ -7,12 +7,12 @@ namespace ConsolePhoneBook_Tests
     [TestFixture]
     internal class GenericRegisterTests
     {
-        private Contact _testContactMock;
+        private Contact _contactMock;
 
         [SetUp]
         public void Setup()
         {
-            _testContactMock = new Contact
+            _contactMock = new Contact
             {
                 Name = It.IsAny<string>(),
                 PhoneNumber = It.IsAny<string>()
@@ -20,7 +20,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void Constructor_RegisterInitialized()
+        public void Constructor_CreatesRegisterSuccssefully_OnInstantiation()
         {
             // Arrange
             var contactsRegister = new ContactsRegister<List<IGenericContact>>();
@@ -34,31 +34,31 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void Add_ContactAddedSuccessfully()
+        public void Add_ContactAddedSuccessfully_WhenContactIsAdded()
         {
             // Arrange
             var contactsRegister = new ContactsRegister<List<IGenericContact>>();
 
             // Act
-            contactsRegister.Add(_testContactMock);
+            contactsRegister.Add(_contactMock);
 
             // Assert
             Assert.AreEqual(1, contactsRegister.Register.Count());
-            Assert.IsTrue(contactsRegister.Register.Contains(_testContactMock));
+            Assert.IsTrue(contactsRegister.Register.Contains(_contactMock));
         }
 
 
         [TestCase("AnyName","000000000")]
-        public void Edit_ContactEditedSuccessfully(string newName, string newNumber)
+        public void Edit_ContactEditedSuccessfully_WhenContactIsEdited(string newName, string newNumber)
         {
             // Arrange
             var contactsRegister = new ContactsRegister<List<IGenericContact>>();
-            contactsRegister.Add(_testContactMock);
+            contactsRegister.Add(_contactMock);
 
             // Act
-            _testContactMock.Name = newName;
-            _testContactMock.PhoneNumber = newNumber;
-            contactsRegister.Edit(_testContactMock);
+            _contactMock.Name = newName;
+            _contactMock.PhoneNumber = newNumber;
+            contactsRegister.Edit(_contactMock);
 
             // Assert
             Assert.AreEqual(1, contactsRegister.Register.Count());
@@ -67,13 +67,13 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void Edit_NonExistentContact_ShouldFail()
+        public void Edit_ShouldFail_NonExistentContact()
         {
             // Arrange
             var contactsRegister = new ContactsRegister<List<IGenericContact>>();
 
             // Act
-            contactsRegister.Edit(_testContactMock);
+            contactsRegister.Edit(_contactMock);
 
             // Assert
             Assert.AreEqual(0, contactsRegister.Register.Count());
@@ -82,26 +82,26 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void Delete_ContactDeletedSuccessfully()
+        public void Delete_ContactDeletedSuccessfully_WhenContactIsDeleted()
         {
             // Arrange
             var contactsRegister = new ContactsRegister<List<IGenericContact>>();
-            contactsRegister.Add(_testContactMock);
+            contactsRegister.Add(_contactMock);
 
             // Act
-            contactsRegister.Delete(_testContactMock);
+            contactsRegister.Delete(_contactMock);
 
             // Assert
             Assert.AreEqual(0, contactsRegister.Register.Count());
-            Assert.IsFalse(contactsRegister.Register.Contains(_testContactMock));
+            Assert.IsFalse(contactsRegister.Register.Contains(_contactMock));
         }
 
         [Test]
-        public void Clear_RegisterClearedSuccessfully()
+        public void Clear_RegisterClearedSuccessfully_WhenRegisterIsCleared()
         {
             // Arrange
             var contactsRegister = new ContactsRegister<List<IGenericContact>>();
-            contactsRegister.Add(_testContactMock);
+            contactsRegister.Add(_contactMock);
 
             // Act
             contactsRegister.Clear();

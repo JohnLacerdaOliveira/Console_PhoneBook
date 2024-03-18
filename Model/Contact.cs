@@ -23,6 +23,17 @@ namespace Console_PhoneBook.Model
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var other = (IGenericContact)obj;
+            return Name == other.Name && PhoneNumber == other.PhoneNumber;
+        }
+
 
         public override string ToString()
         {

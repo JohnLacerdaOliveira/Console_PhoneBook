@@ -9,29 +9,18 @@ namespace ConsolePhoneBook_Tests
     [TestFixture]
     internal class RepositoryHandlerTests
     {
-        private readonly IEnumerable<IGenericContact> _testContacts = new List<IGenericContact>
-        {
-            new Contact { Name = "John Doe", PhoneNumber = "911234567" },
-            new Contact { Name = "Jane Smith", PhoneNumber = "922345678" },
-            new Contact { Name = "Michael Johnson", PhoneNumber = "933456789" }
-        };
-
-        private readonly string _testFilesFolderName = "TestData";
-        private readonly string _fileName = "Test";
-        private readonly string _testFilesDirectory = Directory.GetParent(TestContext.CurrentContext.TestDirectory).Parent.Parent.FullName;
-
-        private string _testDataFilePath;
+        private readonly IEnumerable<IGenericContact> _testContacts = CommonTestData.TestContacts;
+        private readonly string _fileName = CommonTestData.FileName;
+        private string _testDataFilePath = CommonTestData.TestDataFilePath;
 
         private Mock<CSVHandler> _csvHandlerMock;
         private Mock<JSONHandler> _jsonHandlerMock;
         private Mock<VCFHandler> _vcfHandlerMock;
         private Mock<XMLHandler> _xmlHandlerMock;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-            _testDataFilePath = Path.Combine(_testFilesDirectory, _testFilesFolderName);
-
             _csvHandlerMock = new Mock<CSVHandler>() { CallBase = true };
             _jsonHandlerMock = new Mock<JSONHandler>() { CallBase = true };
             _vcfHandlerMock = new Mock<VCFHandler>() { CallBase = true };
@@ -39,7 +28,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void CSVParse_TestFile_ReturnsParsedContacts()
+        public void CSVParse_ReturnsEqualCollectionToTestContacts_WhenImportingFromCSVTestFile()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -52,11 +41,11 @@ namespace ConsolePhoneBook_Tests
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
-            Assert.IsTrue(result.Count() == _testContacts.Count());
+            CollectionAssert.AreEqual(result, _testContacts);
         }
 
         [Test]
-        public void CSVSerialize_TestContact_IsEqualToCSVTestFileContents()
+        public void CSVSerialize_ReturnsEqualTextToCSVTestFile_WhenSerializingTestContacts()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -74,7 +63,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void JSONParse_TestFile_ReturnsParsedContacts()
+        public void JSONParse_ReturnsEqualCollectionToTestContacts_WhenImportingFromJSONTestFile()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -87,12 +76,12 @@ namespace ConsolePhoneBook_Tests
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
-            Assert.IsTrue(result.Count() == _testContacts.Count());
+            CollectionAssert.AreEqual(result, _testContacts);
 
         }
 
         [Test]
-        public void JSONSerialize_TestContact_IsEqualToJSONTestFileContents()
+        public void JSONSerialize_ReturnsEqualTextToJSONTestFile_WhenSerializingTestContacts()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -111,7 +100,7 @@ namespace ConsolePhoneBook_Tests
 
 
         [Test]
-        public void VCFParse_TestFile_ReturnsParsedContacts()
+        public void VCFParse_ReturnsEqualCollectionToTestContacts_WhenImportingFromVCFTestFile()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -124,12 +113,12 @@ namespace ConsolePhoneBook_Tests
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
-            Assert.IsTrue(result.Count() == _testContacts.Count());
+            CollectionAssert.AreEqual(result, _testContacts);
 
         }
 
         [Test]
-        public void VCFSerialize_TestContact_IsEqualToVCFTestFileContents()
+        public void VCFSerialize_ReturnsEqualTextToVCFTestFile_WhenSerializingTestContacts()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -147,7 +136,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void XMLParse_TestFile_ReturnsParsedContacts()
+        public void XMLParse_ReturnsEqualCollectionToTestContacts_WhenImportingFromXMLTestFile()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -160,12 +149,12 @@ namespace ConsolePhoneBook_Tests
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
-            Assert.IsTrue(result.Count() == _testContacts.Count());
+            CollectionAssert.AreEqual(result, _testContacts);
 
         }
 
         [Test]
-        public void XMLSerialize_TestContact_IsEqualToXMLTestFileContents()
+        public void XMLSerialize_ReturnsEqualTextToXMLTestFile_WhenSerializingTestContacts()
         {
             // Arrange
             var fileMetaData = new FileMetadata(

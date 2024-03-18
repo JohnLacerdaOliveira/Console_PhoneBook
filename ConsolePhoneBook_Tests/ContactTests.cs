@@ -8,7 +8,7 @@ namespace ConsolePhoneBook_Tests
     public class ContactTests
     {
         [Test]
-        public void Constructor_WithValidDictionary_InitializesContact()
+        public void Constructor_CreatesContact_WithValidDictionary()
         {
             // Arrange
             var contactValues = new Dictionary<string, string>
@@ -26,7 +26,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [TestCase("John Doe", "123456789")]
-        public void ToString_ReturnsConcatenatedValues(string name, string phoneNumber)
+        public void ToString_ReturnsConcatenatedValues_OnMethodCall(string name, string phoneNumber)
         {
             // Arrange
             var contact = new Contact

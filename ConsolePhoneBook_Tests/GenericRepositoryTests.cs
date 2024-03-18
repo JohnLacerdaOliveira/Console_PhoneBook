@@ -19,7 +19,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void LoadFromFile_FileDirectoryDoesNotExist_ReturnsEmptyCollection()
+        public void LoadFromFile_ReturnsEmptyCollection_WhenFileDirectoryDoesNotExist()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
@@ -34,7 +34,7 @@ namespace ConsolePhoneBook_Tests
         }
 
         [Test]
-        public void LoadFromFile_FilePathDoesNotExist_ReturnsEmptyCollection()
+        public void LoadFromFile_ReturnsEmptyCollection_WhenFilePathDoesNotExist()
         {
             // Arrange
             var fileMetaData = new FileMetadata(
