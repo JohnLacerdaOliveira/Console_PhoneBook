@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace ConsolePhoneBook_Tests
 {
     [TestFixture]
-    public class ContactTests
+    internal class ContactTests
     {
         [Test]
         public void Constructor_CreatesContact_WithValidDictionary()

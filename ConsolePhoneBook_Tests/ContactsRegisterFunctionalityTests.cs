@@ -5,19 +5,9 @@ using NUnit.Framework;
 namespace ConsolePhoneBook_Tests
 {
     [TestFixture]
-    internal class GenericRegisterTests
+    internal class ContactsRegisterFunctionalityTests
     {
-        private Contact _contactMock;
-
-        [SetUp]
-        public void Setup()
-        {
-            _contactMock = new Contact
-            {
-                Name = It.IsAny<string>(),
-                PhoneNumber = It.IsAny<string>()
-            };
-        }
+        private Contact _contactMock = CommonTestData.ContactMock;
 
         [Test]
         public void Constructor_CreatesRegisterSuccssefully_OnInstantiation()
@@ -108,6 +98,7 @@ namespace ConsolePhoneBook_Tests
 
             // Assert
             Assert.AreEqual(0, contactsRegister.Register.Count());
+            Assert.IsFalse(contactsRegister.Register.Contains(_contactMock));
         }
     }
 }
