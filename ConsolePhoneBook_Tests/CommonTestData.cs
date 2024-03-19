@@ -12,7 +12,7 @@ namespace ConsolePhoneBook_Tests
             PhoneNumber = It.IsAny<string>()
         };
 
-    internal static IEnumerable<IGenericContact> TestContacts { get; } = new List<IGenericContact>
+        internal static IEnumerable<IGenericContact> TestContacts { get; } = new List<IGenericContact>
         {
             new Contact { Name = "John Doe", PhoneNumber = "911234567" },
             new Contact { Name = "Jane Smith", PhoneNumber = "922345678" },
