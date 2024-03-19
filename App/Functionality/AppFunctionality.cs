@@ -92,11 +92,29 @@ namespace Console_PhoneBook.App.Functionality
             return validFilesToImport;
         }
 
-        public void PrintAllContacts() => _userInterface.PrintAllContacts(_contactsRegister.Register);
+        public void PrintAllContacts() 
+        {
+            if (IsRegisterEmpty())
+            {
+                _userInterface.PrintLine("PhoneBook is empty! Press any key to continue.");
+                _userInterface.ReadKey(true);
+                return;
+            }
+
+            _userInterface.PrintAllContacts(_contactsRegister.Register);
+        }
+            
 
         public IGenericContact Search()
         {
-            IEnumerable<IGenericContact> matches = default;
+            if (IsRegisterEmpty())
+            {
+                _userInterface.PrintLine("PhoneBook is empty! Press any key to continue.");
+                _userInterface.ReadKey(true);
+                return null;
+            }
+
+            IEnumerable<IGenericContact>? matches = default;
 
             ConsoleKeyInfo key;
             string input = "";
@@ -155,6 +173,13 @@ namespace Console_PhoneBook.App.Functionality
 
         public void EditContact()
         {
+            if (IsRegisterEmpty())
+            {
+                _userInterface.PrintLine("PhoneBook is empty! Press any key to continue.");
+                _userInterface.ReadKey(true);
+                return;
+            }
+
             var contactToEdit = Search();
             var genericContactProperties = typeof(IGenericContact).GetProperties().Select(p => p.Name);
 
@@ -177,17 +202,28 @@ namespace Console_PhoneBook.App.Functionality
 
         public void DeleteContact()
         {
+            if (IsRegisterEmpty()) 
+            { 
+                _userInterface.PrintLine("PhoneBook is empty! Press any key to continue.");
+                _userInterface.ReadKey(true);
+                return;
+            }
+
             var contactToDelete = Search();
             _contactsRegister.Delete(contactToDelete);
             _userInterface.PrintLine($"{contactToDelete.Name} was removed");
         }
 
+        private bool IsRegisterEmpty()
+        {
+            return !_contactsRegister.Register.Any();
+        }
+
         public void ExportPhoneBook()
         {
-            if (_contactsRegister.Register.Count() == 0)
+            if (IsRegisterEmpty())
             {
-                _userInterface.PrintLine("");
-                _userInterface.PrintLine("There are no contacts to export...");
+                _userInterface.PrintLine("PhoneBook is empty! Press any key to continue.");
                 _userInterface.ReadKey(true);
                 return;
             }
@@ -244,5 +280,40 @@ namespace Console_PhoneBook.App.Functionality
             _userInterface.PressKeyToContinue();
             _userInterface.TerminateExecution();
         }
+
+        public void LoadDemoPhoneBook()
+        {
+            _contactsRegister.Add(new Contact("John Appleseed", "914566786"));
+            _contactsRegister.Add(new Contact("Jane Doe", "914567001"));
+            _contactsRegister.Add(new Contact("Michael Smith", "914567002"));
+            _contactsRegister.Add(new Contact("Emily Johnson", "914567003"));
+            _contactsRegister.Add(new Contact("Chris Evans", "914567004"));
+            _contactsRegister.Add(new Contact("Olivia Brown", "914567005"));
+            _contactsRegister.Add(new Contact("Liam Miller", "914567006"));
+            _contactsRegister.Add(new Contact("Sophia Wilson", "914567007"));
+            _contactsRegister.Add(new Contact("James Taylor", "914567008"));
+            _contactsRegister.Add(new Contact("Charlotte Davis", "914567009"));
+            _contactsRegister.Add(new Contact("Benjamin Anderson", "914567010"));
+            _contactsRegister.Add(new Contact("Mia Thomas", "914567011"));
+            _contactsRegister.Add(new Contact("Lucas White", "914567012"));
+            _contactsRegister.Add(new Contact("Amelia Harris", "914567013"));
+            _contactsRegister.Add(new Contact("Alexander Martin", "914567014"));
+            _contactsRegister.Add(new Contact("Isabella Thompson", "914567015"));
+            _contactsRegister.Add(new Contact("Elijah Garcia", "914567016"));
+            _contactsRegister.Add(new Contact("Ava Martinez", "914567017"));
+            _contactsRegister.Add(new Contact("William Robinson", "914567018"));
+            _contactsRegister.Add(new Contact("Evelyn Clark", "914567019"));
+            _contactsRegister.Add(new Contact("Daniel Rodriguez", "914567020"));
+            _contactsRegister.Add(new Contact("Abigail Lewis", "914567021"));
+            _contactsRegister.Add(new Contact("Henry Walker", "914567022"));
+            _contactsRegister.Add(new Contact("Grace Hall", "914567023"));
+            _contactsRegister.Add(new Contact("Samuel Allen", "914567024"));
+            _contactsRegister.Add(new Contact("Scarlett Young", "914567025"));
+            _contactsRegister.Add(new Contact("Matthew King", "914567026"));
+            _contactsRegister.Add(new Contact("Ella Wright", "914567027"));
+            _contactsRegister.Add(new Contact("David Scott", "914567028"));
+            _contactsRegister.Add(new Contact("Aria Green", "914567029"));
+        }
+
     }
 }

@@ -14,10 +14,9 @@ namespace Console_PhoneBook.App
 
         public Dictionary<string, Action<IAppFunctionality>> Start { get; init; } = new()
         {
+            { "Load Demo PhoneBook", (func) => func.LoadDemoPhoneBook() },
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
-            { "New PhoneBook",(func) => func.CreateNewPhoneBook()},
-            //TODO - create settings menu
-            //{ "Settings", (func) => func.AppSettings() },
+            { "New PhoneBook",(func) => func.CreateNewPhoneBook() },
             { "Exit", (func) => func.ExitApplication() }
         };
 

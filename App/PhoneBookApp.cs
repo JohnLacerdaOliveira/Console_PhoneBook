@@ -1,10 +1,9 @@
-﻿using Console_PhoneBook.App.Functionality;
-using Console_PhoneBook.App.UserInterface;
+﻿using Console_PhoneBook.App.UserInterface;
 
 namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
-    {  
+    {
         private readonly IMenus _menus;
         private readonly IConsoleUI _userInterface;
 

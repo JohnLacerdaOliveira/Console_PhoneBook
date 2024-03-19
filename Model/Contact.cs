@@ -13,6 +13,12 @@ namespace Console_PhoneBook.Model
         {
 
         }
+        public Contact(string name, string phoneNumber)
+        {
+            Name = name;
+            PhoneNumber = phoneNumber;
+        }
+
 
         public Contact(Dictionary<string, string> contactValues)
         {

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Console_PhoneBook": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}
