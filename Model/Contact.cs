@@ -5,7 +5,7 @@ namespace Console_PhoneBook.Model
 {
     public class Contact : IGenericContact
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public string? Nickname { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
@@ -58,6 +58,6 @@ namespace Console_PhoneBook.Model
             }
 
             return description.ToString();
-        }   
+        }
     }
 }
