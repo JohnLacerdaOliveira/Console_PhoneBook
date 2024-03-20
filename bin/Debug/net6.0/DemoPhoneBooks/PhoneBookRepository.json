@@ -1,82 +1,38 @@
 [
   {
     "Name": "John Doe",
-    "PhoneNumber": "911234567"
+    "Nickname": "Johnny",
+    "PhoneNumber": "\u002B1234567890",
+    "Email": "john.doe@example.com",
+    "BirthDay": "1980-01-01",
+    "Address": "123 Main St, City, Country",
+    "Organization": "Example Corp",
+    "Title": "Software Engineer",
+    "Role": "Developer",
+    "Note": "This is a note about John Doe."
   },
   {
-    "Name": "Jane Smith",
-    "PhoneNumber": "922345678"
+    "Name": "Alice Smith",
+    "Nickname": "Ali",
+    "PhoneNumber": "\u002B1987654321",
+    "Email": "alice.smith@example.com",
+    "BirthDay": "1990-05-15",
+    "Address": "456 Oak St, Town, Country",
+    "Organization": "ABC Company",
+    "Title": "Marketing Manager",
+    "Role": "Manager",
+    "Note": "This is a note about Alice Smith."
   },
   {
-    "Name": "Michael Johnson",
-    "PhoneNumber": "933456789"
-  },
-  {
-    "Name": "Emily Brown",
-    "PhoneNumber": "944567890"
-  },
-  {
-    "Name": "David Davis",
-    "PhoneNumber": "955678901"
-  },
-  {
-    "Name": "Sarah Wilson",
-    "PhoneNumber": "966789012"
-  },
-  {
-    "Name": "Robert Martinez",
-    "PhoneNumber": "977890123"
-  },
-  {
-    "Name": "Jennifer Taylor",
-    "PhoneNumber": "988901234"
-  },
-  {
-    "Name": "William Anderson",
-    "PhoneNumber": "919012345"
-  },
-  {
-    "Name": "Jessica Thomas",
-    "PhoneNumber": "920123456"
-  },
-  {
-    "Name": "Richard Jackson",
-    "PhoneNumber": "931234567"
-  },
-  {
-    "Name": "Linda White",
-    "PhoneNumber": "942345678"
-  },
-  {
-    "Name": "Charles Harris",
-    "PhoneNumber": "953456789"
-  },
-  {
-    "Name": "Karen Martin",
-    "PhoneNumber": "964567890"
-  },
-  {
-    "Name": "Joseph Thompson",
-    "PhoneNumber": "975678901"
-  },
-  {
-    "Name": "Amanda Garcia",
-    "PhoneNumber": "986789012"
-  },
-  {
-    "Name": "Daniel Martinez",
-    "PhoneNumber": "917890123"
-  },
-  {
-    "Name": "Melissa Robinson",
-    "PhoneNumber": "928901234"
-  },
-  {
-    "Name": "Christopher Lee",
-    "PhoneNumber": "939012345"
-  },
-  {
-    "Name": "Patricia King",
-    "PhoneNumber": "940123456"
+    "Name": "Bob Johnson",
+    "Nickname": "Bobby",
+    "PhoneNumber": "\u002B1122334455",
+    "Email": "bob.johnson@example.com",
+    "BirthDay": "1985-08-20",
+    "Address": "789 Maple Ave, Village, Country",
+    "Organization": "XYZ Corporation",
+    "Title": "Sales Representative",
+    "Role": "Sales",
+    "Note": "This is a note about Bob Johnson."
   }
 ]

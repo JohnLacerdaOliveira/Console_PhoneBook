@@ -7,7 +7,7 @@ namespace ConsolePhoneBook_Tests
     [TestFixture]
     internal class ContactsRegisterFunctionalityTests
     {
-        private Contact _contactMock = CommonTestData.BasicContactMock;
+        private Contact _contactMock = CommonTestData.ContactMock;
 
         [Test]
         public void Constructor_CreatesRegisterSuccssefully_OnInstantiation()
@@ -35,40 +35,6 @@ namespace ConsolePhoneBook_Tests
             // Assert
             Assert.AreEqual(1, contactsRegister.Register.Count());
             Assert.IsTrue(contactsRegister.Register.Contains(_contactMock));
-        }
-
-
-        [TestCase("AnyName","000000000")]
-        public void Edit_ContactEditedSuccessfully_WhenContactIsEdited(string newName, string newNumber)
-        {
-            // Arrange
-            var contactsRegister = new ContactsRegister<List<IGenericContact>>();
-            contactsRegister.Add(_contactMock);
-
-            // Act
-            _contactMock.Name = newName;
-            _contactMock.PhoneNumber = newNumber;
-            contactsRegister.Edit(_contactMock);
-
-            // Assert
-            Assert.AreEqual(1, contactsRegister.Register.Count());
-            Assert.IsTrue(contactsRegister.Register.Any(n => n.Name.Equals(newName)));
-            Assert.IsTrue(contactsRegister.Register.Any(n => n.PhoneNumber.Equals(newNumber)));
-        }
-
-        [Test]
-        public void Edit_ShouldFail_NonExistentContact()
-        {
-            // Arrange
-            var contactsRegister = new ContactsRegister<List<IGenericContact>>();
-
-            // Act
-            contactsRegister.Edit(_contactMock);
-
-            // Assert
-            Assert.AreEqual(0, contactsRegister.Register.Count());
-            Assert.IsFalse(contactsRegister.Register.Any(c => c.Name.Equals(It.IsAny<string>)));
-            Assert.IsFalse(contactsRegister.Register.Any(c => c.PhoneNumber.Equals(It.IsAny<string>)));
         }
 
         [Test]

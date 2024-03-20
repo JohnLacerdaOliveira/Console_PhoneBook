@@ -1,7 +1,6 @@
 BEGIN:VCARD
 VERSION:3.0
 FN:John Doe
-N:Doe;John;;;
 NICKNAME:Johnny
 TEL:+1234567890
 EMAIL:john.doe@example.com
@@ -16,7 +15,6 @@ END:VCARD
 BEGIN:VCARD
 VERSION:3.0
 FN:Alice Smith
-N:Smith;Alice;;;
 NICKNAME:Ali
 TEL:+1987654321
 EMAIL:alice.smith@example.com
@@ -31,7 +29,6 @@ END:VCARD
 BEGIN:VCARD
 VERSION:3.0
 FN:Bob Johnson
-N:Johnson;Bob;;;
 NICKNAME:Bobby
 TEL:+1122334455
 EMAIL:bob.johnson@example.com

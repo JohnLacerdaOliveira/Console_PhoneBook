@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Console_PhoneBook.Model
@@ -14,16 +12,13 @@ namespace Console_PhoneBook.Model
         public string? BirthDay { get; set; }
         public string? Address { get; set; }
         public string? Organization { get; set; }
-        public string Title { get; set; }
+        public string? Title { get; set; }
         public string? Role { get; set; }
         public string? Note { get; set; }
 
 
         [JsonConstructor]
-        public Contact()
-        {
-
-        }
+        public Contact() { }
 
         public Contact(Dictionary<string, string> importedValues)
         {
@@ -31,11 +26,10 @@ namespace Console_PhoneBook.Model
             {
                 Type currentType = property.PropertyType;
 
-                if(importedValues.TryGetValue(property.Name, out string? value))
+                if (importedValues.TryGetValue(property.Name, out string? value))
                 {
                     property.SetValue(this, value);
                 }
-               
             }
         }
 
@@ -55,13 +49,15 @@ namespace Console_PhoneBook.Model
         {
             var description = new StringBuilder();
 
-            foreach (var property in GetType().GetProperties())
+            foreach (var propertyInfo in GetType().GetProperties())
             {
-                description.AppendLine($"{property.GetValue(this)} ");
+                var propertyValue = propertyInfo.GetValue(this);
+
+                if (propertyValue != null) description.AppendLine($"{propertyValue} ");
+
             }
 
             return description.ToString();
-        }
-
+        }   
     }
 }

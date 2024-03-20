@@ -12,10 +12,18 @@ namespace ConsolePhoneBook_Tests
         internal static string FileName { get; } = "Test";
         internal static string TestDataFilePath { get; } = Path.Combine(_testFilesDirectory, _testFilesFolderName);
 
-        internal static Contact BasicContactMock { get; } = new Contact
+        internal static Contact ContactMock { get; } = new Contact
         {
             Name = It.IsAny<string>(),
-            PhoneNumber = It.IsAny<string>()
+            Nickname = It.IsAny<string>(),
+            PhoneNumber = It.IsAny<string>(),
+            Email = It.IsAny<string>(),
+            BirthDay = It.IsAny<string>(),
+            Address = It.IsAny<string>(),
+            Organization = It.IsAny<string>(),
+            Title = It.IsAny<string>(),
+            Role = It.IsAny<string>(),
+            Note = It.IsAny<string>()
         };
 
         internal static IEnumerable<IGenericContact> TestContacts { get; } = new List<IGenericContact>

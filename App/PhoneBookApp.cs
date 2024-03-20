@@ -1,10 +1,10 @@
-﻿using Console_PhoneBook.App.Functionality;
-using Console_PhoneBook.App.UserInterface;
+﻿using Console_PhoneBook.App.UserInterface;
 
 namespace Console_PhoneBook.App
 {
     public class PhoneBookApp
-    {  
+    {
+        private CancellationTokenSource _cancellationTokenSource;
         private readonly IMenus _menus;
         private readonly IConsoleUI _userInterface;
 
@@ -12,6 +12,7 @@ namespace Console_PhoneBook.App
             IMenus Menus,
             IConsoleUI userInterface)
         {
+            _cancellationTokenSource = new CancellationTokenSource();
             _menus = Menus;
             _userInterface = userInterface;
         }

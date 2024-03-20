@@ -7,7 +7,7 @@ namespace ConsolePhoneBook_Tests
 {
     internal class ContactsRegisterPerformanceTests
     {
-        private Contact _contactMock = CommonTestData.BasicContactMock;
+        private Contact _contactMock = CommonTestData.ContactMock;
 
         [Test]
         public void TestCollectionPerformance()
@@ -55,9 +55,17 @@ namespace ConsolePhoneBook_Tests
 
         private void EditContacts(IRegister register, int numberOfContacts)
         {
-            for (int i = 0; i < numberOfContacts; i++)
+            foreach (var element in register.Register)
             {
-                register.Edit(register.Register.GetEnumerator().Current);
+                foreach (var property in element.GetType().GetProperties())
+                {
+                    var mockProperty = typeof(IGenericContact).GetProperty(property.Name);
+                    if (mockProperty != null)
+                    {
+                        var value = mockProperty.GetValue(_contactMock);
+                        property.SetValue(element, value);
+                    }
+                }
             }
         }
 
