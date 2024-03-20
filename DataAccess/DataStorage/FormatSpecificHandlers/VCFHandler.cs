@@ -1,22 +1,21 @@
-﻿using Console_PhoneBook.DataStorage.FileAccess;
-using Console_PhoneBook.Model;
+﻿using Console_PhoneBook.Model;
 using System.Reflection;
 using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
-    internal class VCFHandler : GenericRepository 
+    internal class VCFHandler : GenericRepository
     {
+        private readonly string _contactDelimiter = "END:VCARD";
+        private readonly string _tagDelimiter = ":";
 
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             var register = new List<IGenericContact>();
-            
 
-            var delimiter = "END:VCARD";
-            string[] vCards = fileData.Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+            string[] vCards = fileData.Split(new[] { _contactDelimiter }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (vCards is null || vCards.Length == 0) return register;
+            if (string.IsNullOrEmpty(vCards.ToString())) return register;
 
             foreach (string vCard in vCards)
             {
@@ -24,59 +23,52 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 
                 string[] vCardComponents = vCard.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
                 var contactProperties = new Dictionary<string, string>();
-                //TODO Implement a dictionary of vCard tags and iterate over it
+
                 foreach (string component in vCardComponents)
                 {
+                    var tag = component.Split(_tagDelimiter)[0].ToUpper();
 
-                    //TODO - filter for uppercase letters to indicate a tag
-                    var tag = component.Split(":")[0];
-
-                    foreach (var key in VCardProperties.Map.Keys)
+                    if (VCardProperties.Map.Keys.Contains(tag))
                     {
-                        if (tag.Equals(key))
-                        {
-                            contactProperties.Add(VCardProperties.Map[key], component.Split(":")[1]);
-                            break;
-                        }
+                        contactProperties.Add(VCardProperties.Map[tag], component.Split(_tagDelimiter, 2)[1]);
                     }
                 }
-
-               
                 register.Add(new Contact(contactProperties));
             }
 
             return register;
         }
 
-        //TODO - Aplly the same dynamic approach as in the CSV REpository
         public override string Serialize(IEnumerable<IGenericContact> register)
         {
             StringBuilder vCards = new StringBuilder();
 
             foreach (var contact in register)
             {
-                if (contact is null) continue;
+                if (contact == null) continue;
 
                 vCards.AppendLine("BEGIN:VCARD");
                 vCards.AppendLine("VERSION:3.0");
 
-                foreach (var value in VCardProperties.Map.Values)
+                foreach (var propertyName in VCardProperties.Map.Values)
                 {
-                    PropertyInfo? property = typeof(IGenericContact).GetProperty(value);
-
-                    if (property != null)
+                    if (typeof(IGenericContact).GetProperty(propertyName) is PropertyInfo property)
                     {
-                        //"value" property should work
-                        string key = VCardProperties.Map.FirstOrDefault(x => x.Value == value).Key;
-                        vCards.AppendLine($"{key}:{property.GetValue(contact)}");
+                        string key = VCardProperties.Map.FirstOrDefault(x => x.Value == propertyName).Key;
+                        string? value = property.GetValue(contact)?.ToString();
+
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            vCards.AppendLine($"{key}{_tagDelimiter}{value}");
+                        }
                     }
                 }
 
                 vCards.AppendLine("END:VCARD");
+                vCards.AppendLine();
             }
 
             return vCards.ToString();
         }
     }
-
 }

@@ -7,7 +7,7 @@ namespace ConsolePhoneBook_Tests
 {
     internal class ContactsRegisterPerformanceTests
     {
-        private Contact _contactMock = CommonTestData.ContactMock;
+        private Contact _contactMock = CommonTestData.BasicContactMock;
 
         [Test]
         public void TestCollectionPerformance()

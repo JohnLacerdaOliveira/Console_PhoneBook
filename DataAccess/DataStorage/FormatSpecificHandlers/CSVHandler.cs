@@ -1,35 +1,33 @@
 ﻿using Console_PhoneBook.Model;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
 {
     internal class CSVHandler : GenericRepository
     {
-        //TODO - Log rejected entries and properties
-        //TODO - Log results
+        private readonly string _delimiter = ";";
+        private readonly string[] _contactProperties = typeof(IGenericContact).GetProperties().Select(n => n.Name).ToArray();
+
         public override IEnumerable<IGenericContact> Parse(string fileData)
         {
             //TODO - Implement Generic type on the collection type
             var register = new List<IGenericContact>();
 
+            if(string.IsNullOrEmpty(fileData)) return register;
+
             bool hasHeader = false;
-            var headerValues = new Dictionary<string, string?>();
+            var headerValues = new Dictionary<string, string>();
 
             string[] contacts = fileData.Split(Environment.NewLine);
-            string[] header = contacts[0].Split(",");
+            string[] header = contacts[0].Split(_delimiter);
 
-            if (contacts is null || contacts.Length == 0) return register;
-
-            var headerProperties = typeof(IGenericContact).GetProperties();
-            //Parse header
             foreach (var headerValue in header)
             {
-                foreach (var propertyName in headerProperties)
+                foreach (var propertyName in _contactProperties)
                 {
-                    if (headerValue.ToLower() == propertyName.Name.ToLower())
+                    if (headerValue.ToLower() == propertyName.ToLower())
                     {
-                        headerValues.Add(propertyName.Name, null);
+                        headerValues.Add(propertyName, string.Empty);
                         hasHeader = true;
                         break;
                     }
@@ -46,23 +44,22 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
                 return register;
             }
 
-            //Parse Contact
             foreach (var contact in contacts)
             {
                 if (contact.Length == 0) continue;
 
                 var contactDataIndex = 0;
-                string[] contactData = contact.Split(',');
+                string[] contactData = contact.Split(_delimiter);
                 if (contactData.Length != header.Length) continue;
 
-                var contactProperties = new Dictionary<string, string>();
+                var contactArguments = new Dictionary<string, string>();
                 foreach (var property in headerValues.Keys)
                 {
-                    contactProperties.Add(property, contactData[contactDataIndex++]);
+                    contactArguments.Add(property, contactData[contactDataIndex++]);
                 }
 
                 //TODO - Contact must have a name
-                register.Add(new Contact(contactProperties));
+                register.Add(new Contact(contactArguments));
             }
 
             return register;
@@ -72,29 +69,23 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
         {
             var csvBuilder = new StringBuilder();
 
-            var propertyNames = typeof(IGenericContact).GetProperties().Select(n => n.Name).ToArray();
-
-            if (propertyNames == null) return string.Empty; // No data to serialize
-
-            csvBuilder.AppendLine(string.Join(",", propertyNames));
+            csvBuilder.AppendLine(string.Join(_delimiter, _contactProperties));
 
             foreach (var contact in register)
             {
                 var contactValues = new List<string>();
-                foreach (var property in propertyNames)
+                foreach (var property in _contactProperties)
                 {
                     var propertyInfo = contact.GetType().GetProperty(property);
-                    if (propertyInfo != null)
+                    var propertyValue = propertyInfo.GetValue(contact);
+
+                    if (propertyValue != null)
                     {
-                        var propertyValue = propertyInfo.GetValue(contact);
-                        contactValues.Add(propertyValue != null ? propertyValue.ToString() : "");
-                       
+                        contactValues.Add(propertyValue.ToString());
+
                     }
-
-                    //contactValues.Add(""); // Property not found, add empty value
-
                 }
-                csvBuilder.AppendLine(string.Join(",", contactValues));
+                csvBuilder.AppendLine(string.Join(_delimiter, contactValues));
             }
 
             return csvBuilder.ToString();

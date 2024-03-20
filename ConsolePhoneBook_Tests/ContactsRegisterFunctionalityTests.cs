@@ -7,7 +7,7 @@ namespace ConsolePhoneBook_Tests
     [TestFixture]
     internal class ContactsRegisterFunctionalityTests
     {
-        private Contact _contactMock = CommonTestData.ContactMock;
+        private Contact _contactMock = CommonTestData.BasicContactMock;
 
         [Test]
         public void Constructor_CreatesRegisterSuccssefully_OnInstantiation()

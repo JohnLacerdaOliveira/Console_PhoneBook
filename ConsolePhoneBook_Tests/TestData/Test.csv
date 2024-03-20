@@ -1,4 +1,4 @@
-Name,PhoneNumber
-John Doe,911234567
-Jane Smith,922345678
-Michael Johnson,933456789
+Name;Nickname;PhoneNumber;Email;BirthDay;Address;Organization;Title;Role;Note
+John Doe;Johnny;+1234567890;john.doe@example.com;1980-01-01;123 Main St, City, Country;Example Corp;Software Engineer;Developer;This is a note about John Doe.
+Alice Smith;Ali;+1987654321;alice.smith@example.com;1990-05-15;456 Oak St, Town, Country;ABC Company;Marketing Manager;Manager;This is a note about Alice Smith.
+Bob Johnson;Bobby;+1122334455;bob.johnson@example.com;1985-08-20;789 Maple Ave, Village, Country;XYZ Corporation;Sales Representative;Sales;This is a note about Bob Johnson.

@@ -22,7 +22,6 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             }
             catch (Exception ex)
             {
-                // Handle or log the exception appropriately
                 throw new InvalidOperationException("Error occurred while parsing XML data.", ex);
             }
         }
@@ -46,7 +45,6 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
             }
             catch (Exception ex)
             {
-                // Handle or log the exception appropriately
                 throw new InvalidOperationException("Error occurred while serializing contacts to XML.", ex);
             }
         }
