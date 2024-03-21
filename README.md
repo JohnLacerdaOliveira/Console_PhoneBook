@@ -33,11 +33,11 @@ FEATURES:
 ## Description
 Console PhoneBook is a personal learning project aimed at simplifying tasks of contact management and format conversion. The goal was to create a tool that would streamline contact managment processes without unnecessary complexity.
 
-The idea was simple: provide a user-friendly console application capable of performing all the essential CRUD operations on contacts—adding, viewing, updating, and deleting—while also offering the convenience of format conversion between popular formats like CSV, VCF, JSON, and XML.
+The idea was simple: provide a user-friendly console application capable of performing all the essential CRUD operations on a collection of contacts (adding, viewing, updating, and deleting) while also offering the convenience of format conversion between popular formats like CSV, VCF, JSON, and XML.
 
 Through this project, I gained valuable insights into software development, including coding practices, design considerations, and the importance of user experience. But perhaps most importantly, I discovered that even modest projects like this one have the potential to teach us a great deal when approached with curiosity and dedication.
 
-Console PhoneBook isn't meant to be the flashiest tool out there, but it's my hope that it can actully be a usefull tool for others facing similar challenges in managing their contacts and data formats.
+Console PhoneBook isn't meant to be the flashiest tool out there, but it's my hope that it can actually be a usefull tool for others facing similar challenges in managing their contacts and data formats.
 
 Give it a try, share your feedback
 
@@ -54,13 +54,13 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 Console PhoneBook is a terminal application designed to be simple and straightforward to use. To get started, follow these steps:
 
-**Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download the executable file (ConsolePhoneBook.exe).
+**Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download it's contents (some demo PhoneBooks are included to get you started) wswell as the executable file (ConsolePhoneBook.exe) itself.
 
 **Run the Application:** Once you've downloaded the executable, open your terminal and navigate to the directory where you saved the file. Then, simply run the executable using the appropriate command for your operating system (./ConsolePhoneBook.exe on Unix-based systems or ConsolePhoneBook.exe on Windows). A simple double click on the .exe file will work fine aswell.
 
 **Testing:** Within the bin/Debug/net6.0 directory, you'll find test files for all supported formats. These files can be used to conveniently test the application's functionality with various data formats.
 
-Console PhoneBook is cross-platform and can be run on Windows, macOS, and Linux systems without the need for installation. There are no additional dependencies or requirements—simply download the executable and start managing your contacts effortlessly.
+Console PhoneBook is cross-platform and can be run on Windows, macOS, and Linux systems without the need for installation. There are no additional dependencies or requirements just download the executable and start managing your contacts effortlessly.
 
 
 
