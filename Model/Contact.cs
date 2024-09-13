@@ -27,13 +27,16 @@ namespace Console_PhoneBook.Model
             PhoneNumber = phoneNumber;
         }
 
-
-        public Contact(Dictionary<string, string> contactValues)
+        public Contact(Dictionary<string, string> importedValues)
         {
-
-            if (contactValues.TryGetValue(property.Name, out string? value))
+            foreach (var property in GetType().GetProperties())
             {
-                property.SetValue(this, value);
+                Type currentType = property.PropertyType;
+
+                if (importedValues.TryGetValue(property.Name, out string? value))
+                {
+                    property.SetValue(this, value);
+                }
             }
         }
 

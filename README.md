@@ -1,72 +1,45 @@
 # Console_PhoneBook
-Console contacts management application developed in C#
-
-FEATURES:
-
-1.Add Contact: Allow users to add new contacts to the phonebook. They should be able to input the contact's name, phone number, email address, and any other relevant information.
-
-2.View All Contacts: Provide an option to display a list of all contacts stored in the phonebook. This list should show basic information such as names and phone numbers.
-
-3.Search Contacts: Allow users to search for specific contacts by name, phone number, or any other relevant criteria. Provide a search functionality that returns matching contacts.
-
-4.Edit Contact: Allow users to modify existing contact information. They should be able to update the name, phone number, email address, and any other details associated with a contact.
-
-5.Delete Contact: Implement the ability to delete contacts from the phonebook. Users should be able to remove unwanted or outdated contacts from the database.
-
-6.Save/Load Contacts: Implement functionality to save the phonebook data to a file (e.g., a text file or a database) so that it can be loaded again later. This ensures that contacts are persisted between sessions.
-
-7.Import/Export Contacts: Provide options to import contacts from external sources (e.g., CSV files, vCard files) and export contacts to various formats for backup or sharing purposes.
-
-8.Sort Contacts: Allow users to sort the list of contacts based on different criteria such as name, phone number, or date added. This helps users quickly find the contact they are looking for.
-
-9.Pagination: If the list of contacts is long, implement pagination or scrolling functionality to display a subset of contacts at a time, improving usability and performance.
-
-10.User Interface Enhancements: Consider adding user-friendly features such as color-coding, interactive menus, and keyboard shortcuts to enhance the user experience.
-
-11.Error Handling: Implement robust error handling to gracefully handle unexpected situations such as invalid input, file I/O errors, or database connectivity issues.
-
-12.Data Validation: Validate user input to ensure that contact information is entered correctly and consistently. Provide feedback to users if any errors are detected.
-
-
-# <Console PhoneBook>
-
-## Description
-Console PhoneBook is a personal learning project aimed at simplifying tasks of contact management and format conversion. The goal was to create a tool that would streamline contact managment processes without unnecessary complexity.
-
-The idea was simple: provide a user-friendly console application capable of performing all the essential CRUD operations on a collection of contacts (adding, viewing, updating, and deleting) while also offering the convenience of format conversion between popular formats like CSV, VCF, JSON, and XML.
-
-Through this project, I gained valuable insights into software development, including coding practices, design considerations, and the importance of user experience. But perhaps most importantly, I discovered that even modest projects like this one have the potential to teach us a great deal when approached with curiosity and dedication.
-
-Console PhoneBook isn't meant to be the flashiest tool out there, but it's my hope that it can actually be a usefull tool for others facing similar challenges in managing their contacts and data formats.
-
-Give it a try, share your feedback
+Console-based contact management and format converter application developed in C#. The app performs CRUD operations (Create, Read, Update, Delete), has full unit test coverage of it's functionality and supports import/export capabilities in four file formats: CSV, vCard, JSON, and XML.
+This project was primarily intended as a learning vehicle, with a strong focus on clean, well-structured, and properly implemented coding principles and was developed as an honest effort to develop something from a blank file trying to solve problems without any gide or tutorial.
+Althought the app is very basic in functionality it was developed with SOLID coding principles in mind like single responsability, dependency inversion and open/closed principles which in conjunction with Unit test implementation forms a strong base for further develpment if anyone has the motivation to do so.
 
 ## Table of Contents (Optional)
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
+- [Features](#Features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
 
+##Features
+1.ADD CONTACT: Allow users to add new contacts to the phonebook.
+
+2.VIEW ALL CONTACTS: Provide an option to display a list of all contacts stored in the phonebook.
+
+3.SEARCH CONTACTS: Allow users to search as you type by contacts by name, phone number, or any other later added criteria. Provides a search functionality that returns matching contacts.
+
+4.EDIT CONTACTS: Allow users to modify existing contact information. They should be able to update any or all details associated with a contact.
+
+5.DELETE CONTACT: Implement the ability to delete contacts from the phonebook.
+
+6.IMPORT / EXPORT CONTACTS: Provide the ability to import from external sources (e.g., CSV, vCard, JSON and XML) and export them to any of these formats effectively  turning into a CLI file convertion lybrary for contacts file types.
+
+
 ## Installation
 
 Console PhoneBook is a terminal application designed to be simple and straightforward to use. To get started, follow these steps:
 
-**Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download it's contents (some demo PhoneBooks are included to get you started) wswell as the executable file (ConsolePhoneBook.exe) itself.
+**Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download it's contents (a demo PhoneBook is included to get you started) just aswell as the executable file (ConsolePhoneBook.exe) itself.
 
 **Run the Application:** Once you've downloaded the executable, open your terminal and navigate to the directory where you saved the file. Then, simply run the executable using the appropriate command for your operating system (./ConsolePhoneBook.exe on Unix-based systems or ConsolePhoneBook.exe on Windows). A simple double click on the .exe file will work fine aswell.
 
 **Testing:** Within the bin/Debug/net6.0 directory, you'll find test files for all supported formats. These files can be used to conveniently test the application's functionality with various data formats.
 
-Console PhoneBook is cross-platform and can be run on Windows, macOS, and Linux systems without the need for installation. There are no additional dependencies or requirements just download the executable and start managing your contacts effortlessly.
-
-
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+User is greated with a welcome screen:
+
 
 To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
 
@@ -99,17 +72,6 @@ The MIT License is a permissive open-source license that allows users to do what
 ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
 
 Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
-## Features
-
-1. Add Contact
-2. View All Contacts
-3. Search Contacts
-4. Edit Contact
-5. Delete Contact
-6. Save/Load Contacts
-7. Import/Export Contacts
-8. Error Handling
 
 
 ## How to Contribute
