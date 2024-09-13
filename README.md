@@ -41,12 +41,24 @@ Console PhoneBook is a terminal application designed to be simple and straightfo
 User is greated with a welcome screen:
 ![image](https://github.com/user-attachments/assets/d0b4225f-2c79-4340-8c84-249bf7847513)
 
+Start-up options, it's suggested to choose option 1 so there's some data to demo the application:
+![image](https://github.com/user-attachments/assets/e55ea84e-68ed-4dd1-a016-a33e05fde5df)
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+Main menu:
+3![image](https://github.com/user-attachments/assets/9410d8c1-943a-4bd9-9342-bc682f921a91)
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+Search functionality:
+![image](https://github.com/user-attachments/assets/13420c52-2a3a-48d2-aad4-697658f827ad)
+
+Import Functionality:
+![image](https://github.com/user-attachments/assets/2099aaad-4bf5-40ff-8f17-01ddfd06eb96)
+
+export functionality:
+![image](https://github.com/user-attachments/assets/77610548-6696-48b4-9463-f27bf21e86c6)
+
+
+
+
 
 ## Credits
 
