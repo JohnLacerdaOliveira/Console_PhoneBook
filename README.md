@@ -38,7 +38,7 @@ Console PhoneBook is a terminal application designed to be simple and straightfo
 
 ## Usage
 
-User is greated with a welcome screen:
+User is greeted with a welcome screen:
 ![image](https://github.com/user-attachments/assets/d0b4225f-2c79-4340-8c84-249bf7847513)
 
 Start-up options, it's suggested to choose option 1 so there's some data to demo the application:
