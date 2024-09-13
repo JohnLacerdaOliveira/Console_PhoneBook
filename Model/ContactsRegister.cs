@@ -15,22 +15,6 @@
                 list.Add(Contact);
         }
 
-        public void Edit(IGenericContact contact)
-        {
-            foreach (var item in Register)
-            {
-                if (ReferenceEquals(item, contact))
-                {
-                    if (Register is TCollection list)
-                    {
-                        list.Remove(item);
-                        list.Add(contact);
-                    }
-                    return;
-                }
-            }
-        }
-
         public void Delete(IGenericContact contact)
         {
             if (Register is TCollection list)

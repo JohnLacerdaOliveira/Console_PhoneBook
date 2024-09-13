@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace ConsolePhoneBook_Tests
 {
     [TestFixture]
-    public class GenericRepositoryTests
+    internal class GenericRepositoryTests
     {
         private Mock<GenericRepository> _genericRepositoryMock;
 

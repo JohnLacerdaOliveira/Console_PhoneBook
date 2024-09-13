@@ -176,23 +176,23 @@ namespace Console_PhoneBook.App.UserInterface
         {
             SetCursorVisibilityTo(false);
             string a = "Ctrl+Click to view on GitHub/JohnLacerdaOliveira/Console_PhoneBook";
-            string hyperlink = $"\u001B]8;;https://github.com/JohnLacerdaOliveira/Console_PhoneBook\a{a}\u001B]8;;\a";
+            string hyperlink = $"Info on github.com/JohnLacerdaOliveira/Console_PhoneBook";
 
             var logo = (@"
-           ____                      _                      
-          / ___|___  _ __  ___  ___ | | ___                 
-         | |   / _ \| '_ \/ __|/ _ \| |/ _ \                
-         | |__| (_) | | | \__ \ (_) | |  __/                
-          \____\___/|_| |_|___/\___/|_|\___|                
-  ____  _                      ____              _    
- |  _ \| |__   ___  _ __   ___| __ )  ___   ___ | | __
- | |_) | '_ \ / _ \| '_ \ / _ \  _ \ / _ \ / _ \| |/ /
- |  __/| | | | (_) | | | |  __/ |_) | (_) | (_) |   < 
- |_|   |_| |_|\___/|_| |_|\___|____/ \___/ \___/|_|\_\            
+                       ____                      _                      
+                      / ___|___  _ __  ___  ___ | | ___                 
+                     | |   / _ \| '_ \/ __|/ _ \| |/ _ \                
+                     | |__| (_) | | | \__ \ (_) | |  __/                
+                      \____\___/|_| |_|___/\___/|_|\___|                
+              ____  _                      ____              _    
+             |  _ \| |__   ___  _ __   ___| __ )  ___   ___ | | __
+             | |_) | '_ \ / _ \| '_ \ / _ \  _ \ / _ \ / _ \| |/ /
+             |  __/| | | | (_) | | | |  __/ |_) | (_) | (_) |   < 
+             |_|   |_| |_|\___/|_| |_|\___|____/ \___/ \___/|_|\_\            
 ");
             PrintCentered(logo);
             PrintEmptyLines(2);
-            PrintCentered(hyperlink.PadLeft(155));
+            PrintCentered(hyperlink);
             PrintEmptyLines(6);
             PrintCentered("Press any key to continue...");
             PressKeyToContinue();

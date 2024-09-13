@@ -1,18 +1,26 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
+using System.Xml.Linq;
 
 namespace Console_PhoneBook.Model
 {
     public class Contact : IGenericContact
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
+        public string? Nickname { get; set; }
         public string? PhoneNumber { get; set; }
+        public string? Email { get; set; }
+        public string? BirthDay { get; set; }
+        public string? Address { get; set; }
+        public string? Organization { get; set; }
+        public string? Title { get; set; }
+        public string? Role { get; set; }
+        public string? Note { get; set; }
+
 
         [JsonConstructor]
-        public Contact()
-        {
+        public Contact() { }
 
-        }
         public Contact(string name, string phoneNumber)
         {
             Name = name;
@@ -23,9 +31,9 @@ namespace Console_PhoneBook.Model
         public Contact(Dictionary<string, string> contactValues)
         {
 
-            foreach (var propertyInfo in GetType().GetProperties())
+            if (contactValues.TryGetValue(property.Name, out string? value))
             {
-                propertyInfo.SetValue(this, contactValues[propertyInfo.Name]);
+                property.SetValue(this, value);
             }
         }
 
@@ -45,12 +53,15 @@ namespace Console_PhoneBook.Model
         {
             var description = new StringBuilder();
 
-            foreach (var property in GetType().GetProperties())
+            foreach (var propertyInfo in GetType().GetProperties())
             {
-                description.Append($"{property.GetValue(this)} ");
+                var propertyValue = propertyInfo.GetValue(this);
+
+                if (propertyValue != null) description.AppendLine($"{propertyValue} ");
+
             }
 
-            return description.ToString().Trim();
+            return description.ToString();
         }
     }
 }

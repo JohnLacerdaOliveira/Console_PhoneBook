@@ -1,25 +1,41 @@
 BEGIN:VCARD
 VERSION:3.0
-N:John Doe
-TEL:123456789
+FN:John Doe
+NICKNAME:Johnny
+TEL:+1234567890
+EMAIL:john.doe@example.com
+BDAY:1980-01-01
+ADR:123 Main St, City, Country
+ORG:Example Corp
+TITLE:Software Engineer
+ROLE:Developer
+NOTE:This is a note about John Doe.
 END:VCARD
+
 BEGIN:VCARD
 VERSION:3.0
-N:Jane Smith
-TEL:987654321
+FN:Alice Smith
+NICKNAME:Ali
+TEL:+1987654321
+EMAIL:alice.smith@example.com
+BDAY:1990-05-15
+ADR:456 Oak St, Town, Country
+ORG:ABC Company
+TITLE:Marketing Manager
+ROLE:Manager
+NOTE:This is a note about Alice Smith.
 END:VCARD
+
 BEGIN:VCARD
 VERSION:3.0
-N:Michael Johnson
-TEL:555123456
-END:VCARD
-BEGIN:VCARD
-VERSION:3.0
-N:Emily Brown
-TEL:555987654
-END:VCARD
-BEGIN:VCARD
-VERSION:3.0
-N:David Davis
-TEL:555789123
+FN:Bob Johnson
+NICKNAME:Bobby
+TEL:+1122334455
+EMAIL:bob.johnson@example.com
+BDAY:1985-08-20
+ADR:789 Maple Ave, Village, Country
+ORG:XYZ Corporation
+TITLE:Sales Representative
+ROLE:Sales
+NOTE:This is a note about Bob Johnson.
 END:VCARD

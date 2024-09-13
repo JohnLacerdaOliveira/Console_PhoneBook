@@ -2,26 +2,32 @@
 {
     public static Dictionary<string, string> Map { get; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
-        { "FN", "FormattedName" },
-        { "N", "Name" },
+        { "FN", "Name" },
+        { "NICKNAME", "Nickname" },
         { "TEL", "PhoneNumber" },
         { "EMAIL", "Email" },
-        { "NICKNAME", "Nickname" },
-        { "PHOTO", "Photograph" },
-        { "BDAY", "Birthday" },
+        { "BDAY", "BirthDay" },
         { "ADR", "Address" },
-        { "LABEL", "Label" },
-        { "MAILER", "EmailProgram" },
-        { "TZ", "TimeZone" },
-        { "GEO", "GeographicPosition" },
+        { "ORG", "Organization" },
         { "TITLE", "Title" },
         { "ROLE", "Role" },
-        { "LOGO", "Logo" },
-        { "AGENT", "Agent" },
-        { "ORG", "Organization" },
         { "NOTE", "Note" },
-        { "REV", "RevisionTimestamp" },
-        { "UID", "UniqueIdentifier" },
-        { "URL", "URL" }
+    };
+
+    //TODO - Continue implementation for diferent contact properties implementation
+    public static Dictionary<string,Func<string,object?>> convertToType { get; } = new Dictionary<string, Func<string, object?>>()
+    {
+        { "BDAY", ConvertToDateTime},
+        { "REV", ConvertToDateTime}
+    };
+
+    static Func<string, object?> ConvertToDateTime = d =>
+    {
+        if (DateTime.TryParse(d, out DateTime dateTime))
+        {
+            return dateTime;
+
+        }
+        return null;
     };
 }
