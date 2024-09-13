@@ -8,7 +8,7 @@ Althought the app is very basic in functionality it was developed with SOLID cod
 - [Features](#Features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
+- [Tests](#tests)
 - [License](#license)
 
 ##Features
@@ -57,9 +57,6 @@ export functionality:
 ![image](https://github.com/user-attachments/assets/77610548-6696-48b4-9463-f27bf21e86c6)
 
 
-
-
-
 ## Credits
 
 List your collaborators, if any, with links to their GitHub profiles.
@@ -68,23 +65,10 @@ If you used any third-party assets that require attribution, list the creators w
 
 If you followed tutorials, include links to those here as well.
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-The MIT License is a permissive open-source license that allows users to do whatever they want with the project, as long as they include the original copyright notice and disclaimer of warranty.
 
 ---
 
-🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
-
-## Badges
-
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
 
 
 ## How to Contribute
@@ -117,4 +101,19 @@ While I'm primarily responsible for writing and maintaining the codebase, I'm op
 
 ## Tests
 
+Test structure:
+![image](https://github.com/user-attachments/assets/735fdba7-b8f3-4456-b86a-afb024848f05)
+
+
+Performace test comparison for different Collection types, made possible by applying dependency inversion principle:
+![image](https://github.com/user-attachments/assets/5f8d3cc7-cf42-4cb3-91cc-94d1fe7583f7)
+
+
 Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+The MIT License is a permissive open-source license that allows users to do whatever they want with the project, as long as they include the original copyright notice and disclaimer of warranty.
