@@ -6,7 +6,7 @@ namespace Console_PhoneBook.Model
 {
     public class Contact : IGenericContact
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public string? Nickname { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
@@ -19,7 +19,9 @@ namespace Console_PhoneBook.Model
 
 
         [JsonConstructor]
+#pragma warning disable CS8618 
         public Contact() { }
+#pragma warning restore CS8618 
 
         public Contact(string name, string phoneNumber)
         {
@@ -40,18 +42,6 @@ namespace Console_PhoneBook.Model
             }
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            var other = (IGenericContact)obj;
-            return Name == other.Name && PhoneNumber == other.PhoneNumber;
-        }
-
-
         public override string ToString()
         {
             var description = new StringBuilder();
@@ -60,11 +50,11 @@ namespace Console_PhoneBook.Model
             {
                 var propertyValue = propertyInfo.GetValue(this);
 
-                if (propertyValue != null) description.AppendLine($"{propertyValue} ");
+                if (propertyValue != null) description.Append($"{propertyValue} ");
 
             }
 
-            return description.ToString();
+            return description.ToString().Trim();
         }
     }
 }

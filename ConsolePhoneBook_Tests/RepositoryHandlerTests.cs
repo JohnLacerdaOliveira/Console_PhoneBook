@@ -13,10 +13,10 @@ namespace ConsolePhoneBook_Tests
         private readonly string _fileName = CommonTestData.FileName;
         private string _testDataFilePath = CommonTestData.TestDataFilePath;
 
-        private Mock<CSVHandler> _csvHandlerMock;
-        private Mock<JSONHandler> _jsonHandlerMock;
-        private Mock<VCFHandler> _vcfHandlerMock;
-        private Mock<XMLHandler> _xmlHandlerMock;
+        private Mock<CSVHandler>? _csvHandlerMock;
+        private Mock<JSONHandler>? _jsonHandlerMock;
+        private Mock<VCFHandler>? _vcfHandlerMock;
+        private Mock<XMLHandler>? _xmlHandlerMock;
 
         [OneTimeSetUp]
         public void Setup()

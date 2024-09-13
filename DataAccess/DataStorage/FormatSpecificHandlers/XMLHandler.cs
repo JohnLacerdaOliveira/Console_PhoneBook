@@ -17,7 +17,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess.FormatSpecificHandlers
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Contact>));
                 using (StringReader reader = new StringReader(fileData))
                 {
-                    return (List<Contact>)serializer.Deserialize(reader);
+                    return serializer.Deserialize(reader) as List<Contact>;
                 }
             }
             catch (Exception ex)

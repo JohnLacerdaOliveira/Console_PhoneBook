@@ -11,7 +11,6 @@ namespace Console_PhoneBook.App
             IMenus Menus,
             IConsoleUI userInterface)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
             _menus = Menus;
             _userInterface = userInterface;
         }
