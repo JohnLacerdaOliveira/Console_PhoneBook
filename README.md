@@ -8,7 +8,9 @@ Althought the app is very basic in functionality it was developed with SOLID cod
 - [Features](#Features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [How to contribute](#HowToContribute)
 - [Tests](#tests)
+- [Credits](#Credits)
 - [License](#license)
 
 ##Features
@@ -56,14 +58,8 @@ export functionality:
 ![image](https://github.com/user-attachments/assets/77610548-6696-48b4-9463-f27bf21e86c6)
 
 
-## Credits
-I would like to thanks Krystyna Ślusarczyk for her amazing Udemy course ["Ultimate C# Masterclass for 2024"](https://www.udemy.com/course/ultimate-csharp-masterclass), though the app is original in conception and implementation the concepts and principals thought on this course fgave me a much deeper fundation to be able to attempt this project.
-
 ## How to Contribute
-
 While I'm currently the sole developer working on this project, I welcome contributions / suggestions.
-
-### Getting Started
 
 1. Fork the repository by clicking the "Fork" button on GitHub.
 2. Clone your forked repository to your local machine:
@@ -98,6 +94,9 @@ Performace test comparison for different Collection types, made possible by appl
 
 
 Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+
+## Credits
+I would like to thank Krystyna Ślusarczyk for her amazing Udemy course <a href="(https://www.udemy.com/course/ultimate-csharp-masterclass)" target="Ultimate C# Masterclass for 2024">Link Text</a>, though the app is original in conception and implementation the concepts and principals thought on this course gave me a much deeper fundation to be able to finish this project.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
