@@ -3,12 +3,14 @@ Console-based contact management and format converter application developed in C
 This project was primarily intended as a learning vehicle, with a strong focus on clean, well-structured, and properly implemented coding principles and was developed as an honest effort to creatw something from a blank file trying to solve problems without any gide or tutorial.
 Althought the app is very basic in functionality it was developed with SOLID coding principles in mind like single responsability, dependency inversion and open/closed principles which in conjunction with Unit test implementation forms a strong base for further develpment if anyone has the motivation to do so.
 
+If you have ideas for new features, improvements, or feedback on the existing functionality, please feel free to share them by opening an issue in the issue tracker. I value your input and will do my best to consider and incorporate your suggestions into the project.
+
 ## Table of Contents (Optional)
 
 - [Features](#Features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [How to contribute](#HowToContribute)
+- [How to contribute](#how-to-contribute)
 - [Tests](#tests)
 - [Credits](#Credits)
 - [License](#license)
@@ -66,10 +68,7 @@ While I'm currently the sole developer working on this project, I welcome contri
 3. git clone https://github.com/your-username/your-repository.git
 4. Open the project in your preferred IDE or text editor (e.g., Visual Studio, Visual Studio Code).
 
-###Contributing Ideas and Feedback
-If you have ideas for new features, improvements, or feedback on the existing functionality, please feel free to share them by opening an issue in the issue tracker. I value your input and will do my best to consider and incorporate your suggestions into the project.
-
-###Code Contributions
+##Code Contributions
 While I'm primarily responsible for writing and maintaining the codebase, I'm open to accepting code contributions from other learners who are interested in practicing their coding skills. If you'd like to contribute code changes, please follow these steps:
 
 1.Create a new branch for your changes:
@@ -84,19 +83,16 @@ While I'm primarily responsible for writing and maintaining the codebase, I'm op
 
 
 ## Tests
-
-Test structure:
-![image](https://github.com/user-attachments/assets/735fdba7-b8f3-4456-b86a-afb024848f05)
-
+Test structure: 
+![image](https://github.com/user-attachments/assets/735fdba7-b8f3-4456-b86a-afb024848f05) 
 
 Performace test comparison for different Collection types, made possible by applying dependency inversion principle:
 ![image](https://github.com/user-attachments/assets/5f8d3cc7-cf42-4cb3-91cc-94d1fe7583f7)
 
-
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+These tests can either be run from Visual Studio's "Test Explorer" tab or by using the "dotnet test" command in the project's folder.
 
 ## Credits
-I would like to thank Krystyna Ślusarczyk for her amazing Udemy course <a href="(https://www.udemy.com/course/ultimate-csharp-masterclass)" target="Ultimate C# Masterclass for 2024">Link Text</a>, though the app is original in conception and implementation the concepts and principals thought on this course gave me a much deeper fundation to be able to finish this project.
+I would like to thank Krystyna Ślusarczyk for her amazing Udemy course <a href="(https://www.udemy.com/course/ultimate-csharp-masterclass)" target="Ultimate C# Masterclass for 2024">Link Text</a>, though the app is original in conception and implementation the concepts and principals thought on this course gave me a much deeper fundation to be able to devolop this project.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
