@@ -30,7 +30,7 @@ namespace Console_PhoneBook.App.Functionality
             var candidates = LookUpValidFilesToImport();
             var filePath = _userInterface.PromptImport(candidates);
 
-            if (filePath is null)
+            if (filePath is null || !File.Exists(filePath))
             {
                 _userInterface.ClearAll();
                 _userInterface.PrintLine("Application will start will blank PhoneBook");
@@ -53,18 +53,20 @@ namespace Console_PhoneBook.App.Functionality
                     _contactsRegister.Add(item);
                 }
 
+
+                _userInterface.ClearAll();
+                _userInterface.PrintLine("");
+                _userInterface.PrintLine("The following contacts were load from repository");
+                _userInterface.PrintLine("");
+                PrintAllContacts();
+                return;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _userInterface.ClearAll();
+                _userInterface.PrintLine($"An error occurred while loading the contacts: {ex.Message}");
                 throw;
             }
-
-            _userInterface.ClearAll();
-            _userInterface.PrintLine("");
-            _userInterface.PrintLine("The following contacts were load from repository");
-            _userInterface.PrintLine("");
-            PrintAllContacts();
-            return;
         }
 
         private IEnumerable<string> LookUpValidFilesToImport()
@@ -80,7 +82,7 @@ namespace Console_PhoneBook.App.Functionality
             {
                 foreach (var filetype in supportedFileTypes)
                 {
-                    if (file.EndsWith(filetype.ToString()) &&
+                    if (file.EndsWith(filetype?.ToString()) &&
                         !file.Contains("runtime") &&
                         !file.Contains("dep"))
                     {
@@ -238,18 +240,15 @@ namespace Console_PhoneBook.App.Functionality
 
         }
 
-        //TODO - review implementation
-        public FileMetadata GetExportFileMetadata()
+        private FileMetadata GetExportFileMetadata()
         {
             var fileMetaDataValues = _userInterface.GetFileMetaDataValues();
             bool isValidFileFormat = Enum.TryParse(fileMetaDataValues["FileExtension"], out FileExtensions fileFormat);
 
             return new FileMetadata(fileFormat, fileMetaDataValues["FileDirectory"]);
-
         }
 
-        //TODO - review implementation
-        public FileMetadata GetImportFileMetadata(string filePath)
+        private FileMetadata GetImportFileMetadata(string filePath)
         {
             var fileName = Path.GetFileName(filePath).Split(".")[0];
             var fileExtension = Path.GetFileName(filePath).Split(".")[1];
@@ -283,37 +282,32 @@ namespace Console_PhoneBook.App.Functionality
 
         public void LoadDemoPhoneBook()
         {
-            _contactsRegister.Add(new Contact("John Appleseed", "914566786"));
-            _contactsRegister.Add(new Contact("Jane Doe", "914567001"));
-            _contactsRegister.Add(new Contact("Michael Smith", "914567002"));
-            _contactsRegister.Add(new Contact("Emily Johnson", "914567003"));
-            _contactsRegister.Add(new Contact("Chris Evans", "914567004"));
-            _contactsRegister.Add(new Contact("Olivia Brown", "914567005"));
-            _contactsRegister.Add(new Contact("Liam Miller", "914567006"));
-            _contactsRegister.Add(new Contact("Sophia Wilson", "914567007"));
-            _contactsRegister.Add(new Contact("James Taylor", "914567008"));
-            _contactsRegister.Add(new Contact("Charlotte Davis", "914567009"));
-            _contactsRegister.Add(new Contact("Benjamin Anderson", "914567010"));
-            _contactsRegister.Add(new Contact("Mia Thomas", "914567011"));
-            _contactsRegister.Add(new Contact("Lucas White", "914567012"));
-            _contactsRegister.Add(new Contact("Amelia Harris", "914567013"));
-            _contactsRegister.Add(new Contact("Alexander Martin", "914567014"));
-            _contactsRegister.Add(new Contact("Isabella Thompson", "914567015"));
-            _contactsRegister.Add(new Contact("Elijah Garcia", "914567016"));
-            _contactsRegister.Add(new Contact("Ava Martinez", "914567017"));
-            _contactsRegister.Add(new Contact("William Robinson", "914567018"));
-            _contactsRegister.Add(new Contact("Evelyn Clark", "914567019"));
-            _contactsRegister.Add(new Contact("Daniel Rodriguez", "914567020"));
-            _contactsRegister.Add(new Contact("Abigail Lewis", "914567021"));
-            _contactsRegister.Add(new Contact("Henry Walker", "914567022"));
-            _contactsRegister.Add(new Contact("Grace Hall", "914567023"));
-            _contactsRegister.Add(new Contact("Samuel Allen", "914567024"));
-            _contactsRegister.Add(new Contact("Scarlett Young", "914567025"));
-            _contactsRegister.Add(new Contact("Matthew King", "914567026"));
-            _contactsRegister.Add(new Contact("Ella Wright", "914567027"));
-            _contactsRegister.Add(new Contact("David Scott", "914567028"));
-            _contactsRegister.Add(new Contact("Aria Green", "914567029"));
-        }
+            var fileMetaData = GetImportFileMetadata(AppDomain.CurrentDomain.BaseDirectory + "/DemoPhoneBooks/PhoneBookRepository.csv");
+            var repository = RepositoryFactory.GetRepository(fileMetaData.FileExtension);
 
+            try
+            {
+                var loadedContacts = repository.LoadFromFile(fileMetaData);
+
+                foreach (var item in loadedContacts)
+                {
+                    _contactsRegister.Add(item);
+                }
+
+
+                _userInterface.ClearAll();
+                _userInterface.PrintLine("");
+                _userInterface.PrintLine("The following contacts were load from repository");
+                _userInterface.PrintLine("");
+                PrintAllContacts();
+                return;
+            }
+            catch (Exception ex)
+            {
+                _userInterface.ClearAll();
+                _userInterface.PrintLine($"An error occurred while loading the contacts: {ex.Message}");
+                throw;
+            }
+        }
     }
 }

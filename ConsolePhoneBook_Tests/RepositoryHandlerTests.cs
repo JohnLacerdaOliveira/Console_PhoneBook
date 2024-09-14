@@ -37,7 +37,7 @@ namespace ConsolePhoneBook_Tests
                 _fileName);
 
             // Act
-            var result = _csvHandlerMock.Object.LoadFromFile(fileMetaData);
+            var result = _csvHandlerMock?.Object.LoadFromFile(fileMetaData);
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
@@ -56,10 +56,10 @@ namespace ConsolePhoneBook_Tests
             var fileContent = File.ReadAllText(fileMetaData.FilePath);
 
             // Act
-            var result = _csvHandlerMock.Object.Serialize(_testContacts);
+            var result = _csvHandlerMock?.Object.Serialize(_testContacts);
 
             //Assert
-            Assert.AreEqual(fileContent.Trim(), result.Trim());
+            Assert.AreEqual(fileContent.Trim(), result?.Trim());
         }
 
         [Test]
@@ -72,11 +72,11 @@ namespace ConsolePhoneBook_Tests
                 _fileName);
 
             // Act
-            var result = _jsonHandlerMock.Object.LoadFromFile(fileMetaData);
+            var result = _jsonHandlerMock?.Object.LoadFromFile(fileMetaData);
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
-            CollectionAssert.AreEqual(result, _testContacts);
+            CollectionAssert.AreEqual(result.ToList(), _testContacts.ToList());
 
         }
 
@@ -92,10 +92,10 @@ namespace ConsolePhoneBook_Tests
             var fileContent = File.ReadAllText(fileMetaData.FilePath);
 
             // Act
-            var result = _jsonHandlerMock.Object.Serialize(_testContacts);
+            var result = _jsonHandlerMock?.Object.Serialize(_testContacts);
 
             //Assert
-            Assert.AreEqual(fileContent.Trim(), result.Trim());
+            Assert.AreEqual(fileContent.Trim(), result?.Trim());
         }
 
 
@@ -109,7 +109,7 @@ namespace ConsolePhoneBook_Tests
                 _fileName);
 
             // Act
-            var result = _vcfHandlerMock.Object.LoadFromFile(fileMetaData);
+            var result = _vcfHandlerMock?.Object.LoadFromFile(fileMetaData);
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
@@ -129,10 +129,10 @@ namespace ConsolePhoneBook_Tests
             var fileContent = File.ReadAllText(fileMetaData.FilePath);
 
             // Act
-            var result = _vcfHandlerMock.Object.Serialize(_testContacts);
+            var result = _vcfHandlerMock?.Object.Serialize(_testContacts);
 
             //Assert
-            Assert.AreEqual(fileContent.Trim(), result.Trim());
+            Assert.AreEqual(fileContent.Trim(), result?.Trim());
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace ConsolePhoneBook_Tests
                 _fileName);
 
             // Act
-            var result = _xmlHandlerMock.Object.LoadFromFile(fileMetaData);
+            var result = _xmlHandlerMock?.Object.LoadFromFile(fileMetaData);
 
             // Assert
             Assert.IsInstanceOf<IEnumerable<IGenericContact>>(result);
@@ -165,10 +165,10 @@ namespace ConsolePhoneBook_Tests
             var fileContent = File.ReadAllText(fileMetaData.FilePath);
 
             // Act
-            var result = _xmlHandlerMock.Object.Serialize(_testContacts);
+            var result = _xmlHandlerMock?.Object.Serialize(_testContacts);
 
             //Assert
-            Assert.AreEqual(fileContent.Trim(), result.Trim());
+            Assert.AreEqual(fileContent.Trim(), result?.Trim());
         }
     }
 }

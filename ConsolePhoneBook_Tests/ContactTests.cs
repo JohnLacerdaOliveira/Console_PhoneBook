@@ -39,7 +39,7 @@ namespace ConsolePhoneBook_Tests
             var result = contact.ToString();
 
             // Assert
-            Assert.AreEqual($"{name} {phoneNumber}", result);
+            Assert.AreEqual($"{name} \r\n{phoneNumber} \r\n", result);
         }
     }
 }

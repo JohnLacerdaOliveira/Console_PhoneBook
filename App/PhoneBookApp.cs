@@ -8,10 +8,10 @@ namespace Console_PhoneBook.App
         private readonly IConsoleUI _userInterface;
 
         public PhoneBookApp(
-            IMenus Menus,
+            IMenus menus,
             IConsoleUI userInterface)
         {
-            _menus = Menus;
+            _menus = menus;
             _userInterface = userInterface;
         }
 

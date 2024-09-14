@@ -69,7 +69,7 @@ namespace Console_PhoneBook.App.UserInterface
         {
             foreach (var contact in register)
             {
-                PrintLine(contact.ToString());
+                PrintLine(contact?.ToString() ?? string.Empty);
             }
 
             if(wait) PressKeyToContinue();
@@ -143,12 +143,7 @@ namespace Console_PhoneBook.App.UserInterface
 
         public string ReadLine()
         {
-            while (true)
-            {
-                string? userInput = Console.ReadLine();
-
-                if (userInput != null && userInput.Length > 0) return userInput;
-            }
+            return Console.ReadLine();
         }
 
         public ConsoleKeyInfo ReadKey(bool intercept)
@@ -175,8 +170,7 @@ namespace Console_PhoneBook.App.UserInterface
         public void PrintWelcomeScreen()
         {
             SetCursorVisibilityTo(false);
-            string a = "Ctrl+Click to view on GitHub/JohnLacerdaOliveira/Console_PhoneBook";
-            string hyperlink = $"Info on github.com/JohnLacerdaOliveira/Console_PhoneBook";
+            string hyperlink = "Ctrl+Click the link to view on GitHub: https://github.com/JohnLacerdaOliveira/Console_PhoneBook";
 
             var logo = (@"
                        ____                      _                      

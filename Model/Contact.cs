@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
-using System.Xml.Linq;
 
 namespace Console_PhoneBook.Model
 {
@@ -42,19 +41,30 @@ namespace Console_PhoneBook.Model
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj is null || GetType() != obj.GetType())
+            {
+                return false;
+
+            }
+            var other = obj as IGenericContact;
+
+            return ToString().Equals(other?.ToString());
+        }
         public override string ToString()
         {
             var description = new StringBuilder();
 
-            foreach (var propertyInfo in GetType().GetProperties())
+            foreach (var propertyInfo in this.GetType().GetProperties())
             {
                 var propertyValue = propertyInfo.GetValue(this);
 
-                if (propertyValue != null) description.Append($"{propertyValue} ");
+                if (propertyValue != null) description.AppendLine($"{propertyValue} ");
 
             }
 
-            return description.ToString().Trim();
+            return description.ToString();
         }
     }
 }

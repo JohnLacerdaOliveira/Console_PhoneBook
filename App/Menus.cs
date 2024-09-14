@@ -1,5 +1,4 @@
 ﻿using Console_PhoneBook.App.Functionality;
-using Console_PhoneBook.Model;
 
 namespace Console_PhoneBook.App
 {
@@ -12,14 +11,16 @@ namespace Console_PhoneBook.App
             _appFunctionality = appFunctionality;
         }
 
+        // Dictionary mapping menu options to corresponding actions for the start menu
         public Dictionary<string, Action<IAppFunctionality>> Start { get; init; } = new()
         {
-            { "Load Demo PhoneBook", (func) => func.LoadDemoPhoneBook() },
+            { "Demo PhoneBook", (func) => func.LoadDemoPhoneBook() },
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
             { "New PhoneBook",(func) => func.CreateNewPhoneBook() },
             { "Exit", (func) => func.ExitApplication() }
         };
 
+        // Dictionary mapping menu options to corresponding actions for the main menu
         public Dictionary<string, Action<IAppFunctionality>> Main { get; init; } = new()
         {
             { "Import Phonebook", (func) => func.ImportPhoneBook() },
