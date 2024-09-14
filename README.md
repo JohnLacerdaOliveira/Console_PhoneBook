@@ -8,13 +8,13 @@ Althought the app is very basic in functionality it was developed with SOLID cod
 If you have ideas for new features, improvements, or feedback on the existing functionality, please feel free to share them by opening an issue in the issue tracker. I value your input and will do my best to consider and incorporate your suggestions into the project.
 
 ## Table of Contents:
-- [Features](#Features)
-- [Installation](#installation)
+- [Features](#features)
 - [Usage](#usage)
 - [Code Highlights]("Code-Highlights)
 - [Tests](#tests)
+- [Installation](#installation)
 - [How to contribute](#how-to-contribute)
-- [Credits](#Credits)
+- [Credits](#credits)
 - [License](#license)
 
 ## Features
