@@ -1,6 +1,6 @@
 # Console_PhoneBook
 Console-based contact management and format converter application developed in C#. The app performs CRUD operations (Create, Read, Update, Delete), has full unit test coverage of it's functionality and supports import/export capabilities in four file formats: CSV, vCard, JSON, and XML.
-This project was primarily intended as a learning vehicle, with a strong focus on clean, well-structured, and properly implemented coding principles and was developed as an honest effort to develop something from a blank file trying to solve problems without any gide or tutorial.
+This project was primarily intended as a learning vehicle, with a strong focus on clean, well-structured, and properly implemented coding principles and was developed as an honest effort to creatw something from a blank file trying to solve problems without any gide or tutorial.
 Althought the app is very basic in functionality it was developed with SOLID coding principles in mind like single responsability, dependency inversion and open/closed principles which in conjunction with Unit test implementation forms a strong base for further develpment if anyone has the motivation to do so.
 
 ## Table of Contents (Optional)
@@ -16,17 +16,16 @@ Althought the app is very basic in functionality it was developed with SOLID cod
 
 2.VIEW ALL CONTACTS: Provide an option to display a list of all contacts stored in the phonebook.
 
-3.SEARCH CONTACTS: Allow users to search as you type by contacts by name, phone number, or any other later added criteria. Provides a search functionality that returns matching contacts.
+3.SEARCH CONTACTS: Gives users the ability to search contacts as you type by name, phone number, or any other property of the contact.
 
-4.EDIT CONTACTS: Allow users to modify existing contact information. They should be able to update any or all details associated with a contact.
+4.EDIT CONTACTS: Allow users to modify any or all existing details of a contact.
 
 5.DELETE CONTACT: Implement the ability to delete contacts from the phonebook.
 
-6.IMPORT / EXPORT CONTACTS: Provide the ability to import from external sources (e.g., CSV, vCard, JSON and XML) and export them to any of these formats effectively  turning into a CLI file convertion lybrary for contacts file types.
+6.IMPORT / EXPORT CONTACTS: Provide the ability to import from external sources (e.g., CSV, vCard, JSON and XML) and export your phonebook to any of these formats effectively turning into a CLI file convertion lybrary for contacts file types.
 
 
 ## Installation
-
 Console PhoneBook is a terminal application designed to be simple and straightforward to use. To get started, follow these steps:
 
 **Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download it's contents (a demo PhoneBook is included to get you started) just aswell as the executable file (ConsolePhoneBook.exe) itself.
@@ -58,18 +57,7 @@ export functionality:
 
 
 ## Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
-
-
-
----
-
-
+I would like to thanks Krystyna Ślusarczyk for her amazing Udemy course ["Ultimate C# Masterclass for 2024"](https://www.udemy.com/course/ultimate-csharp-masterclass), though the app is original in conception and implementation the concepts and principals thought on this course fgave me a much deeper fundation to be able to attempt this project.
 
 ## How to Contribute
 
