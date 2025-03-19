@@ -2,6 +2,8 @@
 bin/
 obj/
 
+.editorconfig
+
 # Visual Studio Code settings
 .vscode/
 
