@@ -75,11 +75,34 @@ Performace test comparison for different Collection types, made possible by appl
 These tests can either be run from Visual Studio's "Test Explorer" tab or by using the "dotnet test" command in the project's folder.
 
 ## Installation
+
 Console PhoneBook is a terminal application designed to be simple and straightforward to use. To get started, follow these steps:
 
-**Download the Executable:** Navigate to the bin/Debug/net6.0 directory in this repository and download it's contents (a demo PhoneBook is included to get you started) just aswell as the executable file (ConsolePhoneBook.exe) itself.
+1. Clone the Repository
+To download the latest version of the application, open your terminal and run:
 
-**Run the Application:** Once you've downloaded the executable, open your terminal and navigate to the directory where you saved the file. Then, simply run the executable using the appropriate command for your operating system (./ConsolePhoneBook.exe on Unix-based systems or ConsolePhoneBook.exe on Windows). A simple double click on the .exe file will work fine aswell.
+``` cmd 
+git clone https://github.com/your-username/ConsolePhoneBook.git
+
+```
+Then navigate into the project folder:
+``` cmd 
+cd ConsolePhoneBook
+
+```
+2. Build the Application
+Before running the application, you need to build it. Make sure you have the .NET SDK installed on your system. Then, run:
+
+``` cmd 
+dotnet build
+```
+This will generate the executable in the bin/Debug/net6.0/ directory.
+``` cmd 
+bin\Debug\net6.0\ConsolePhoneBook.exe
+```
+
+3. Run the Application
+Once the build process is complete, you can launch the application using:
 
 ## How to Contribute
 Although I am currently the sole developer of this project, I encourage and welcome contributions and suggestions from the community. I'd be excited to see how other developers can help the project grow and evolve.
