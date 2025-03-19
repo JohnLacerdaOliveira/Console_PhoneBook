@@ -1,7 +1,8 @@
-﻿using Console_PhoneBook.DataStorage.FileAccess;
+﻿using Console_PhoneBook.DataStorage.DataAccess;
+using Console_PhoneBook.DataStorage.FileAccess;
 using Console_PhoneBook.Model;
 
-namespace Console_PhoneBook.DataStorage.DataAccess
+namespace Console_PhoneBook.DataAccess.DataStorage
 {
     public abstract class GenericRepository : IGenericRepository
     {
@@ -10,7 +11,7 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
         public IEnumerable<IGenericContact> LoadFromFile(FileMetadata fileMetaData)
         {
-            string? fileData = default;
+            string? fileData = string.Empty;
 
             if (!File.Exists(fileMetaData.FilePath)) return Enumerable.Empty<IGenericContact>();
 
@@ -19,9 +20,9 @@ namespace Console_PhoneBook.DataStorage.DataAccess
                 fileData = File.ReadAllText(fileMetaData.FilePath);
                 if (fileData.Length == 0) return Enumerable.Empty<IGenericContact>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new IOException($"An error occcured while reading from the file: {fileMetaData.FilePath}");
+                throw new IOException($"An error occcured while reading from the file: {fileMetaData.FilePath}", ex);
             }
 
             return Parse(fileData);
@@ -29,6 +30,9 @@ namespace Console_PhoneBook.DataStorage.DataAccess
 
         public void SaveToFile(IEnumerable<IGenericContact> register, FileMetadata fileMetaData)
         {
+            if (string.IsNullOrEmpty(fileMetaData?.FilePath))
+                throw new ArgumentException("Invalid file metadata.");
+
             File.WriteAllText(fileMetaData.FilePath, Serialize(register));
         }
     }
